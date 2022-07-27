@@ -1,0 +1,33 @@
+{
+  "name": "Touch of Art",
+  "description": "Display art pieces with a brieve description.",
+  "version": "1.0",
+  "manifest_version": 2,
+  "author": "Jedd Song",
+
+  "action":{
+    "default_icon":{
+      "16": "src/img/icon_16.png",
+      "32": "src/img/icon_32.png",
+      "48": "src/img/icon_48.png",
+      "128": "src/img/icon_128.png"
+    },
+    "default_popup": "src/html/interface_popup.html"
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "chrome_url_overrides":{
+    "newtab": "override_newtab.html"
+  },
+  "icons":{
+    "16": "src/img/icon_16.png",
+    "32": "src/img/icon_32.png",
+    "48": "src/img/icon_48.png",
+    "128": "src/img/icon_128.png"
+  },
+  "permissions": [
+    "storage"
+  ]
+
+}
