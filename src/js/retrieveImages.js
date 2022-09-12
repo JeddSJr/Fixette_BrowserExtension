@@ -95,7 +95,7 @@ async function retrieveImages(ppOpt) {
               }
             });
             console.log(imgsArr);
-            storeImgs(imgsArr);
+            storeObject("Array of images",imgsArr);
           }
         )
       }
