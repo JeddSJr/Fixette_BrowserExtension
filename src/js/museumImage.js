@@ -4,4 +4,7 @@ function MuseumImage(artist,imgSrc,medium,title,period){
     this.medium = medium;
     this.period = period;
     this.tile = title;
+    this.objectURL
 }
+
+export {MuseumImage}

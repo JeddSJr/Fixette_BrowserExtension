@@ -7,3 +7,10 @@ function storeObject(key,value){
         }
     );
 }
+function getObject(key,value){
+    chrome.storage.sync.get(
+        [key],function(res) {
+            console.log('Value currently is' + res.key);
+        }
+    );
+}

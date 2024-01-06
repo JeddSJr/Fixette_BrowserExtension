@@ -1,107 +1,143 @@
 /*
 
 */
+import {MuseumImage} from  './museumImage.js'
+
+
+/*
+Function to fetch the urls of imgs of artworks from the MetMuseum
+*/
+async function MetAPIRetrieveImgs(metOptions) {
+  
+  idsRqst = 'https://collectionapi.metmuseum.org/public/collection/v1/objects?';
+  objRqst = "https://collectionapi.metmuseum.org/public/collection/v1/objects/";
+
+  imgsArr = []
+  
+
+  async function GetImgRqstMet(imgsIds) {    
+    console.log(imgsIds)
+    var rqstArr = []
+    imgsIds.forEach(
+      (id) => {
+        var objUrl = "https://collectionapi.metmuseum.org/public/collection/v1/objects/";
+        objUrl += id;
+        objRqPromises = fetch(objUrl); 
+        rqstArr.push(objRqPromises);
+      });
+
+    objResponse = await Promise.all(rqstArr)
+    objectsJson = []
+    objResponse.forEach(objR => {
+      objectsJson.push(objR.json());
+    });
+    
+    objects = await Promise.all(objectsJson);
+    console.log(objects)
+    
+    //objects = await
+    for (let i = 0; i < objects.length && imgsArr.length <4; i++) {
+      const objData = objects[i];
+      if(objData.primaryImage.trim().length !== 0 && objData.isPublicDomain){
+        imgsArr.push(new MuseumImage(
+          objData.artistDisplayName,
+          objData.primaryImage,
+          objData.medium,
+          objData.objectDate,
+          objData.title,
+          objData.objectURL
+        ))
+      }
+    }
+    console.log(imgsArr.length)
+    //imgsProm = await Promise.all(rqstArr);
+    //console.log("imgsProm",imgsProm);
+
+    //storeObject("Array of images",imgsArr);
+
+  }
+
+  async function APICall(){
+    try {
+      response = await fetch(idsRqst);
+      if(response.ok){
+        result = response.json();
+        return result;
+      }
+      else {
+        handleError("img");
+        setDefaultImgs();
+      }
+    } 
+    catch (error) {
+      console.log(error);
+      console.error(error);
+    }
+  }
+
+  async function GetNIds(APIresponse,n=10){
+    
+    if (APIresponse.total < 4) {
+      setDefautImgs();
+    } 
+    else {
+        var shuffle = APIresponse.objectIDs.sort(() => 0.5 - Math.random());
+        var ids = shuffle.slice(0, n);
+        return ids;
+    }
+  }
+  
+
+  response = await APICall(idsRqst)
+  console.log(response)
+  
+  
+  while(imgsArr.length<4){
+    ids = await GetNIds(response,1)
+    await GetImgRqstMet(ids)
+  }
+
+}
+
+/*
+*Function to retrieve images from the museums databases by calling their API
+*/
 async function retrieveImages(ppOpt) {
     //var dailyImg = ApiSelection(ppOpt);
     //dailyImg = await ApiSelection(ppOpt);
   
     await ApiSelection(ppOpt);
-  
-  
+    
     async function ApiSelection(ppOpt) {
       var apiRqst;
       if (ppOpt.museum === "Louvre") {
         console.log("Louvre not implemented yet");
         return (await callLouvreApi());
-      } else if (ppOpt.museum === "Met") {
+      } 
+      else if (ppOpt.museum === "Met") {
         var metOptions = {
           medium: null,
+          //medium: "Watercolor"
         }
         metOptions.medium = ppOpt.medium;
-        return (await callMetApi(metOptions));
+        return (await MetAPIRetrieveImgs(metOptions));
       }
     }
   
     async function callLouvreApi() {
-      alert("Not implemented yet");
+      //alert("Not implemented yet");
+      console.log("Not implemented yet");
     }
   
-    async function callMetApi(metOptions) {
-  
-  
-      apiRqst = "https://collectionapi.metmuseum.org/public/collection/v1/search?hasImages=true&q=a";
-      for (const opt in metOptions) {
-        if (metOptions[opt]) {
-          apiRqst += "&";
-          apiRqst += opt;
-          apiRqst += "=";
-          apiRqst += metOptions[opt];
-        }
-      }
-  
-      console.log(apiRqst);
-  
-      fetch(apiRqst)
-        .then((response) => {
-          if (response.ok) {
-            return (response.json());
-          } else {
-            handleError("img");
-            setDefaultImgs();
-          }
-        })
-        .then((data) => {
-          if (data.total < 4) {
-            setDefautImgs();
-          } else {
-            var shuffle = data.objectIDs.sort(() => 0.5 - Math.random());
-            let ids = shuffle.slice(0, 10);
-            imgRqst(ids);
-          }
-        })
-        .catch((error) => {
-          console.log(error);
-          console.error(error);
-        })
-  
-      async function imgRqst(ids) {
-        console.log(ids);
-        var rqstArr = [];
-        var imgsArr = [];
-        ids.forEach(
-          (id) => {
-            var imgUrl = "https://collectionapi.metmuseum.org/public/collection/v1/objects/";
-            imgUrl += id;
-            console.log(imgUrl);
-            rqstArr.push(
-              fetch(imgUrl)
-              .then((response) =>
-                response.json()
-              )
-            )
-          });
-        console.log(rqstArr);
-        Promise.all(rqstArr).then(
-          (imgsDatas) => {
-            imgsDatas.forEach(imgData => {
-              if (imgData.primaryImage && imgsArr.length < 4) {
-                imgsArr.push(new MuseumImage(
-                  imgData.artistDisplayName,
-                  imgData.primaryImage,
-                  imgData.medium,
-                  imgData.objectDate,
-                  imgData.title
-                ));
-              }
-            });
-            console.log(imgsArr);
-            storeObject("Array of images",imgsArr);
-          }
-        )
-      }
-    }
-  }
+    
+}
   
 
+console.log("running")
+popUpOptionsTesting = {
+  museum: "Met",
+  medium:null
+}
 
+retrieveImages(popUpOptionsTesting)
 
