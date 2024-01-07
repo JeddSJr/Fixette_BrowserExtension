@@ -1,8 +1,17 @@
 /*
 
 */
-import {MuseumImage} from  './museumImage.js'
+//import MuseumImage from  './museumImage.js'
 
+function MuseumImage(artist,imgSrc,medium,period,title,measurement,url){
+  this.artist = artist;
+  this.imgSrc = imgSrc;
+  this.medium = medium;
+  this.period = period;
+  this.tile = title;
+  this.measurement = measurement;
+  this.objectURL = url;
+}
 
 /*
 Function to fetch the urls of imgs of artworks from the MetMuseum
@@ -14,9 +23,7 @@ async function MetAPIRetrieveImgs(metOptions) {
 
   imgsArr = []
   
-
-  async function GetImgRqstMet(imgsIds) {    
-    console.log(imgsIds)
+  async function GetImgRqstMet(imgsIds) {  
     var rqstArr = []
     imgsIds.forEach(
       (id) => {
@@ -24,16 +31,15 @@ async function MetAPIRetrieveImgs(metOptions) {
         objUrl += id;
         objRqPromises = fetch(objUrl); 
         rqstArr.push(objRqPromises);
-      });
+      }); //Makes an array of promises to fetch objects with the given ID
 
     objResponse = await Promise.all(rqstArr)
     objectsJson = []
     objResponse.forEach(objR => {
       objectsJson.push(objR.json());
-    });
+    }); //Makes an array of promises to resolves the json body of objects
     
     objects = await Promise.all(objectsJson);
-    console.log(objects)
     
     //objects = await
     for (let i = 0; i < objects.length && imgsArr.length <4; i++) {
@@ -45,14 +51,13 @@ async function MetAPIRetrieveImgs(metOptions) {
           objData.medium,
           objData.objectDate,
           objData.title,
-          objData.objectURL
+          objData.objectURL,
+          objData.measurements
         ))
       }
     }
-    console.log(imgsArr.length)
-    //imgsProm = await Promise.all(rqstArr);
-    //console.log("imgsProm",imgsProm);
-
+    //console.log(imgsArr.length)
+    
     //storeObject("Array of images",imgsArr);
 
   }
@@ -89,9 +94,7 @@ async function MetAPIRetrieveImgs(metOptions) {
   
 
   response = await APICall(idsRqst)
-  console.log(response)
-  
-  
+
   while(imgsArr.length<4){
     ids = await GetNIds(response,1)
     await GetImgRqstMet(ids)
@@ -100,7 +103,9 @@ async function MetAPIRetrieveImgs(metOptions) {
 }
 
 /*
-*Function to retrieve images from the museums databases by calling their API
+* Main function of the module
+* Retrieve images from the museums databases by calling their respective API
+* ppOpt:dict{museum:string,metOptions:dict,lvrOptions} // Options from the pop-up interfaces that defines where and what we want to retrieve
 */
 async function retrieveImages(ppOpt) {
     //var dailyImg = ApiSelection(ppOpt);
@@ -111,7 +116,6 @@ async function retrieveImages(ppOpt) {
     async function ApiSelection(ppOpt) {
       var apiRqst;
       if (ppOpt.museum === "Louvre") {
-        console.log("Louvre not implemented yet");
         return (await callLouvreApi());
       } 
       else if (ppOpt.museum === "Met") {
@@ -133,7 +137,7 @@ async function retrieveImages(ppOpt) {
 }
   
 
-console.log("running")
+console.log("Retrieving images")
 popUpOptionsTesting = {
   museum: "Met",
   medium:null

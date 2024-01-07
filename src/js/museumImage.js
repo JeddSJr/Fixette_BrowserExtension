@@ -7,4 +7,4 @@ function MuseumImage(artist,imgSrc,medium,title,period){
     this.objectURL
 }
 
-export {MuseumImage}
+//export default MuseumImage
