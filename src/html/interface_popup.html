@@ -1,14 +1,16 @@
+<!DOCTYPE html>
 <html>
     <head>
+        <script type="text/javascript" src="../js/storage.js"></script>
         <script type="text/javascript" src="../js/popupHandler.js"></script>
     </head>
     <body>
         <h1>BackgrArt</h1>
-        <div class="musOptions">
+        <div class="musOptions" id="musOptions">
             <p>Choose the museum from which you want to display art :</p>
-            <input type="checkbox" id="Choose_MetMuseum" name="Choose_museum" >
+            <input type="radio" id="Choose_MetMuseum" name="Choose_museum" >
             <label>The Metropolitan Museum of Art (New York)</label>
-            <input type="checkbox" id="Choose_LouvreMuseum" name="Choose_museum" >
+            <input type="radio" id="Choose_LouvreMuseum" name="Choose_museum" >
             <label>The Louvre (Paris)</label>
             <br>
             <button onclick="saveOptions()">Search !</button>

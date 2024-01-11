@@ -83,7 +83,7 @@ async function MetAPIRetrieveImgs(metOptions) {
   async function GetNIds(APIresponse,n=10){
     
     if (APIresponse.total < 4) {
-      setDefautImgs();
+      useDefautImgs();
     } 
     else {
         var shuffle = APIresponse.objectIDs.sort(() => 0.5 - Math.random());

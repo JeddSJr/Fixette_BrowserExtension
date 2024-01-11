@@ -1,4 +1,6 @@
 function storeObject(key,value){
+    console.log(key,value);
+/*
     chrome.storage.sync.set(
         {
             key: value
@@ -6,7 +8,9 @@ function storeObject(key,value){
             console.log('Object of key'+key+'has been stored with value'+value);
         }
     );
+*/
 }
+
 function getObject(key,value){
     chrome.storage.sync.get(
         [key],function(res) {

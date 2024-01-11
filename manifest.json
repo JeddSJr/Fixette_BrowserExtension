@@ -15,7 +15,8 @@
     "default_popup": "src/html/interface_popup.html"
   },
   "background": {
-    "service_worker": "background.js"
+    "service_worker": "background.js",
+    "scripts": ["popupHandler.js","storage.js"]
   },
   "chrome_url_overrides":{
     "newtab": "override_newtab.html"
@@ -28,6 +29,7 @@
   },
   "permissions": [
     "storage"
-  ]
+  ],
+  "type": "module"
 
 }
