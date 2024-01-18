@@ -6,7 +6,8 @@ function saveOptions(){
     museumToUse = inputs[0].checked ? "Met" : "Louvre"
 
     ppOpt ={
-        museum : museumToUse
+        museum : museumToUse,
+        medium:null
     }
-    storeObject("popupOptions",ppOpt)
+    storeObject(PPOPT_DICT_SKEY,ppOpt)
 }

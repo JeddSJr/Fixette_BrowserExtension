@@ -2,7 +2,7 @@
 
 */
 //import MuseumImage from  './museumImage.js'
-
+/*
 function MuseumImage(artist,imgSrc,medium,period,title,measurement,url){
   this.artist = artist;
   this.imgSrc = imgSrc;
@@ -12,7 +12,7 @@ function MuseumImage(artist,imgSrc,medium,period,title,measurement,url){
   this.measurement = measurement;
   this.objectURL = url;
 }
-
+*/
 /*
 Function to fetch the urls of imgs of artworks from the MetMuseum
 */
@@ -56,9 +56,7 @@ async function MetAPIRetrieveImgs(metOptions) {
         ))
       }
     }
-    //console.log(imgsArr.length)
     
-    //storeObject("Array of images",imgsArr);
 
   }
 
@@ -99,7 +97,8 @@ async function MetAPIRetrieveImgs(metOptions) {
     ids = await GetNIds(response,1)
     await GetImgRqstMet(ids)
   }
-
+  console.log(imgsArr)
+  storeObject(IMGS_ARRAY_SKEY,imgsArr);
 }
 
 /*
@@ -110,7 +109,7 @@ async function MetAPIRetrieveImgs(metOptions) {
 async function retrieveImages(ppOpt) {
     //var dailyImg = ApiSelection(ppOpt);
     //dailyImg = await ApiSelection(ppOpt);
-  
+    console.log("Retrieving images")
     await ApiSelection(ppOpt);
     
     async function ApiSelection(ppOpt) {
@@ -137,11 +136,5 @@ async function retrieveImages(ppOpt) {
 }
   
 
-console.log("Retrieving images")
-popUpOptionsTesting = {
-  museum: "Met",
-  medium:null
-}
 
-retrieveImages(popUpOptionsTesting)
 
