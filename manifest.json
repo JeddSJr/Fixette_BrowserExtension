@@ -1,35 +1,39 @@
 {
   "name":  "Art by Art",
   "description": "Display images of art pieces as background of the new tab with a brieve description.",
-  "version": "2.0",
-  "manifest_version": 2,
+  "version": "1.0",
+  "manifest_version": 3,
   "author": "JeddSJr",
 
   "action":{
     "default_icon":{
-      "16": "src/img/icon_16.png",
-      "32": "src/img/icon_32.png",
-      "48": "src/img/icon_48.png",
-      "128": "src/img/icon_128.png"
+      "16": "src/imgs/icons/icon_16.png",
+      "48": "src/imgs/icons/icon_50.png",
+      "128": "src/imgs/icons/icon_128.png"
     },
     "default_popup": "src/html/interface_popup.html"
   },
   "background": {
-    "service_worker": "background.js",
-    "scripts": ["popupHandler.js","storage.js"]
+    "service_worker": "src/js/background.js",
+    "type": "module"
   },
   "chrome_url_overrides":{
-    "newtab": "override_newtab.html"
+    "newtab": "src/html/override_newtab.html"
   },
   "icons":{
-    "16": "src/img/icon_16.png",
-    "32": "src/img/icon_32.png",
-    "48": "src/img/icon_48.png",
-    "128": "src/img/icon_128.png"
+    "16": "src/imgs/icons/icon_16.png",
+    "48": "src/imgs/icons/icon_50.png",
+    "128": "src/imgs/icons/icon_128.png"
   },
-  "permissions": [
-    "storage"
+  "content_scripts":[
+    {
+      "matches":["https://www.google.com/"],
+      "js":["src/js/popupHandler.js","src/js/storage.js"]
+    }
   ],
-  "type": "module"
+  "permissions": [
+    "storage",
+    "alarms"
+  ]
 
 }

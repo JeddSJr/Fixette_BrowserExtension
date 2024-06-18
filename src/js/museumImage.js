@@ -8,4 +8,4 @@ function MuseumImage(artist,imgSrc,medium,period,title,url,measurements){
     this.measurements = measurements;
   }
 
-//export default MuseumImage
+export default MuseumImage

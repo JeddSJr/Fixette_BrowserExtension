@@ -1,13 +1,18 @@
-function saveOptions(){
-    console.log("Saaaving")
-    inputs = document.getElementById("musOptions").getElementsByTagName("input"); 
-    console.log(inputs[0].checked);
+import {retrieveImages} from "./retrieveImages.js"
 
-    museumToUse = inputs[0].checked ? "Met" : "Louvre"
-
-    ppOpt ={
+function manuallySetImages(){
+    var inputs = document.getElementById("musOptions").getElementsByTagName("input"); 
+    var museumToUse = inputs[0].checked ? "Met" : "Louvre"
+    var ppOpt ={
         museum : museumToUse,
-        medium:null
+        //medium:null
     }
-    storeObject(PPOPT_DICT_SKEY,ppOpt)
+    retrieveImages(ppOpt)
 }
+
+var callButton = document.getElementById("callButton")
+   
+callButton.addEventListener(
+    "click",
+    manuallySetImages
+)

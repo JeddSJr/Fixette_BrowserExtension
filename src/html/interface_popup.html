@@ -3,20 +3,22 @@
     <head>
         <script type="text/javascript" src="../js/background.js"></script>
         <script type="text/javascript" src="../js/storage.js"></script>
-        <script type="text/javascript" src="../js/museumImage.js"></script>
-        <script type="text/javascript" src="../js/retrieveImages.js"></script>
-        <script type="text/javascript" src="../js/popupHandler.js"></script>
+        <script type="module" src="../js/museumImage.js"></script>
+        <script type="module" src="../js/retrieveImages.js"></script>
+        <script type="module" src="../js/popupHandler.js"></script>
     </head>
     <body>
         <h1>BackgrArt</h1>
         <div class="musOptions" id="musOptions">
             <p>Choose the museum from which you want to display art :</p>
-            <input type="radio" id="Choose_MetMuseum" name="Choose_museum" >
+            <input type="radio" id="Choose_MetMuseum" name="Choose_museum" checked="true">
             <label>The Metropolitan Museum of Art (New York)</label>
+            <br>
             <input type="radio" id="Choose_LouvreMuseum" name="Choose_museum" >
             <label>The Louvre (Paris)</label>
-            <br>
-            <button onclick="saveOptions()">Search !</button>
+            <br><br>
+            <button id="callButton">Search !</button>
         </div>
     </body>
+    <a target="_blank" href="https://icons8.com/icon/1106/picture">Painting</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a>
 </html>
