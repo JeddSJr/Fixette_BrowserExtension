@@ -8,6 +8,7 @@ function manuallySetImages(){
         //medium:null
     }
     retrieveImages(ppOpt)
+    storeObject(PPOPT_DICT_SKEY,ppOpt)
 }
 
 var callButton = document.getElementById("callButton")
