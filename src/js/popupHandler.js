@@ -8,8 +8,9 @@ function manuallySetImages(){
         //medium:null
     }
     retrieveImages(ppOpt)
-    storeObject(PPOPT_DICT_SKEY,ppOpt)
+    storeOptions(ppOpt)
 }
+
 
 var callButton = document.getElementById("callButton")
    
@@ -17,3 +18,12 @@ callButton.addEventListener(
     "click",
     manuallySetImages
 )
+
+function storeOptions(value){
+    console.log('Storing object');
+    chrome.storage.sync.set({options: value})
+        .then(()=>{
+            console.log('Object of PopUp Options has been stored with value');
+            console.log(value);
+        });
+}

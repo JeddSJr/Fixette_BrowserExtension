@@ -103,7 +103,7 @@ async function MetAPIRetrieveImgs(metOptions) {
 
 /*
 * Main function of the module
-* Retrieve images from the museums databases by calling their respective API
+* Retrieve images from the museums databases by calling their respective API, transforming the data if needed then storing it in the chrome storage
 * ppOpt:dict{museum:string,metOptions:dict,lvrOptions} // Options from the pop-up interfaces that defines where and what we want to retrieve
 */
 export async function retrieveImages(ppOpt) {
@@ -139,9 +139,25 @@ export async function retrieveImages(ppOpt) {
   
     console.log("Images retrieved");
     console.log(dailyImgs);
-    storeObject(DAILY_IMGS_SKEY,dailyImgs);
+    storeDailyImgs(dailyImgs)
 }
   
+
+function storeDailyImgs(imgs){
+  
+  const DAILY_IMGS_SKEY = 'DAILY_IMGS_SKEY';
+
+  console.log('Storing daily images');
+  let dailyImgs = {    };
+  for (let i = 0; i < imgs.length; i++) {
+    dailyImgs[i] = imgs[i]       
+  }
+  chrome.storage.sync.set({DAILY_IMGS_KEY: dailyImgs})
+    .then(()=>{
+      console.log("Value is set");
+  });
+    
+}
 
 
 
