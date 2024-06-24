@@ -2,17 +2,7 @@
 
 */
 import MuseumImage from  './museumImage.js'
-/*
-function MuseumImage(artist,imgSrc,medium,period,title,measurement,url){
-  this.artist = artist;
-  this.imgSrc = imgSrc;
-  this.medium = medium;
-  this.period = period;
-  this.tile = title;
-  this.measurement = measurement;
-  this.objectURL = url;
-}
-*/
+
 /*
 Function to fetch the urls of imgs of artworks from the MetMuseum
 */
