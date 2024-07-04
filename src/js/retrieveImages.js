@@ -4,6 +4,17 @@
 import MuseumImage from  './museumImage.js'
 
 /*
+Function to fetch the urls of imgs of artworks from the Louvre
+*/
+async function LouvreAPIRetrieveImgs() {
+  callLouvreApi();
+  async function callLouvreApi() {
+    //alert("Not implemented yet");
+    console.log("Not implemented yet");
+  }
+}
+
+/*
 Function to fetch the urls of imgs of artworks from the MetMuseum
 */
 async function MetAPIRetrieveImgs(metOptions) {
@@ -98,10 +109,6 @@ async function MetAPIRetrieveImgs(metOptions) {
 */
 export async function retrieveImages(ppOpt) {
 
-    //var dailyImg = ApiSelection(ppOpt);
-    //dailyImg = await ApiSelection(ppOpt);
-    
-    console.log("Retrieving images")
     const dailyImgs = await ApiSelection(ppOpt);
     
     async function ApiSelection(ppOpt) {
@@ -109,7 +116,7 @@ export async function retrieveImages(ppOpt) {
       var apiRqst;
 
       if (ppOpt.museum === "Louvre") {
-        return (await callLouvreApi());
+        return (await LouvreAPIRetrieveImgs());
       } 
 
       else if (ppOpt.museum === "Met") {
@@ -121,19 +128,13 @@ export async function retrieveImages(ppOpt) {
         return (await MetAPIRetrieveImgs(metOptions));
       }
     }
-  
-    async function callLouvreApi() {
-      //alert("Not implemented yet");
-      console.log("Not implemented yet");
-    }
-  
+    
     console.log("Images retrieved");
     console.log(dailyImgs);
-    storeDailyImgs(dailyImgs)
+    storeImgs(dailyImgs)
 }
   
-
-function storeDailyImgs(imgs){
+function storeImgs(imgs){
   
   const DAILY_IMGS_SKEY = 'DAILY_IMGS_SKEY';
 

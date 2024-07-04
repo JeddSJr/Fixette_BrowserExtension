@@ -19,3 +19,4 @@ chrome.storage.onChanged.addListener((changes, storageArea) => {
   });
   
 chrome.runtime.onMessage.addListener({});
+

@@ -28,7 +28,7 @@
   "content_scripts":[
     {
       "matches":["https://www.google.com/"],
-      "js":["src/js/popupHandler.js","src/js/storage.js"]
+      "js":["src/js/popupHandler.js"]
     }
   ],
   "permissions": [
