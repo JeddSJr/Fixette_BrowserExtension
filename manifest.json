@@ -8,8 +8,8 @@
   "action":{
     "default_icon":{
       "16": "src/imgs/icons/icon_16.png",
-      "48": "src/imgs/icons/icon_50.png",
-      "128": "src/imgs/icons/icon_128.png"
+      "48": "src/imgs/icons/icon48.png",
+      "128": "src/imgs/icons/icon_picture_128_white.png"
     },
     "default_popup": "src/html/interface_popup.html"
   },
@@ -22,8 +22,8 @@
   },
   "icons":{
     "16": "src/imgs/icons/icon_16.png",
-    "48": "src/imgs/icons/icon_50.png",
-    "128": "src/imgs/icons/icon_128.png"
+    "48": "src/imgs/icons/icon48.png",
+    "128": "src/imgs/icons/icon_picture_128_white.png"
   },
   "content_scripts":[
     {
