@@ -98,7 +98,6 @@ async function MetAPIRetrieveImgs(metOptions) {
     let ids = await GetNIds(response,1)
     await GetImgRqstMet(ids)
   }
-  console.log(imgsArr)
   return imgsArr;
 }
 

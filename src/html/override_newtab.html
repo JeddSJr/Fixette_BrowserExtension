@@ -10,37 +10,42 @@
 <body >
 
     <div class="container-fluid pt-1 pb-5"  id="zoomedImgContainer" class="row" style="cursor: pointer;" hidden >
-        <img src="" class="img-fluid" id="zoomedMainImg">
+        
+        <img id="zoomImg" src="../imgs/default/DP169568.jpg" class="img-fluid" />
+    
     </div>
     <div class="container-fluid pt-3 pb-5 text-center"  id="newTabContainer" >
         <div class="row" >
 
-            <div class="col d-flex align-items-center justify-content-center ms-5" style="background-color: black;">
-                Left sum    
+            <div class="col d-flex align-items-center justify-content-center ms-5" >
+                 
             </div>
 
             <div class="col">
                 <div class="row d-flex justify-content-center">
                     <div class="col" id="dezoomedImgContainer">
-                        <img src="" class="img-thumbnail img-fluid" style="max-width: 80%; cursor: pointer;" id="displayedMainImg">
+                        
+                        <img id="displayImg" src="../imgs/default/DP169568.jpg" class="img-thumbnail img-fluid" style="max-width: 80%; cursor: pointer;" />
+                    
                     </div>
                     <div class="col pt-5">
                         <form action="https://www.google.com/search" method="get" class="search-bar-form">
                             <div class="bar">
-                                <input type="image" class="search" src="../imgs/icons/icon_search_50.png" >
-                                <input class="searchbar" name="q" type="text" title="Search" placeholder="Search Google or type a URL" required >
+                                <input type="image" class="search" src="../imgs/icons/icon_search_50.png" ></input>
+                                <input class="searchbar" name="q" type="text" title="Search" placeholder="Search Google or type a URL" required ></input>
                             </div>
                         </form>
                     </div>
                 </div>
             </div>
 
-            <div class="col d-flex align-items-center justify-content-center me-5" style="background-color: black;">
-                Right sum   
+            <div class="col d-flex align-items-center justify-content-center me-5" >
+                
             </div>
 
         </div>
     </div>
     <script type="module" src="../js/newtabHandler.js"></script>
+    <script type="module" src="../js/background.js"></script>
 </body>
 </html>
