@@ -1,8 +1,8 @@
-import { launchImagesRetrieval } from './popupHandler.js';
+import {retrieveImages} from './retrieveImages.js'
 import { setMainImg } from './newtabHandler.js';
 import MuseumImage from './museumImage.js';
 
-const PPOPT_DICT_SKEY = 'PPOPT_DICT';
+const PPOPT_DICT_SKEY = 'options';
 const DAILY_IMGS_SKEY = 'DAILY_IMGS_SKEY';
 const CHANGE_IMG_ALARM_SKEY = 'changeImgAlarm';
 const INDEX_IMG_TO_DISPLAY = 'indexImgToDisplay';
@@ -14,45 +14,45 @@ var launchTime = new Date()
 
 //launchImagesRetrieval();
 
-const changeImgAlarmStored = chrome.storage.sync.get("changeImgAlarm");
-const alarm = chrome.alarms.get('changeImgAlarm');
-
-chrome.storage.sync.set({"INDEX_IMG_TO_DISPLAY":3}).then(()=>{console.log("Value is set");});
+async function autoLaunchImagesRetrieval(){
+  let ppOpt = await chrome.storage.sync.get("options") //add default pop up options
+  ppOpt = ppOpt["options"];
+  retrieveImages(ppOpt);
+}
 
 function setDisplayImg(imgs,indexImg){
   if(!indexImg){indexImg = 0}
   console.log(indexImg);
+  console.log(imgs);
   let museumImage = imgs[indexImg]
-  
-  setMainImg(mimg);
+  setMainImg(museumImage);
 }
 
 function setIndexImgToDisplay(){ //Make it a do while loop
   console.log('launchTime: '+launchTime.getHours()+':'+launchTime.getMinutes());
-  try{
-    [6,12,18,24].forEach((hourChange,i)=>{
-      let launchHour = launchTime.getHours();
-      if(launchHour<hourChange){
-
-        chrome.storage.sync.set({"INDEX_IMG_TO_DISPLAY":i}).then(()=>{console.log("Value is set");});
-        nextAlarmTime = (hourChange-launchHour)*60-launchTime.getMinutes(); //We also calculate when should be the next alarm  to change the index
-        
-      }
-      throw new Error('ForEach loop Break');
-    })
-  }catch(e){
-    console.log(e);
-  }
+  let launchHour = launchTime.getHours();
+  let hoursChange = [6,12,18,24];
+  let indexImg = 0;
+  while (launchHour>hoursChange[indexImg]) {indexImg++}
+  chrome.storage.sync.set({"INDEX_IMG_TO_DISPLAY":indexImg}).then(()=>{console.log("Value is set");});
+  nextAlarmTime = (hoursChange[indexImg]-launchHour)*60-launchTime.getMinutes(); //We also calculate when should be the next alarm  to change the index
+  console.log('Next Alarm is in '+nextAlarmTime+' minutes');
+  
 }
 
 async function verifyAlarm(nextAlarmTime){
-  console.log('Next Alarm is in '+nextAlarmTime+' minutes');
+  const changeImgAlarmStored = await chrome.storage.sync.get("changeImgAlarm");
+
   if (changeImgAlarmStored) {
+    const alarm = await chrome.alarms.get('changeImgAlarm');
+
     if (!alarm) {
-      await chrome.alarms.create('changeImgAlarm', {
+      console.log('Alarm is not set, setting it now')
+      var storedAlarm = await chrome.alarms.create('changeImgAlarm', {
         delayInMinutes: nextAlarmTime,
         periodInMinutes: 6*60
-      });    
+      });
+      chrome.storage.sync.set({"changeImgAlarm":storedAlarm}); 
     }
   }
 }
@@ -76,15 +76,19 @@ chrome.storage.onChanged.addListener(async (changes, storageArea) => {
 });
 
 chrome.alarms.onAlarm.addListener((alarm) => {
+  console.log('Alarm fired');
+  console.log(alarm);
   setIndexImgToDisplay();
   verifyAlarm();
 });
 
+
+
 setIndexImgToDisplay();
+autoLaunchImagesRetrieval();
 verifyAlarm(nextAlarmTime);
 
-let mimg = new MuseumImage(
-  "Jedd","../imgs/DT47.jpg","oil","who cares","Neato","meh.com","lowkey 9 inches"
-)
 
-setDisplayImg([mimg,mimg,mimg,mimg],0);
+//setDisplayImg([mimg,mimg,mimg,mimg],0);
+ 
+//autoLaunchImagesRetrieval();
