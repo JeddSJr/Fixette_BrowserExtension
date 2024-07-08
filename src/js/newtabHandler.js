@@ -1,13 +1,36 @@
-var zoomedImgContainer = document.getElementById("zoomedImgContainer");
-var newTabContainer = document.getElementById("newTabContainer");
-var dezoomedImgContainer = document.getElementById("dezoomedImgContainer");
+window.addEventListener('load', function() {
+    var zoomedImgContainer = document.getElementById("zoomedImgContainer");
+    var newTabContainer = document.getElementById("newTabContainer");
+    var dezoomedImgContainer = document.getElementById("dezoomedImgContainer");
 
+    var displayedImg = document.getElementById("displayImg");
 
+    function changeImageZoom() {
+        var zoomedImgHidden = zoomedImgContainer.getAttribute("hidden");
+        dezoomedImgContainer.src = "../imgs/default/DP215410.jpg";
+        if (zoomedImgHidden) {
+            zoomedImgContainer.removeAttribute("hidden");
+            newTabContainer.setAttribute("hidden","hidden");
+            document.body.style.backgroundColor = "black";
+        } else {
+            zoomedImgContainer.setAttribute("hidden","hidden");
+            newTabContainer.removeAttribute("hidden");
+            document.body.removeAttribute("style");
+        }
+    }
 
-var zoomedMainImg = document.getElementById("zoomedMainImg");
+    document.addEventListener('invalid', 
+        (()=>{
+            return function(e) {e.preventDefault();};
+            })
+        (), 
+        true
+    );
 
-
-window.addEventListener("DOMContentLoaded", (event) => {
+    if(dezoomedImgContainer){dezoomedImgContainer.addEventListener(
+        "click",
+        changeImageZoom
+    )}
 
     if(zoomedImgContainer){
         zoomedImgContainer.addEventListener(
@@ -15,57 +38,33 @@ window.addEventListener("DOMContentLoaded", (event) => {
             changeImageZoom
         )
     }
-    
-    if(dezoomedImgContainer){dezoomedImgContainer.addEventListener(
-        "click",
-        changeImageZoom
-    )}
-    
-    document.addEventListener('invalid', 
-        (()=>{
-            return function(e) {e.preventDefault();};
-        })
-        (), 
-        true
-    );
-
-    console.log('DOM fully loaded and parsed');
-});
-
-
-/*
-$('.search-bar-form').submit(function(event) {
-        event.preventDefault()
-    })
-*/
-
-function changeImageZoom() {
-    var zoomedImgHidden = zoomedImgContainer.getAttribute("hidden");
-    if (zoomedImgHidden) {
-        zoomedImgContainer.removeAttribute("hidden");
-        newTabContainer.setAttribute("hidden","hidden");
-        document.body.style.backgroundColor = "black";
-    } else {
-        zoomedImgContainer.setAttribute("hidden","hidden");
-        newTabContainer.removeAttribute("hidden");
-        document.body.removeAttribute("style");
-    }
-}
+})
 
 export function setMainImg(museumImage) {
-    console.log(museumImage);
+    
     try {
-        if(document.readyState === "complete") {
-            console.log('Document is ready');
-            var displayedMainImg = document.getElementById("displayedMainImg");
-            console.log(displayedMainImg);
-            //displayedMainImg.src = museumImage.primaryImage;
-        }
+        //Make it so that the vertical images don't push back the bar
+        console.log(museumImage);
+        var displayedImg = document.getElementById("displayImg");
+        var zoomedImg = document.getElementById("zoomImg")
+        console.log(museumImage.title)
+
+        let displayArtist = museumImage.artist === "" ? "Artist Unknown" : museumImage.artist
+
+        var displayTitle = museumImage.title + " - " + displayArtist + " (" + museumImage.period + ")"
+
+        displayedImg.src = museumImage.imgSrc
+        displayedImg.title = displayTitle
+        displayedImg.alt = museumImage.title;
+
+        zoomedImg.src = museumImage.imgSrc
+        zoomedImg.title = displayTitle
+        zoomedImg.alt = museumImage.title;
     } catch (error) {
         console.log(error);
     }
     
-    /*d
+    /*
     displayedMainImg.alt = museumImage.title;
     displayedMainImg.title = museumImage.title;
     displayedMainImg.dataset.artist = museumImage.artistDisplayName;
@@ -76,3 +75,12 @@ export function setMainImg(museumImage) {
     
 }
 
+
+
+/*
+$('.search-bar-form').submit(function(event) {
+        event.preventDefault()
+    })
+*/
+
+/*
