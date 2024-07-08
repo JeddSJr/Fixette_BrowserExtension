@@ -3,7 +3,7 @@ function MuseumImage(artist,imgSrc,medium,period,title,url,measurements){
     this.imgSrc = imgSrc;
     this.medium = medium;
     this.period = period;
-    this.tile = title;
+    this.title = title;
     this.objectURL = url;
     this.measurements = measurements;
   }
