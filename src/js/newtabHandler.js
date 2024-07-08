@@ -1,17 +1,43 @@
 var zoomedImgContainer = document.getElementById("zoomedImgContainer");
 var newTabContainer = document.getElementById("newTabContainer");
-var displayedMainImg = document.getElementById("displayedMainImg");
 var dezoomedImgContainer = document.getElementById("dezoomedImgContainer");
 
-zoomedImgContainer.addEventListener(
-    "click",
-    changeImageZoom
-)
 
-dezoomedImgContainer.addEventListener(
-    "click",
-    changeImageZoom
-)
+
+var zoomedMainImg = document.getElementById("zoomedMainImg");
+
+
+window.addEventListener("DOMContentLoaded", (event) => {
+
+    if(zoomedImgContainer){
+        zoomedImgContainer.addEventListener(
+            "click",
+            changeImageZoom
+        )
+    }
+    
+    if(dezoomedImgContainer){dezoomedImgContainer.addEventListener(
+        "click",
+        changeImageZoom
+    )}
+    
+    document.addEventListener('invalid', 
+        (()=>{
+            return function(e) {e.preventDefault();};
+        })
+        (), 
+        true
+    );
+
+    console.log('DOM fully loaded and parsed');
+});
+
+
+/*
+$('.search-bar-form').submit(function(event) {
+        event.preventDefault()
+    })
+*/
 
 function changeImageZoom() {
     var zoomedImgHidden = zoomedImgContainer.getAttribute("hidden");
@@ -24,5 +50,29 @@ function changeImageZoom() {
         newTabContainer.removeAttribute("hidden");
         document.body.removeAttribute("style");
     }
+}
+
+export function setMainImg(museumImage) {
+    console.log(museumImage);
+    try {
+        if(document.readyState === "complete") {
+            console.log('Document is ready');
+            var displayedMainImg = document.getElementById("displayedMainImg");
+            console.log(displayedMainImg);
+            //displayedMainImg.src = museumImage.primaryImage;
+        }
+    } catch (error) {
+        console.log(error);
+    }
+    
+    /*d
+    displayedMainImg.alt = museumImage.title;
+    displayedMainImg.title = museumImage.title;
+    displayedMainImg.dataset.artist = museumImage.artistDisplayName;
+    displayedMainImg.dataset.medium = museumImage.medium;
+    displayedMainImg.dataset.objectDate = museumImage.objectDate;
+    displayedMainImg.dataset.objectURL = museumImage.objectURL;
+    displayedMainImg.dataset.measurements = museumImage.measurements;*/
+    
 }
 
