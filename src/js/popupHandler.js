@@ -1,7 +1,7 @@
 import {retrieveImages} from './retrieveImages.js'
 
-export function launchImagesRetrieval(){
-    var inputs = document.getElementById("musOptions").getElementsByTagName("input"); 
+export function manuallyLaunchImagesRetrieval(){
+    var inputs = document.getElementById("musOptions").getElementsByTagName("input")
     var museumToUse = inputs[0].checked ? "Met" : "Louvre"
     var ppOpt ={
         museum : museumToUse,
@@ -11,19 +11,21 @@ export function launchImagesRetrieval(){
     storeOptions(ppOpt)
 }
 
-
 var callButton = document.getElementById("callButton")
-   
+
 callButton.addEventListener(
     "click",
-    launchImagesRetrieval
+    manuallyLaunchImagesRetrieval
 )
+
+
 
 function storeOptions(value){
     console.log('Storing object');
-    chrome.storage.sync.set({options: value})
+    chrome.storage.sync.set({"options": value})
         .then(()=>{
             console.log('Object of PopUp Options has been stored with value');
             console.log(value);
-        });
+        })
 }
+   
