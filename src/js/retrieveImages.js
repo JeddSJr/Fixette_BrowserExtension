@@ -136,14 +136,12 @@ export async function retrieveImages(ppOpt) {
   
 function storeImgs(imgs){
   
-  const DAILY_IMGS_SKEY = 'DAILY_IMGS_SKEY';
-
   console.log('Storing daily images');
   let dailyImgs = {    };
   for (let i = 0; i < imgs.length; i++) {
     dailyImgs[i] = imgs[i]       
   }
-  chrome.storage.sync.set({DAILY_IMGS_KEY: dailyImgs})
+  chrome.storage.sync.set({"DAILY_IMGS_KEY": dailyImgs})
     .then(()=>{
       console.log("Value is set");
   });
