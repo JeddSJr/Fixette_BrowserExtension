@@ -1,6 +1,5 @@
 import {retrieveImages} from './retrieveImages.js'
 import { setMainImg } from './newtabHandler.js';
-import MuseumImage from './museumImage.js';
 
 const PPOPT_DICT_SKEY = 'options';
 const DAILY_IMGS_SKEY = 'DAILY_IMGS_SKEY';
@@ -12,8 +11,6 @@ var nextAlarmTime = 0;
 
 var launchTime = new Date()
 
-//launchImagesRetrieval();
-
 
 async function autoLaunchImagesRetrieval(){
   let canRetrieveImgs = await chrome.storage.sync.get("CAN_RETRIEVE_IMGS");
@@ -24,7 +21,13 @@ async function autoLaunchImagesRetrieval(){
     retrieveImages(ppOpt);
     chrome.storage.sync.set({"CAN_RETRIEVE_IMGS":false}).then(()=>{console.log("Can't retrieve images");});
   }
-  
+  else{
+    let indexImg = await chrome.storage.sync.get("INDEX_IMG_TO_DISPLAY");
+    indexImg = indexImg["INDEX_IMG_TO_DISPLAY"];
+    let imgs = await chrome.storage.sync.get("DAILY_IMGS_KEY");
+    imgs = imgs["DAILY_IMGS_KEY"];
+    setDisplayImg(imgs,indexImg);
+  }
 }
 
 function setDisplayImg(imgs,indexImg){
@@ -109,14 +112,6 @@ chrome.alarms.onAlarm.addListener((alarm) => {
   }
 });
 
-
-
-
 setIndexImgToDisplay();
 checkAlarms(nextAlarmTime);
 autoLaunchImagesRetrieval();
-
-
-//setDisplayImg([mimg,mimg,mimg,mimg],0);
- 
-//autoLaunchImagesRetrieval();
