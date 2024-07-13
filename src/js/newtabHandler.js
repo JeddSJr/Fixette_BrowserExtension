@@ -54,6 +54,12 @@ export function setMainImg(museumImage) {
         var displayTitle = museumImage.title + " - " + displayArtist + " (" + museumImage.period + ")"
 
         displayedImg.src = museumImage.imgSrc
+
+        let nWidth = displayedImg.naturalWidth
+        let nHeight = displayedImg.naturalHeight
+        if(nWidth > nHeight){ document.getElementById("dezoomedImgContainer").style.maxWidth = "80%"; }
+        else{ document.getElementById("dezoomedImgContainer").style.maxWidth = "50%"; }
+
         displayedImg.title = displayTitle
         displayedImg.alt = museumImage.title;
 

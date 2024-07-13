@@ -10,11 +10,16 @@
 }
 @media (prefers-color-scheme: dark) {  
     body {  
-       background: black;  
+       background: rgba(0,0 ,0,0.9);
        color: white; 
     }
 
     .searchbar{
+        background-color: black;
+        color: white;
+    }
+
+    .bar{
         background-color: black;
         color: white;
     }
