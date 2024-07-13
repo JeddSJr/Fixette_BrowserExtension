@@ -38,26 +38,34 @@ function setDisplayImg(imgs,indexImg){
 }
 
 function setIndexImgToDisplay(){ //Make it a do while loop
-  console.log('launchTime: '+launchTime.getHours()+':'+launchTime.getMinutes());
+  //console.log('launchTime: '+launchTime.getHours()+':'+launchTime.getMinutes());
   let launchHour = launchTime.getHours();
   let hoursChange = [6,12,18,24];
   let indexImg = 0;
   while (launchHour>=hoursChange[indexImg]) {indexImg++}
-  chrome.storage.sync.set({"INDEX_IMG_TO_DISPLAY":indexImg}).then(()=>{console.log("Value is set");});
+  chrome.storage.sync.set({"INDEX_IMG_TO_DISPLAY":indexImg}).then(()=>{}); //Can change the set to a get and if if they are costly
   nextAlarmTime = (hoursChange[indexImg]-launchHour)*60-launchTime.getMinutes(); //We also calculate when should be the next alarm  to change the index
-  console.log('Next Alarm is in '+nextAlarmTime+' minutes');
+  //console.log('Next Alarm is in '+nextAlarmTime+' minutes');
   
 }
 
-async function checkAlarms(nextAlarmTime){
-  
+async function setRightToRetrieveImgs(){
+  let today = launchTime.getDate()
+  let storedDay = await chrome.storage.sync.get("TODAY") //Hesitating between a set + listener or a get and if
+  storedDay = storedDay["TODAY"];
+  if(storedDay != today){
+    chrome.storage.sync.set({"TODAY":today});
+    chrome.storage.sync.set({"CAN_RETRIEVE_IMGS":true});
+  }
+
+}
+
+async function checkLiveAlarms(nextAlarmTime){
   let changeImgAlarm = await chrome.alarms.get('changeImgAlarm');
   let newDayAlarm = await chrome.alarms.get('newDayAlarm');
 
-  console.log(changeImgAlarm)
-  console.log(newDayAlarm)
   if (!changeImgAlarm) {
-    console.log('Alarm is not set, setting it now')
+    //console.log('Alarm is not set, setting it now')
     var storedAlarm = await chrome.alarms.create('changeImgAlarm', {
       delayInMinutes: nextAlarmTime,
       periodInMinutes: 6*60
@@ -67,9 +75,9 @@ async function checkAlarms(nextAlarmTime){
 
   let launchHour = launchTime.getHours();
   newDayAlarmTime = (24-launchHour)*60-launchTime.getMinutes();
-  console.log('New day alarm time: '+newDayAlarmTime);
+  //console.log('New day alarm time: '+newDayAlarmTime);
   if (!newDayAlarm) {
-    console.log('Alarm is not set, setting it now')
+    //console.log('Alarm is not set, setting it now')
     var storedAlarm = await chrome.alarms.create('newDayAlarm', {
       delayInMinutes: newDayAlarmTime,
       periodInMinutes: 24*60
@@ -82,15 +90,15 @@ async function checkAlarms(nextAlarmTime){
 
 chrome.storage.onChanged.addListener(async (changes, storageArea) => {
   for (let [key, { oldValue, newValue }] of Object.entries(changes)) {
-    console.log(key)
+    //console.log(key)
     if(key === "DAILY_IMGS_KEY"){
-      console.log('Images are ready to be set');
+      //console.log('Images are ready to be set');
       let indexImg = await chrome.storage.sync.get("INDEX_IMG_TO_DISPLAY");
       indexImg = indexImg["INDEX_IMG_TO_DISPLAY"];
       setDisplayImg(newValue,indexImg)
     }
     if(key === "INDEX_IMG_TO_DISPLAY"){
-      console.log('Changing the indx of img on display');
+      //console.log('Changing the indx of img on display');
       let imgs = await chrome.storage.sync.get("DAILY_IMGS_KEY");
       imgs = imgs["DAILY_IMGS_KEY"];
       setDisplayImg(imgs,newValue)
@@ -108,13 +116,14 @@ chrome.alarms.onAlarm.addListener((alarm) => {
   console.log(alarm);
   if(alarm.name === 'changeImgAlarm'){
     setIndexImgToDisplay();
-    checkAlarms(nextAlarmTime);
+    checkLiveAlarms(nextAlarmTime);
   }
   if(alarm.name === 'newDayAlarm'){
     chrome.storage.sync.set({"CAN_RETRIEVE_IMGS":true});
   }
 });
 
+setRightToRetrieveImgs()
 setIndexImgToDisplay();
-checkAlarms(nextAlarmTime);
+checkLiveAlarms(nextAlarmTime);
 autoLaunchImagesRetrieval();
