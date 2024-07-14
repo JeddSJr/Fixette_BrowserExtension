@@ -47,6 +47,8 @@ export function setMainImg(museumImage) {
         console.log(museumImage);
         var displayedImg = document.getElementById("displayImg");
         var zoomedImg = document.getElementById("zoomImg")
+        let dezoomedImgContainer = document.getElementById("dezoomedImgContainer")
+    
         console.log(museumImage.title)
 
         let displayArtist = museumImage.artist === "" ? "Artist Unknown" : museumImage.artist
@@ -55,17 +57,24 @@ export function setMainImg(museumImage) {
 
         displayedImg.src = museumImage.imgSrc
 
-        let nWidth = displayedImg.naturalWidth
-        let nHeight = displayedImg.naturalHeight
-        if(nWidth > nHeight){ document.getElementById("dezoomedImgContainer").style.maxWidth = "80%"; }
-        else{ document.getElementById("dezoomedImgContainer").style.maxWidth = "50%"; }
-
         displayedImg.title = displayTitle
         displayedImg.alt = museumImage.title;
 
         zoomedImg.src = museumImage.imgSrc
         zoomedImg.title = displayTitle
         zoomedImg.alt = museumImage.title;
+
+        let nWidth = displayedImg.naturalWidth
+        let nHeight = displayedImg.naturalHeight
+        console.log(nWidth)
+        console.log(nHeight)
+        if(nWidth < nHeight){ 
+            dezoomedImgContainer.style.maxWidth = "55%";
+        }
+        else{ 
+            dezoomedImgContainer.style.maxWidth = "80%"; 
+         }
+
     } catch (error) {
         console.log(error);
     }
