@@ -2,10 +2,8 @@ window.addEventListener('load', function() {
     var zoomedImgContainer = document.getElementById("zoomedImgContainer");
     var newTabContainer = document.getElementById("newTabContainer");
 
-    let dezoomedImgContainerL = document.getElementById("dezoomedImgContainerLandscape")
-    let dezoomedImgContainerP = document.getElementById("dezoomedImgContainerPortrait")
-
-    var displayedImg = document.getElementById("displayImg");
+    var dezoomedImgContainerL = document.getElementById("dezoomedImgContainerLandscape")
+    var dezoomedImgContainerP = document.getElementById("dezoomedImgContainerPortrait")
 
     function changeImageZoom() {
         var zoomedImgHidden = zoomedImgContainer.getAttribute("hidden");
@@ -44,16 +42,12 @@ window.addEventListener('load', function() {
 export function setMainImg(museumImage) {
     
     try {
-        //Make it so that the vertical images don't push back the bar
         console.log(museumImage);
         
         var displayedImgL = document.getElementById("displayImgL");
         var displayedImgP = document.getElementById("displayImgP");
 
         var zoomedImg = document.getElementById("zoomImg")
-
-        let dezoomedImgContainerL = document.getElementById("dezoomedImgContainerLandscape")
-        let dezoomedImgContainerP = document.getElementById("dezoomedImgContainerPortrait")
     
         console.log(museumImage.title)
 
@@ -61,26 +55,13 @@ export function setMainImg(museumImage) {
 
         var displayTitle = museumImage.title + " - " + displayArtist + " (" + museumImage.period + ")"
 
-        
-
         displayedImgL.src = museumImage.imgSrc
         displayedImgP.src = museumImage.imgSrc
-        
-        let nWidth = displayedImgL.naturalWidth
-        let nHeight = displayedImgL.naturalHeight
 
-        if(nWidth < nHeight){ 
-            dezoomedImgContainerP.removeAttribute("hidden")
-            dezoomedImgContainerL.setAttribute("hidden","hidden")
-            displayedImgP.title = displayTitle
-            displayedImgP.alt = museumImage.title;
-        }
-        else{ 
-            dezoomedImgContainerL.removeAttribute("hidden")
-            dezoomedImgContainerP.setAttribute("hidden","hidden")
-            displayedImgL.title = displayTitle
-            displayedImgL.alt = museumImage.title;
-        }
+        checKOrientation(displayedImgL)
+
+        displayedImgP.title = displayTitle
+        displayedImgP.alt = museumImage.title;
          
         zoomedImg.src = museumImage.imgSrc
         zoomedImg.title = displayTitle
@@ -111,3 +92,22 @@ $('.search-bar-form').submit(function(event) {
 */
 
 
+function checKOrientation(img) {
+    
+    var dezoomedImgContainerL = document.getElementById("dezoomedImgContainerLandscape")
+    var dezoomedImgContainerP = document.getElementById("dezoomedImgContainerPortrait")
+
+    var nWidth = img.naturalWidth
+    var nHeight = img.naturalHeight
+
+    console.log(nWidth,nHeight)
+
+    if(nWidth < nHeight){ 
+        dezoomedImgContainerP.removeAttribute("hidden")
+        dezoomedImgContainerL.setAttribute("hidden","hidden")
+    }
+    else{ 
+        dezoomedImgContainerL.removeAttribute("hidden")
+        dezoomedImgContainerP.setAttribute("hidden","hidden")
+    }
+}
