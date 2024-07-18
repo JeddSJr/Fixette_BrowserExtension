@@ -47,6 +47,13 @@ export function setMainImg(museumImage) {
         var displayedImgL = document.getElementById("displayImgL");
         var displayedImgP = document.getElementById("displayImgP");
 
+        displayedImgL.onload = ()=>{
+            checKOrientation(displayedImgL)
+        }
+        displayedImgP.onload = ()=>{
+            checKOrientation(displayedImgP)
+        }
+        
         var zoomedImg = document.getElementById("zoomImg")
         
 
@@ -57,6 +64,7 @@ export function setMainImg(museumImage) {
         displayedImgL.src = museumImage.imgSrc
         displayedImgP.src = museumImage.imgSrc
 
+        
         checKOrientation(displayedImgL)
 
         displayedImgP.title = displayTitle
@@ -96,7 +104,7 @@ function checKOrientation(img) {
 
     var nWidth = img.naturalWidth
     var nHeight = img.naturalHeight
-
+    
     if(nWidth < nHeight){ 
         dezoomedImgContainerP.removeAttribute("hidden")
         dezoomedImgContainerL.setAttribute("hidden","hidden")
