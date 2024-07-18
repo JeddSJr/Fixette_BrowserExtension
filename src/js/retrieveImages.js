@@ -73,7 +73,6 @@ async function MetAPIRetrieveImgs(metOptions) {
     
     var objects = await Promise.all(objectsJson);
     
-    //objects = await
     for (let i = 0; i < objects.length && imgsArr.length <4; i++) {
       const objData = objects[i];
       if(objData.primaryImage.trim().length !== 0 && objData.isPublicDomain){
@@ -84,7 +83,10 @@ async function MetAPIRetrieveImgs(metOptions) {
           objData.objectDate,
           objData.title,
           objData.objectURL,
-          objData.measurements
+          objData.measurements,
+          objData.department,
+          objData.classification,
+          objData.creditLine
         ))
       }
     }
@@ -128,21 +130,20 @@ export async function retrieveImages(ppOpt) {
       }
     }
     
-    console.log("Images retrieved");
-    console.log(dailyImgs);
+    //console.log("Images retrieved");
+    //console.log(dailyImgs);
     storeImgs(dailyImgs)
 }
   
 function storeImgs(imgs){
   
-  console.log('Storing daily images');
   let dailyImgs = {    };
   for (let i = 0; i < imgs.length; i++) {
     dailyImgs[i] = imgs[i]       
   }
   chrome.storage.sync.set({"DAILY_IMGS_KEY": dailyImgs})
     .then(()=>{
-      console.log("Value is set");
+      
   });
     
 }

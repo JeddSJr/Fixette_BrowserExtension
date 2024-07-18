@@ -48,8 +48,7 @@ export function setMainImg(museumImage) {
         var displayedImgP = document.getElementById("displayImgP");
 
         var zoomedImg = document.getElementById("zoomImg")
-    
-        console.log(museumImage.title)
+        
 
         let displayArtist = museumImage.artist === "" ? "Artist Unknown" : museumImage.artist
 
@@ -62,6 +61,8 @@ export function setMainImg(museumImage) {
 
         displayedImgP.title = displayTitle
         displayedImgP.alt = museumImage.title;
+        displayedImgL.title = displayTitle
+        displayedImgL.alt = museumImage.title;
          
         zoomedImg.src = museumImage.imgSrc
         zoomedImg.title = displayTitle
@@ -74,7 +75,6 @@ export function setMainImg(museumImage) {
     
     /*
     displayedMainImg.alt = museumImage.title;
-    displayedMainImg.title = museumImage.title;
     displayedMainImg.dataset.artist = museumImage.artistDisplayName;
     displayedMainImg.dataset.medium = museumImage.medium;
     displayedMainImg.dataset.objectDate = museumImage.objectDate;
@@ -83,14 +83,11 @@ export function setMainImg(museumImage) {
     
 }
 
-
-
 /*
 $('.search-bar-form').submit(function(event) {
         event.preventDefault()
     })
 */
-
 
 function checKOrientation(img) {
     
@@ -99,8 +96,6 @@ function checKOrientation(img) {
 
     var nWidth = img.naturalWidth
     var nHeight = img.naturalHeight
-
-    console.log(nWidth,nHeight)
 
     if(nWidth < nHeight){ 
         dezoomedImgContainerP.removeAttribute("hidden")
@@ -111,3 +106,4 @@ function checKOrientation(img) {
         dezoomedImgContainerP.setAttribute("hidden","hidden")
     }
 }
+

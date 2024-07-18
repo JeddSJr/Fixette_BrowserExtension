@@ -18,7 +18,7 @@ async function autoLaunchImagesRetrieval(canRetrieveImgs=false){
     let ppOpt = await chrome.storage.sync.get("options") //add default pop up options
     ppOpt = ppOpt["options"];
     retrieveImages(ppOpt);
-    chrome.storage.sync.set({"CAN_RETRIEVE_IMGS":false}).then(()=>{console.log("Can't retrieve images");});
+    chrome.storage.sync.set({"CAN_RETRIEVE_IMGS":false}).then(()=>{ });
   }
   else{
     let indexImg = await chrome.storage.sync.get("INDEX_IMG_TO_DISPLAY");
@@ -31,8 +31,8 @@ async function autoLaunchImagesRetrieval(canRetrieveImgs=false){
 
 function setDisplayImg(imgs,indexImg){
   if(!indexImg){indexImg = 0}
-  console.log(indexImg);
-  console.log(imgs);
+  //console.log(indexImg);
+  //console.log(imgs);
   let museumImage = imgs[indexImg]
   setMainImg(museumImage);
 }
@@ -112,8 +112,8 @@ chrome.storage.onChanged.addListener(async (changes, storageArea) => {
 });
 
 chrome.alarms.onAlarm.addListener((alarm) => {
-  console.log('Alarm fired');
-  console.log(alarm);
+  //console.log('Alarm fired');
+  //console.log(alarm);
   if(alarm.name === 'changeImgAlarm'){
     setIndexImgToDisplay();
     checkLiveAlarms(nextAlarmTime);
