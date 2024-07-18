@@ -27,7 +27,8 @@
 
 .bar{
     margin:0 auto;
-    width:575px;
+    max-width:575px;
+    height: 45px;
     border-radius:30px;
     border:1px solid #dcdcdc;
 }
@@ -42,16 +43,16 @@
 }
 
 .searchbar{  
-    height:45px;
+    height:100%;
     border:none;
-    width:500px;
+    border-radius:30px;
+    width:95%;
     font-size:16px;
     outline: none;
 }
 
-.search{
+.searchIcon{
     height:18px;
     position:relative;
-    right: 5px;
-    top: 3px;
+    left:1.5%;
 }
