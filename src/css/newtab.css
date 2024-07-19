@@ -25,6 +25,12 @@
     }
 }
 
+#imgCaption{
+    font-size: 15px;
+    color: #717171;
+    text-align: center;
+}
+
 .bar{
     margin:0 auto;
     max-width:575px;

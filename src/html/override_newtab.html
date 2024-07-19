@@ -15,26 +15,27 @@
         <img id="zoomImg" src="" class="img-fluid" />
     
     </div>
-    <div class="container-fluid pt-3 pb-5 text-center"  id="newTabContainer" >
+    <div class="container-fluid pt-4 pb-5 text-center"  id="newTabContainer" >
         <div class="row ">
 
-            <div class="col d-flex align-items-center justify-content-center ms-5">
-                Left
+            <div id="artInfoDivLeft" class="col d-flex justify-content-center ms-5">
+                
             </div>
 
-            <div class="col col-7" >
+            <div class="col col-6" >
                 <div class="row row-cols-1 d-flex justify-content-center">
                     <div hidden class="col" id="dezoomedImgContainerLandscape" style="max-width:60%;" >
+                        
+                        <img id="displayImgL" src="" class="img-thumbnail img-fluid " style="cursor: pointer;" />
 
-                        <img id="displayImgL" src="" class="img-thumbnail img-fluid " style="cursor: pointer;" /> 
-                    
                     </div>
 
                     <div hidden class="col" id="dezoomedImgContainerPortrait" style="max-width:35%;" >
-
+                        
                         <img id="displayImgP" src="" class="img-thumbnail img-fluid " style="cursor: pointer;" /> 
-                    
+                            
                     </div>
+                    <p id="imgCaption"></p>
 
                     <div class="col pt-5">
                         <form action="https://www.google.com/search" method="get" class="search-bar-form">
@@ -47,8 +48,8 @@
                 </div>
             </div>
 
-            <div class="col d-flex align-items-center justify-content-center me-5" >
-                Right
+            <div id="artInfoDivRight" class="col d-flex align-items-center justify-content-center me-5" >
+                
             </div>
 
         </div>

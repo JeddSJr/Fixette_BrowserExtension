@@ -46,7 +46,8 @@ export function setMainImg(museumImage) {
         
         var displayedImgL = document.getElementById("displayImgL");
         var displayedImgP = document.getElementById("displayImgP");
-
+        var imgCaption = document.getElementById("imgCaption")
+        
         displayedImgL.onload = ()=>{
             checKOrientation(displayedImgL)
         }
@@ -56,15 +57,15 @@ export function setMainImg(museumImage) {
         
         var zoomedImg = document.getElementById("zoomImg")
         
-
         let displayArtist = museumImage.artist === "" ? "Artist Unknown" : museumImage.artist
 
         var displayTitle = museumImage.title + " - " + displayArtist + " (" + museumImage.period + ")"
 
+        imgCaption.appendChild(document.createTextNode(displayTitle))
+
         displayedImgL.src = museumImage.imgSrc
         displayedImgP.src = museumImage.imgSrc
 
-        
         checKOrientation(displayedImgL)
 
         displayedImgP.title = displayTitle
@@ -75,8 +76,8 @@ export function setMainImg(museumImage) {
         zoomedImg.src = museumImage.imgSrc
         zoomedImg.title = displayTitle
         zoomedImg.alt = museumImage.title;
-
         
+        setArtInfo(museumImage)
     } catch (error) {
         console.log(error);
     }
@@ -104,7 +105,7 @@ function checKOrientation(img) {
 
     var nWidth = img.naturalWidth
     var nHeight = img.naturalHeight
-    
+
     if(nWidth < nHeight){ 
         dezoomedImgContainerP.removeAttribute("hidden")
         dezoomedImgContainerL.setAttribute("hidden","hidden")
@@ -113,5 +114,14 @@ function checKOrientation(img) {
         dezoomedImgContainerL.removeAttribute("hidden")
         dezoomedImgContainerP.setAttribute("hidden","hidden")
     }
+}
+
+function setArtInfo(museumImage) {
+    console.log("TODO: setArtInfo")
+
+    //var displayArtist = museumImage.artist === "" ? "Artist Unknown" : museumImage.artist
+    //var displayTitle = museumImage.title + " - " + displayArtist + " (" + museumImage.period + ")"
+
+
 }
 
