@@ -15,3 +15,4 @@ Quick and simple as it doesn't necessitate (yet) anything complex
 1. Make a Firefox port
 2. Include more museums collections
 3. Display informations about the images on the side to give knowledgeable insight
+4. Design an actual pop-up
