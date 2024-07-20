@@ -112,8 +112,6 @@ chrome.storage.onChanged.addListener(async (changes, storageArea) => {
 });
 
 chrome.alarms.onAlarm.addListener((alarm) => {
-  //console.log('Alarm fired');
-  //console.log(alarm);
   if(alarm.name === 'changeImgAlarm'){
     setIndexImgToDisplay();
     checkLiveAlarms(nextAlarmTime);
@@ -124,6 +122,6 @@ chrome.alarms.onAlarm.addListener((alarm) => {
 });
 
 setRightToRetrieveImgs()
-setIndexImgToDisplay();
-checkLiveAlarms(nextAlarmTime);
-autoLaunchImagesRetrieval();
+setIndexImgToDisplay()
+checkLiveAlarms(nextAlarmTime)
+autoLaunchImagesRetrieval()

@@ -47,6 +47,8 @@ export function setMainImg(museumImage) {
         var displayedImgL = document.getElementById("displayImgL");
         var displayedImgP = document.getElementById("displayImgP");
         var imgCaption = document.getElementById("imgCaption")
+
+        imgCaption.innerHTML = " "
         
         displayedImgL.onload = ()=>{
             checKOrientation(displayedImgL)
@@ -77,7 +79,6 @@ export function setMainImg(museumImage) {
         zoomedImg.title = displayTitle
         zoomedImg.alt = museumImage.title;
         
-        setArtInfo(museumImage)
     } catch (error) {
         console.log(error);
     }
@@ -116,12 +117,4 @@ function checKOrientation(img) {
     }
 }
 
-function setArtInfo(museumImage) {
-    console.log("TODO: setArtInfo")
-
-    //var displayArtist = museumImage.artist === "" ? "Artist Unknown" : museumImage.artist
-    //var displayTitle = museumImage.title + " - " + displayArtist + " (" + museumImage.period + ")"
-
-
-}
 
