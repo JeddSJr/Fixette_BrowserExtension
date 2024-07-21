@@ -1,6 +1,11 @@
 import {retrieveImages} from './retrieveImages.js'
 import { setMainImg } from './newtabHandler.js';
 
+chrome.runtime.onInstalled.addListener((details)  => {
+  console.log(details)
+})
+
+
 const PPOPT_DICT_SKEY = 'options';
 const DAILY_IMGS_SKEY = 'DAILY_IMGS_SKEY';
 const CHANGE_IMG_ALARM_SKEY = 'changeImgAlarm';
@@ -13,10 +18,18 @@ var newDayAlarmTime = 0;
 var launchTime = new Date()
 
 
-async function autoLaunchImagesRetrieval(canRetrieveImgs=false){
-  if(canRetrieveImgs){
+async function autoLaunchImagesRetrieval(forceRetrieval=false){
+  var rightToRetrieveImgs = await chrome.storage.sync.get("CAN_RETRIEVE_IMGS");
+  rightToRetrieveImgs = rightToRetrieveImgs["CAN_RETRIEVE_IMGS"];
+  if(rightToRetrieveImgs || forceRetrieval){
     let ppOpt = await chrome.storage.sync.get("options") //add default pop up options
     ppOpt = ppOpt["options"];
+    if(ppOpt === undefined){
+      ppOpt = {
+        museum: "Met",
+        medium: null
+      }
+    }
     retrieveImages(ppOpt);
     chrome.storage.sync.set({"CAN_RETRIEVE_IMGS":false}).then(()=>{ });
   }
@@ -25,7 +38,13 @@ async function autoLaunchImagesRetrieval(canRetrieveImgs=false){
     indexImg = indexImg["INDEX_IMG_TO_DISPLAY"];
     let imgs = await chrome.storage.sync.get("DAILY_IMGS_KEY");
     imgs = imgs["DAILY_IMGS_KEY"];
-    setDisplayImg(imgs,indexImg);
+    if(imgs === undefined){
+      autoLaunchImagesRetrieval(true)
+    }else if(indexImg === undefined){
+      setIndexImgToDisplay()
+    }else{
+      setDisplayImg(imgs,indexImg);
+    }
   }
 }
 
@@ -35,6 +54,17 @@ function setDisplayImg(imgs,indexImg){
   console.log(imgs);
   let museumImage = imgs[indexImg]
   setMainImg(museumImage);
+}
+
+async function setRightToRetrieveImgs(){
+  let today = launchTime.getDate()
+  let storedDay = await chrome.storage.sync.get("TODAY") //Hesitating between a set + listener or a get and if
+  storedDay = storedDay["TODAY"];
+  if(storedDay != today){
+    chrome.storage.sync.set({"TODAY":today});
+    chrome.storage.sync.set({"CAN_RETRIEVE_IMGS":true});
+  }
+
 }
 
 function setIndexImgToDisplay(){ //Make it a do while loop
@@ -47,17 +77,6 @@ function setIndexImgToDisplay(){ //Make it a do while loop
   nextAlarmTime = (hoursChange[indexImg]-launchHour)*60-launchTime.getMinutes(); //We also calculate when should be the next alarm  to change the index
   //console.log('Next Alarm is in '+nextAlarmTime+' minutes');
   
-}
-
-async function setRightToRetrieveImgs(){
-  let today = launchTime.getDate()
-  let storedDay = await chrome.storage.sync.get("TODAY") //Hesitating between a set + listener or a get and if
-  storedDay = storedDay["TODAY"];
-  if(storedDay != today){
-    chrome.storage.sync.set({"TODAY":today});
-    chrome.storage.sync.set({"CAN_RETRIEVE_IMGS":true});
-  }
-
 }
 
 async function checkLiveAlarms(nextAlarmTime){
@@ -92,20 +111,23 @@ chrome.storage.onChanged.addListener(async (changes, storageArea) => {
   for (let [key, { oldValue, newValue }] of Object.entries(changes)) {
     //console.log(key)
     if(key === "DAILY_IMGS_KEY"){
-      //console.log('Images are ready to be set');
       let indexImg = await chrome.storage.sync.get("INDEX_IMG_TO_DISPLAY");
       indexImg = indexImg["INDEX_IMG_TO_DISPLAY"];
-      setDisplayImg(newValue,indexImg)
+      if(indexImg != undefined){
+        setDisplayImg(newValue,indexImg)
+      }
     }
     if(key === "INDEX_IMG_TO_DISPLAY"){
       //console.log('Changing the indx of img on display');
       let imgs = await chrome.storage.sync.get("DAILY_IMGS_KEY");
       imgs = imgs["DAILY_IMGS_KEY"];
-      setDisplayImg(imgs,newValue)
+      if(imgs != undefined){
+        setDisplayImg(imgs,newValue)
+      }    
     }
     if(key === "CAN_RETRIEVE_IMGS"){
       if(newValue){
-        autoLaunchImagesRetrieval(newValue);
+       //CAN RETRIEVE IMGS
       }
     }
   }
