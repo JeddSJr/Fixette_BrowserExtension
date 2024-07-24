@@ -52,9 +52,11 @@ export function setMainImg(museumImage) {
         
         displayedImgL.onload = ()=>{
             checKOrientation(displayedImgL)
+            changeSpinnerVisibility(true)
         }
         displayedImgP.onload = ()=>{
             checKOrientation(displayedImgP)
+            changeSpinnerVisibility(true)
         }
         
         var zoomedImg = document.getElementById("zoomImg")
@@ -117,4 +119,18 @@ function checKOrientation(img) {
     }
 }
 
-
+export function changeSpinnerVisibility(hidden=false){
+    var spinnerDiv = document.getElementById("loadingSpinnerDiv")
+    var dezoomedImgContainer = document.getElementById("dezoomedImgContainer")
+    if(hidden){
+        spinnerDiv.setAttribute("hidden","hidden")
+        dezoomedImgContainer.removeAttribute("hidden")
+        return 1;
+    }
+    else{
+        spinnerDiv.removeAttribute("hidden")
+        dezoomedImgContainer.setAttribute("hidden","hidden")
+        return 0;
+    }
+}
+    

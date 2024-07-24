@@ -2,7 +2,6 @@
 
 */
 import MuseumImage from  './museumImage.js'
-
 /*
 Function to fetch the urls of imgs of artworks from the Louvre
 */
@@ -110,29 +109,26 @@ async function MetAPIRetrieveImgs(metOptions) {
 */
 export async function retrieveImages(ppOpt) {
 
-    const dailyImgs = await ApiSelection(ppOpt);
-    
-    async function ApiSelection(ppOpt) {
-
-      var apiRqst;
-
-      if (ppOpt.museum === "Louvre") {
-        return (await LouvreAPIRetrieveImgs());
-      } 
-
-      else if (ppOpt.museum === "Met") {
-        var metOptions = {
-          medium: null,
-          //medium: "Watercolor"
-        }
-        metOptions.medium = ppOpt.medium;
-        return (await MetAPIRetrieveImgs(metOptions));
+  const dailyImgs = await ApiSelection(ppOpt);
+  
+  async function ApiSelection(ppOpt) {
+    var apiRqst;
+    if (ppOpt.museum === "Louvre") {
+      return (await LouvreAPIRetrieveImgs());
+    } 
+    else if (ppOpt.museum === "Met") {
+      var metOptions = {
+        medium: null,
+        //medium: "Watercolor"
       }
+      metOptions.medium = ppOpt.medium;
+      return (await MetAPIRetrieveImgs(metOptions));
     }
-    
-    //console.log("Images retrieved");
-    //console.log(dailyImgs);
-    storeImgs(dailyImgs)
+  }
+  
+  //console.log("Images retrieved");
+  //console.log(dailyImgs);
+  storeImgs(dailyImgs)
 }
   
 function storeImgs(imgs){

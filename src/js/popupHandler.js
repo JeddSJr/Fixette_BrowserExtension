@@ -1,12 +1,15 @@
+import { changeSpinnerVisibility } from './newtabHandler.js'
 import {retrieveImages} from './retrieveImages.js'
 
 export function manuallyLaunchImagesRetrieval(){
+    console.log("Manually launching images retrieval")
     var inputs = document.getElementById("musOptions").getElementsByTagName("input")
     var museumToUse = inputs[0].checked ? "Met" : "Louvre"
     var ppOpt ={
         museum : museumToUse,
         //medium:null
     }
+    changeSpinnerVisibility()
     retrieveImages(ppOpt)
     storeOptions(ppOpt)
 }
