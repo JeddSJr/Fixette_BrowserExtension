@@ -1,5 +1,6 @@
 import {retrieveImages} from './retrieveImages.js'
-import { changeSpinnerVisibility, setMainImg } from './newtabHandler.js';
+import { setMainImg } from './newtabHandler.js';
+import { changeSpinnerVisibility } from './newtabHandler.js';
 
 chrome.runtime.onInstalled.addListener((details)  => {
   console.log(details)
@@ -30,7 +31,7 @@ async function autoLaunchImagesRetrieval(forceRetrieval=false){
         medium: null
       }
     }
-    changeSpinnerVisibility()
+    changeSpinnerVisibility(); 
     retrieveImages(ppOpt);
     chrome.storage.sync.set({"CAN_RETRIEVE_IMGS":false}).then(()=>{ });
   }

@@ -4,6 +4,7 @@
   "version": "1.0",
   "manifest_version": 3,
   "author": "JeddSJr",
+  
   "browser_specific_settings": {
     "gecko": {
       "id": "Fixette@BackgrArt.com"
