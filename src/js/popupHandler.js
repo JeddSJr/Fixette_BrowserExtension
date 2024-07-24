@@ -7,6 +7,11 @@ export function manuallyLaunchImagesRetrieval(){
         museum : museumToUse,
         //medium:null
     }
+
+    chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+        chrome.tabs.sendMessage(tabs[0].id, {type:"changeSpinnerVisibility"}, (response)=>{
+        });
+    });
     retrieveImages(ppOpt)
     storeOptions(ppOpt)
 }

@@ -1,4 +1,5 @@
 window.addEventListener('load', function() {
+    
     var zoomedImgContainer = document.getElementById("zoomedImgContainer");
     var newTabContainer = document.getElementById("newTabContainer");
 
@@ -52,9 +53,11 @@ export function setMainImg(museumImage) {
         
         displayedImgL.onload = ()=>{
             checKOrientation(displayedImgL)
+            changeSpinnerVisibility(true)
         }
         displayedImgP.onload = ()=>{
             checKOrientation(displayedImgP)
+            changeSpinnerVisibility(true)
         }
         
         var zoomedImg = document.getElementById("zoomImg")
@@ -67,8 +70,6 @@ export function setMainImg(museumImage) {
 
         displayedImgL.src = museumImage.imgSrc
         displayedImgP.src = museumImage.imgSrc
-
-        checKOrientation(displayedImgL)
 
         displayedImgP.title = displayTitle
         displayedImgP.alt = museumImage.title;
@@ -103,7 +104,7 @@ function checKOrientation(img) {
     
     var dezoomedImgContainerL = document.getElementById("dezoomedImgContainerLandscape")
     var dezoomedImgContainerP = document.getElementById("dezoomedImgContainerPortrait")
-
+    
     var nWidth = img.naturalWidth
     var nHeight = img.naturalHeight
 
@@ -117,4 +118,27 @@ function checKOrientation(img) {
     }
 }
 
+export function changeSpinnerVisibility(hidden=false){
+   
+    var dezoomedImgContainer = document.getElementById("dezoomedImgContainer")
+    var spinnerDiv = document.getElementById("loadingSpinnerDiv")
+    var dezoomedImgContainerL = document.getElementById("dezoomedImgContainerLandscape")
+    var dezoomedImgContainerP = document.getElementById("dezoomedImgContainerPortrait")
+
+    var imgCaption = document.getElementById("imgCaption")
+    
+    if(hidden){
+        spinnerDiv.setAttribute("hidden","hidden")
+        dezoomedImgContainer.removeAttribute("hidden")
+        return 1;
+    }
+    else{
+        spinnerDiv.removeAttribute("hidden")
+        dezoomedImgContainer.setAttribute("hidden","hidden")
+        dezoomedImgContainerL.setAttribute("hidden","hidden")
+        dezoomedImgContainerP.setAttribute("hidden","hidden")
+        imgCaption.innerHTML = " "
+        return 0;
+    }
+}
 
