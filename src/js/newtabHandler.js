@@ -64,7 +64,8 @@ export function setMainImg(museumImage) {
         
         let displayArtist = museumImage.artist === "" ? "Artist Unknown" : museumImage.artist
 
-        var displayTitle = museumImage.title + " - " + displayArtist + " (" + museumImage.period + ")"
+        let displayPeriod = museumImage.period === "" ? "Date Unknown" : museumImage.period 
+        var displayTitle = museumImage.title + " - " + displayArtist + " (" + displayPeriod+ ")"
 
         imgCaption.appendChild(document.createTextNode(displayTitle))
 
