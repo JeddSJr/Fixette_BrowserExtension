@@ -31,7 +31,7 @@ async function autoLaunchImagesRetrieval(forceRetrieval=false){
         medium: null
       }
     }
-    changeSpinnerVisibility(); 
+    changeSpinnerVisibility();
     retrieveImages(ppOpt);
     chrome.storage.sync.set({"CAN_RETRIEVE_IMGS":false}).then(()=>{ });
   }

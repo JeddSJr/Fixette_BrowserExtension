@@ -14,6 +14,7 @@ export function manuallyLaunchImagesRetrieval(){
         chrome.tabs.sendMessage(tabs[0].id, {type:"changeSpinnerVisibility"}, (response)=>{
         });
     });
+    //changeButtonState(true)
     retrieveImages(ppOpt)
     storeOptions(ppOpt)
 }
@@ -26,6 +27,16 @@ callButton.addEventListener(
 )
 
 
+export function changeButtonState(disabled=false){
+    var buttonSpinner = document.getElementById("buttonSpinner")
+    callButton.disabled = disabled
+    if(disabled){
+        buttonSpinner.removeAttribute("hidden")
+    }
+    else{
+        buttonSpinner.setAttribute("hidden","hidden")
+    }
+}
 
 function storeOptions(value){
     //console.log('Storing object');
