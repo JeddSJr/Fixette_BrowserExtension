@@ -110,6 +110,7 @@ async function MetAPIRetrieveImgs(metOptions) {
 export async function retrieveImages(ppOpt) {
 
   const dailyImgs = await ApiSelection(ppOpt);
+  chrome.storage.sync.set({"isLoadingImgs":true})
   
   async function ApiSelection(ppOpt) {
     var apiRqst;
@@ -139,7 +140,7 @@ function storeImgs(imgs){
   }
   chrome.storage.sync.set({"DAILY_IMGS_KEY": dailyImgs})
     .then(()=>{
-      
+      chrome.storage.sync.set({"isLoadingImgs":false})
   });
     
 }

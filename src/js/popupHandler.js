@@ -1,5 +1,27 @@
-import { changeSpinnerVisibility } from './newtabHandler.js'
 import {retrieveImages} from './retrieveImages.js'
+
+window.addEventListener('load', async function() {
+    var callButton = document.getElementById("callButton")
+
+    callButton.addEventListener(
+        "click",
+        manuallyLaunchImagesRetrieval
+    )
+
+    var isLoadingImgs = await chrome.storage.sync.get("isLoadingImgs")
+    isLoadingImgs = isLoadingImgs["isLoadingImgs"]
+    console.log("isLoadingImgs: "+isLoadingImgs)
+    buttonLoadingState(isLoadingImgs)
+    
+})
+
+chrome.storage.onChanged.addListener(async function(changes, namespace) {
+    for (let [key, { oldValue, newValue }] of Object.entries(changes)) {
+        if(key === "isLoadingImgs"){
+           buttonLoadingState(newValue)
+        }
+    }
+})
 
 export function manuallyLaunchImagesRetrieval(){
     console.log("Manually launching images retrieval")
@@ -11,26 +33,27 @@ export function manuallyLaunchImagesRetrieval(){
     }
 
     chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
-        chrome.tabs.sendMessage(tabs[0].id, {type:"changeSpinnerVisibility"}, (response)=>{
+        chrome.tabs.sendMessage(tabs[0].id, {type:"getInLoadingState"}, (response)=>{
         });
-    });
-    //changeButtonState(true)
+    })
+    buttonLoadingState(true)
     retrieveImages(ppOpt)
     storeOptions(ppOpt)
 }
 
-var callButton = document.getElementById("callButton")
-
-callButton.addEventListener(
-    "click",
-    manuallyLaunchImagesRetrieval
-)
 
 
-export function changeButtonState(disabled=false){
+
+export function buttonLoadingState(isLoading=false){
     var buttonSpinner = document.getElementById("buttonSpinner")
-    callButton.disabled = disabled
-    if(disabled){
+    
+    if(isLoading === undefined){
+        isLoading = false
+    }
+
+    callButton.disabled = isLoading
+
+    if(isLoading){
         buttonSpinner.removeAttribute("hidden")
     }
     else{

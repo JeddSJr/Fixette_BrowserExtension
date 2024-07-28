@@ -1,6 +1,6 @@
 import {retrieveImages} from './retrieveImages.js'
 import { setMainImg } from './newtabHandler.js';
-import { changeSpinnerVisibility } from './newtabHandler.js';
+import { displayLoadingState } from './newtabHandler.js';
 
 chrome.runtime.onInstalled.addListener((details)  => {
   console.log(details)
@@ -22,31 +22,39 @@ var launchTime = new Date()
 async function autoLaunchImagesRetrieval(forceRetrieval=false){
   var rightToRetrieveImgs = await chrome.storage.sync.get("CAN_RETRIEVE_IMGS");
   rightToRetrieveImgs = rightToRetrieveImgs["CAN_RETRIEVE_IMGS"];
+
   if(rightToRetrieveImgs || forceRetrieval){
+
     let ppOpt = await chrome.storage.sync.get("options") //add default pop up options
     ppOpt = ppOpt["options"];
+    
     if(ppOpt === undefined){
       ppOpt = {
         museum: "Met",
         medium: null
       }
     }
-    changeSpinnerVisibility();
     retrieveImages(ppOpt);
     chrome.storage.sync.set({"CAN_RETRIEVE_IMGS":false}).then(()=>{ });
+
   }
   else{
+
     let indexImg = await chrome.storage.sync.get("INDEX_IMG_TO_DISPLAY");
     indexImg = indexImg["INDEX_IMG_TO_DISPLAY"];
     let imgs = await chrome.storage.sync.get("DAILY_IMGS_KEY");
     imgs = imgs["DAILY_IMGS_KEY"];
+    
     if(imgs === undefined){
       autoLaunchImagesRetrieval(true)
-    }else if(indexImg === undefined){
+    }
+    else if(indexImg === undefined){
       setIndexImgToDisplay()
-    }else{
+    }
+    else{
       setDisplayImg(imgs,indexImg);
     }
+
   }
 }
 
@@ -111,7 +119,7 @@ async function checkLiveAlarms(nextAlarmTime){
 
 chrome.storage.onChanged.addListener(async (changes, storageArea) => {
   for (let [key, { oldValue, newValue }] of Object.entries(changes)) {
-    //console.log(key)
+    console.log(key)
     if(key === "DAILY_IMGS_KEY"){
       let indexImg = await chrome.storage.sync.get("INDEX_IMG_TO_DISPLAY");
       indexImg = indexImg["INDEX_IMG_TO_DISPLAY"];
@@ -132,6 +140,10 @@ chrome.storage.onChanged.addListener(async (changes, storageArea) => {
        //CAN RETRIEVE IMGS
       }
     }
+    /*if(key === "isLoadingImgs"){
+      console.log('isLoadingImgs: '+newValue);
+      displayLoadingState(newValue)
+    }*/
   }
 });
 
@@ -147,8 +159,9 @@ chrome.alarms.onAlarm.addListener((alarm) => {
 
 chrome.runtime.onMessage.addListener((message,sender,sendResponse)=>
   {
-    if(message.type === "changeSpinnerVisibility"){
-      changeSpinnerVisibility(false);
+    if(message.type === "getInLoadingState"){
+      console.log('In loading state');
+      displayLoadingState(true);
     }
   }
 )
