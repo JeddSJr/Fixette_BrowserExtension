@@ -4,11 +4,11 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
         <link rel="stylesheet" type="text/css" href="../css/popup.css">
     </head>
-    <body>
+    <body class="d-flex justify-content-center flex-column">
         <div class="h1 text-center">Fixette</div>
-        <div class="row  row-cols-1">
+        <div class="mt-1 vstack d-flex">
             <div class="separator">Museum</div>
-            <div class="col musOptions" id="musOptions">
+            <div class="mt-1 col musOptions" id="musOptions">
                 <div class="form-check">
                     <input type="radio" id="Choose_MetMuseum" name="Choose_museum" checked="true">
                     <label>The Met</label>
@@ -17,18 +17,41 @@
                     <input type="radio" id="Choose_LouvreMuseum" name="Choose_museum" >
                     <label>The Louvre</label>
                 </div>
-                <br><br>
-                
             </div>
-            <div class="col text-center">
+            <div class="separator">Options</div>
+                <select id="searchOptionsSelect" class="form-select mb-2 form-select-sm" aria-label="Options">
+                    <option value="0" selected>Number of images</option>
+                    <option value="1">AI insight</option>
+                </select>
+                <div id="NumImgsOptions" >
+                    <label id="numDailyImgsRangeText" for="numDailyImgsRange" class="form-label">Number of images per day : 4 </label>
+                    <input id="numDailyImgsRange" type="range" class="form-range" min="0" max="7" value=3 step="1" list="markers">
+                    <datalist id="markers">
+                        <option value="1">1</option>
+                        <option value="12.5">2</option>
+                        <option value="25">3</option>
+                        <option value="37.5">4</option>
+                        <option value="50">6</option>
+                        <option value="62.5">8</option>
+                        <option value="85">12</option>
+                        <option value="97.5">24</option>
+                    </datalist>
+                </div>
+                <div hidden id="EnableAIOptions" class="form-check form-switch">
+                    <label id="EnableAIText" for="EnableAICheck" class="form-label">Enable AI insight</label>
+                    <input class="form-check-input" type="checkbox" role="switch" id="EnableAICheck">
+                </div>
+            <div class="mt-3 separator"><img src="../imgs/icons/icon_16.png"></div>
+            <div class="mt-2 col text-center">
                 <button disabled type="button" class="btn btn-info" id="callButton"><span hidden id="buttonSpinner" class="spinner-border spinner-border-sm" aria-hidden="true"></span> Paint !</button>
             </div>
+            <br>
         </div>
-        <br>
-        <br>
+        <div class="mt-auto pb-2" id="remerciements">
+            <a target="_blank" href="https://icons8.com/icon/1106/picture">Painting</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a><br>
+            Images courtesy of <a target="_blank" href="https://www.metmuseum.org/">The Met</a>
+        </div>
     </body>
-    <a target="_blank" href="https://icons8.com/icon/1106/picture">Painting</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a><br>
-    Images courtesy of <a target="_blank" href="https://www.metmuseum.org/">The Met</a>
     <script type="module" src="../js/popupHandler.js"></script>
     <script type="module" src="../js/newtabHandler.js"></script>
 </html>

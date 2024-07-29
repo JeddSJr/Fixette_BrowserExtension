@@ -25,3 +25,7 @@ body{
   .separator:not(:empty)::after {
     margin-left: .25em;
   }
+
+  #numDailyImgsRangeText{
+    text-align: center;
+}

@@ -1,12 +1,34 @@
 import {retrieveImages} from './retrieveImages.js'
 
+const numberDailyImgs = [1,2,3,4,6,8,12,24]
+const searchOptionsIds = ["NumImgsOptions","EnableAIOptions"]
+
 window.addEventListener('load', async function() {
     var callButton = document.getElementById("callButton")
+    var numDailyImgsRange = document.getElementById("numDailyImgsRange")
+    var numDailyImgsRangeText = document.getElementById("numDailyImgsRangeText")
+    var searchOptionsSelect = document.getElementById("searchOptionsSelect")
+
 
     callButton.addEventListener(
         "click",
         manuallyLaunchImagesRetrieval
     )
+
+    numDailyImgsRange.addEventListener(
+        "input",
+        (event)=>{
+            console.log(event.target.value)
+            numDailyImgsRangeText.innerText = "Number of images per day : "+numberDailyImgs[event.target.value]
+        }
+    )
+
+    searchOptionsSelect.addEventListener(
+        "change",
+        displayChosenSearchOption
+    )
+
+    console.log(searchOptionsSelect)
 
     var isLoadingImgs = await chrome.storage.sync.get("isLoadingImgs")
     isLoadingImgs = isLoadingImgs["isLoadingImgs"]
@@ -41,8 +63,18 @@ export function manuallyLaunchImagesRetrieval(){
     storeOptions(ppOpt)
 }
 
-
-
+function displayChosenSearchOption(event){
+    console.log(event.target.value)
+    searchOptionsIds.forEach((optId,id)=>{
+        if(id == event.target.value){
+            document.getElementById(optId).removeAttribute("hidden")
+        }
+        else{
+            document.getElementById(optId).setAttribute("hidden","hidden")
+        }
+    })
+        
+}
 
 export function buttonLoadingState(isLoading=false){
     var buttonSpinner = document.getElementById("buttonSpinner")
