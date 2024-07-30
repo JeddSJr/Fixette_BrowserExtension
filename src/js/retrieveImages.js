@@ -5,6 +5,8 @@ import MuseumImage from  './museumImage.js'
 /*
 Function to fetch the urls of imgs of artworks from the Louvre
 */
+const MaxDailyImgs = 12;
+
 async function LouvreAPIRetrieveImgs() {
   callLouvreApi();
   async function callLouvreApi() {
@@ -23,7 +25,6 @@ async function MetAPIRetrieveImgs(metOptions) {
 
   var imgsArr = []
   
-
   async function APICall(){
     try {
       let response = await fetch(idsRqst);
@@ -72,7 +73,7 @@ async function MetAPIRetrieveImgs(metOptions) {
     
     var objects = await Promise.all(objectsJson);
     
-    for (let i = 0; i < objects.length && imgsArr.length <4; i++) {
+    for (let i = 0; i < objects.length && imgsArr.length <MaxDailyImgs; i++) {
       const objData = objects[i];
       if(objData.primaryImage.trim().length !== 0 && objData.isPublicDomain){
         imgsArr.push(new MuseumImage(
@@ -93,9 +94,9 @@ async function MetAPIRetrieveImgs(metOptions) {
 
   }
 
-  var response = await APICall(idsRqst)
+  var response = await APICall()
 
-  while(imgsArr.length<4){
+  while(imgsArr.length<MaxDailyImgs){
     let ids = await GetNIds(response,1)
     await GetImgRqstMet(ids)
   }
@@ -110,7 +111,6 @@ async function MetAPIRetrieveImgs(metOptions) {
 export async function retrieveImages(ppOpt) {
 
   const dailyImgs = await ApiSelection(ppOpt);
-  chrome.storage.sync.set({"isLoadingImgs":true})
   
   async function ApiSelection(ppOpt) {
     var apiRqst;
