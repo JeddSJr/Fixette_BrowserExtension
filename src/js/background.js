@@ -13,6 +13,13 @@ const CHANGE_IMG_ALARM_SKEY = 'changeImgAlarm';
 const INDEX_IMG_TO_DISPLAY = 'indexImgToDisplay';
 var IMGS_READY_TO_BE_SET = false;
 
+const DefaultOptions = {
+  "museum": "Met",
+  "medium": null,
+  "numDailyImgsRange": 4,
+  "enableAISelect": false
+}
+
 var nextAlarmTime = 0;
 var newDayAlarmTime = 0;
 
@@ -28,12 +35,7 @@ async function autoLaunchImagesRetrieval(forceRetrieval=false){
     let ppOpt = await chrome.storage.sync.get("options") //add default pop up options
     ppOpt = ppOpt["options"];
     
-    if(ppOpt === undefined){
-      ppOpt = {
-        museum: "Met",
-        medium: null
-      }
-    }
+    if(ppOpt === undefined){ppOpt = DefaultOptions;}
     retrieveImages(ppOpt);
     chrome.storage.sync.set({"CAN_RETRIEVE_IMGS":false}).then(()=>{ });
 
@@ -77,10 +79,33 @@ async function setRightToRetrieveImgs(){
 
 }
 
+async function getHoursChange(){
+  var schedule = {
+    1:[0],
+    2:[12,24],
+    3:[8,16,24],
+    4:[6,12,18,24],
+    6:[4,8,12,16,20,24],
+    8:[3,6,9,12,15,18,21,24],
+    12:[2,4,6,8,10,12,14,16,18,20,22,24]
+  }
+  
+  let ppOpt = await chrome.storage.sync.get("options") //add default pop up options
+  ppOpt = ppOpt["options"];
+    
+  if(ppOpt === undefined){ppOpt = DefaultOptions;}
+
+  var hoursChange = schedule[ppOpt.numDailyImgsRange];
+
+  console.log(hoursChange);
+  
+  return hoursChange;
+}
+
 function setIndexImgToDisplay(){ //Make it a do while loop
   //console.log('launchTime: '+launchTime.getHours()+':'+launchTime.getMinutes());
   let launchHour = launchTime.getHours();
-  let hoursChange = [6,12,18,24];
+  let hoursChange = getHoursChange();
   let indexImg = 0;
   while (launchHour>=hoursChange[indexImg]) {indexImg++}
   chrome.storage.sync.set({"INDEX_IMG_TO_DISPLAY":indexImg}).then(()=>{}); //Can change the set to a get and if if they are costly
@@ -140,6 +165,9 @@ chrome.storage.onChanged.addListener(async (changes, storageArea) => {
        //CAN RETRIEVE IMGS
       }
     }
+    if(key === "options"){
+      console.log(newValue);
+    }
     /*if(key === "isLoadingImgs"){
       console.log('isLoadingImgs: '+newValue);
       displayLoadingState(newValue)
@@ -161,12 +189,16 @@ chrome.runtime.onMessage.addListener((message,sender,sendResponse)=>
   {
     if(message.type === "getInLoadingState"){
       console.log('In loading state');
+      chrome.storage.sync.set({"isLoadingImgs":true});
       displayLoadingState(true);
+      
     }
+    return true;
   }
 )
-
+chrome.storage.sync.set({"isLoadingImgs":false});
 setRightToRetrieveImgs()
 setIndexImgToDisplay()
 checkLiveAlarms(nextAlarmTime)
 autoLaunchImagesRetrieval()
+
