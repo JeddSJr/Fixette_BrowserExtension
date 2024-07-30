@@ -35,7 +35,7 @@ window.addEventListener('load', async function() {
 
     searchOptionsSelect.addEventListener(
         "change",
-        displayChosenSearchOption
+        showSelectedSearchOption
     )
 
     if(storedOptions !== undefined){
@@ -70,6 +70,22 @@ export function manuallyLaunchImagesRetrieval(){
     retrieveImages(ppOpt)
     storeOptions(ppOpt)
 }
+export function buttonLoadingState(isLoading=false){
+    var buttonSpinner = document.getElementById("buttonSpinner")
+    
+    if(isLoading === undefined){
+        isLoading = false
+    }
+
+    callButton.disabled = isLoading
+
+    if(isLoading){
+        buttonSpinner.removeAttribute("hidden")
+    }
+    else{
+        buttonSpinner.setAttribute("hidden","hidden")
+    }
+}
 
 function validateSearchOptions(){
     var ppOpt ={ }
@@ -93,7 +109,7 @@ function validateSearchOptions(){
     return ppOpt
 }
 
-function displayChosenSearchOption(event){
+function showSelectedSearchOption(event){
     searchOptionsIds.forEach((optId,id)=>{
         if(id == event.target.value){
             document.getElementById(optId).removeAttribute("hidden")
@@ -104,31 +120,7 @@ function displayChosenSearchOption(event){
     })
 }
 
-
-
-export function buttonLoadingState(isLoading=false){
-    var buttonSpinner = document.getElementById("buttonSpinner")
-    
-    if(isLoading === undefined){
-        isLoading = false
-    }
-
-    callButton.disabled = isLoading
-
-    if(isLoading){
-        buttonSpinner.removeAttribute("hidden")
-    }
-    else{
-        buttonSpinner.setAttribute("hidden","hidden")
-    }
-}
-
 function storeOptions(value){
-    //console.log('Storing object');
-    
     chrome.storage.sync.set({"options": value})
-        .then(()=>{
-            //console.log('Object of PopUp Options has been stored with value');
-            //console.log(value);
-        })
+        .then(()=>{        })
 }
