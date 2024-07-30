@@ -10,11 +10,11 @@
             <div class="separator">Museum</div>
             <div class="mt-1 col musOptions" id="musOptions">
                 <div class="form-check">
-                    <input type="radio" id="Choose_MetMuseum" name="Choose_museum" checked="true">
+                    <input type="radio" id="Choose_MetMuseum" name="musOptions" value="Met" checked="true">
                     <label>The Met</label>
                 </div>
                 <div hidden class="form-check">
-                    <input type="radio" id="Choose_LouvreMuseum" name="Choose_museum" >
+                    <input type="radio" id="Choose_LouvreMuseum" name="musOptions" value="Louvre" >
                     <label>The Louvre</label>
                 </div>
             </div>
@@ -25,7 +25,7 @@
                 </select>
                 <div id="NumImgsOptions" >
                     <label id="numDailyImgsRangeText" for="numDailyImgsRange" class="form-label">Number of images per day : 4 </label>
-                    <input id="numDailyImgsRange" type="range" class="form-range" min="0" max="7" value=3 step="1" list="markers">
+                    <input id="numDailyImgsRange" type="range" class="form-range" min="0" max="6" value=3 step="1" list="markers">
                     <datalist id="markers">
                         <option value="1">1</option>
                         <option value="12.5">2</option>
@@ -39,8 +39,9 @@
                 </div>
                 <div hidden id="EnableAIOptions" class="form-check form-switch">
                     <label id="EnableAIText" for="EnableAICheck" class="form-label">Enable AI insight</label>
-                    <input class="form-check-input" type="checkbox" role="switch" id="EnableAICheck">
+                    <input id="enableAISelect" class="form-check-input" type="checkbox" role="switch" id="EnableAICheck">
                 </div>
+                <button id="searchOptButton" type="button" class="btn btn-outline-primary btn-sm">Validate</button>
             <div class="mt-3 separator"><img src="../imgs/icons/icon_16.png"></div>
             <div class="mt-2 col text-center">
                 <button disabled type="button" class="btn btn-info" id="callButton"><span hidden id="buttonSpinner" class="spinner-border spinner-border-sm" aria-hidden="true"></span> Paint !</button>
