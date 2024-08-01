@@ -7,12 +7,6 @@ chrome.runtime.onInstalled.addListener((details)  => {
 })
 
 
-const PPOPT_DICT_SKEY = 'options';
-const DAILY_IMGS_SKEY = 'DAILY_IMGS_SKEY';
-const CHANGE_IMG_ALARM_SKEY = 'changeImgAlarm';
-const INDEX_IMG_TO_DISPLAY = 'indexImgToDisplay';
-var IMGS_READY_TO_BE_SET = false;
-
 const DefaultOptions = {
   "museum": "Met",
   "medium": null,
@@ -61,6 +55,7 @@ async function autoLaunchImagesRetrieval(forceRetrieval=false){
 }
 
 function setDisplayImg(imgs,indexImg){
+  displayLoadingState(true)
   if(!indexImg){indexImg = 0}
   console.log(indexImg);
   console.log(imgs);
@@ -79,9 +74,9 @@ async function setRightToRetrieveImgs(){
 
 }
 
-async function getHoursChange(){
+async function getHoursChange(numberImgs=undefined){
   var schedule = {
-    1:[0],
+    1:[24],
     2:[12,24],
     3:[8,16,24],
     4:[6,12,18,24],
@@ -90,27 +85,26 @@ async function getHoursChange(){
     12:[2,4,6,8,10,12,14,16,18,20,22,24]
   }
   
-  let ppOpt = await chrome.storage.sync.get("options") //add default pop up options
-  ppOpt = ppOpt["options"];
-    
-  if(ppOpt === undefined){ppOpt = DefaultOptions;}
-
-  var hoursChange = schedule[ppOpt.numDailyImgsRange];
-
-  console.log(hoursChange);
+  if(numberImgs === undefined){
+    var ppOpt = await chrome.storage.sync.get("options") //add default pop up options
+    ppOpt = ppOpt["options"];
+    if(ppOpt === undefined){ppOpt = DefaultOptions;}
+    numberImgs = ppOpt.numDailyImgsRange;
+  }
+  var hoursChange = schedule[numberImgs];
   
   return hoursChange;
 }
 
-function setIndexImgToDisplay(){ //Make it a do while loop
+async function setIndexImgToDisplay(numberImgs=undefined){ //Make it a do while loop
   //console.log('launchTime: '+launchTime.getHours()+':'+launchTime.getMinutes());
   let launchHour = launchTime.getHours();
-  let hoursChange = getHoursChange();
+  let hoursChange = await getHoursChange(numberImgs);
   let indexImg = 0;
   while (launchHour>=hoursChange[indexImg]) {indexImg++}
+  
   chrome.storage.sync.set({"INDEX_IMG_TO_DISPLAY":indexImg}).then(()=>{}); //Can change the set to a get and if if they are costly
   nextAlarmTime = (hoursChange[indexImg]-launchHour)*60-launchTime.getMinutes(); //We also calculate when should be the next alarm  to change the index
-  //console.log('Next Alarm is in '+nextAlarmTime+' minutes');
   
 }
 
@@ -166,7 +160,9 @@ chrome.storage.onChanged.addListener(async (changes, storageArea) => {
       }
     }
     if(key === "options"){
-      console.log(newValue);
+      if(newValue.numDailyImgsRange != oldValue.numDailyImgsRange){
+        setIndexImgToDisplay(newValue.numDailyImgsRange);
+      }
     }
     /*if(key === "isLoadingImgs"){
       console.log('isLoadingImgs: '+newValue);

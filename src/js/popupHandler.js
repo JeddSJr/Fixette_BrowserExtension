@@ -68,7 +68,6 @@ export function manuallyLaunchImagesRetrieval(){
     buttonLoadingState(true)
     var ppOpt = validateSearchOptions()
     retrieveImages(ppOpt)
-    storeOptions(ppOpt)
 }
 export function buttonLoadingState(isLoading=false){
     var buttonSpinner = document.getElementById("buttonSpinner")
