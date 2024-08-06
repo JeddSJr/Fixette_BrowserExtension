@@ -5,9 +5,9 @@
         <link rel="stylesheet" type="text/css" href="../css/popup.css">
     </head>
     <body class="d-flex justify-content-center flex-column">
-        <div class="h1 text-center">Fixette</div>
+        <div class="text-center" id="popupTitle">Fixette</div>
         <div class="mt-1 vstack d-flex">
-            <div class="separator">Museum</div>
+            <div class="separator"><span class="flavorText">Museum</span></div>
             <div class="mt-1 col musOptions" id="musOptions">
                 <div class="form-check">
                     <input type="radio" id="Choose_MetMuseum" name="musOptions" value="Met" checked="true">
@@ -18,10 +18,11 @@
                     <label>The Louvre</label>
                 </div>
             </div>
-            <div class="separator">Options</div>
+            <div class="separator"><span class="flavorText">Options</span></div>
                 <select id="searchOptionsSelect" class="form-select mb-2 form-select-sm" aria-label="Options">
                     <option value="0" selected>Number of images</option>
                     <option hidden value="1">AI insight</option> 
+                    <option value="2">Complementary informations</option>
                 </select>
                 <div id="NumImgsOptions" >
                     <label id="numDailyImgsRangeText" for="numDailyImgsRange" class="form-label">Number of images per day : 4 </label>
@@ -39,7 +40,13 @@
                 </div>
                 <div hidden id="EnableAIOptions" class="form-check form-switch">
                     <label id="EnableAIText" for="EnableAICheck" class="form-label">Enable AI insight</label>
-                    <input id="enableAISelect" class="form-check-input" type="checkbox" role="switch" id="EnableAICheck">
+                    <input id="enableAISelect" class="form-check-input" type="checkbox" role="switch" >
+                </div>
+                <div hidden id="EnableImagesInfoOptions" >
+                    <div class="form-check-inline form-check form-switch ">    
+                        <label id="EnableImagesInfoText" for="EnableImagesInfoCheck" class="form-label">Display informations from the museum</label>
+                        <input id="enableImagesInfoSelect" class="form-check-input " type="checkbox" role="switch"  >
+                    </div>
                 </div>
                 <button id="searchOptButton" type="button" class="btn btn-outline-primary btn-sm">Save</button>
             <div class="mt-3 separator"><img src="../imgs/icons/icon_16.png"></div>

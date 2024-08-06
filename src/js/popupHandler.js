@@ -1,8 +1,8 @@
 import {retrieveImages} from './retrieveImages.js'
 
 const numberDailyImgs = [1,2,3,4,6,8,12]
-const searchOptionsIds = ["NumImgsOptions","EnableAIOptions"]
-const searchOptionsInputs = ["musOptions","numDailyImgsRange","enableAISelect"]
+const searchOptionsIds = ["NumImgsOptions","EnableAIOptions","EnableImagesInfoOptions"]
+const searchOptionsInputs = ["musOptions","numDailyImgsRange","enableAISelect","enableImagesInfoSelect"]
 
 window.addEventListener('load', async function() {
     var callButton = document.getElementById("callButton")
@@ -11,6 +11,7 @@ window.addEventListener('load', async function() {
     var searchOptionsSelect = document.getElementById("searchOptionsSelect")
     var searchOptButton = document.getElementById("searchOptButton")
     var enableAISelect = document.getElementById("enableAISelect")
+    var enableImagesInfoSelect = document.getElementById("enableImagesInfoSelect")
 
     var storedOptions = await chrome.storage.sync.get("options")
     storedOptions = storedOptions["options"]
@@ -42,6 +43,7 @@ window.addEventListener('load', async function() {
         numDailyImgsRange.value = numberDailyImgs.indexOf(storedOptions["numDailyImgsRange"])
         numDailyImgsRangeText.innerText = "Number of images per day : "+storedOptions["numDailyImgsRange"]
         enableAISelect.checked = storedOptions["enableAISelect"]
+        enableImagesInfoSelect.checked = storedOptions["enableImagesInfoSelect"]
     }
 
     var isLoadingImgs = await chrome.storage.sync.get("isLoadingImgs")
@@ -69,6 +71,7 @@ export function manuallyLaunchImagesRetrieval(){
     var ppOpt = validateSearchOptions()
     retrieveImages(ppOpt)
 }
+
 export function buttonLoadingState(isLoading=false){
     var buttonSpinner = document.getElementById("buttonSpinner")
     
@@ -98,6 +101,10 @@ function validateSearchOptions(){
                 ppOpt[inputId] = numberDailyImgs[document.getElementById(inputId).value]
                 break
             case "enableAISelect":
+                ppOpt[inputId] = document.getElementById(inputId).checked
+                break
+
+            case "enableImagesInfoSelect":
                 ppOpt[inputId] = document.getElementById(inputId).checked
                 break
         }

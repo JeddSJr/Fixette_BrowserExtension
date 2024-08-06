@@ -5,27 +5,92 @@ body{
     padding-right: 4%;
 }
 
-.separator {
-    display: flex;
-    align-items: center;
-    text-align: center;
+#popupTitle{
+  font-size: xx-large;
+  font-weight: bold;
+}
+@media (prefers-color-scheme: light) {  
+  body {  
+     background: white;    
+     color: black;  
   }
+}
+@media (prefers-color-scheme: dark) {  
   
-  .separator::before,
-  .separator::after {
-    content: '';
-    flex: 1;
-    border-bottom: 1px solid #000;
-  }
-  
-  .separator:not(:empty)::before {
-    margin-right: .25em;
-  }
-  
-  .separator:not(:empty)::after {
-    margin-left: .25em;
-  }
+}
 
-  #numDailyImgsRangeText{
+a,
+a:hover{
+  color: #CA181C;
+  text-decoration: underline;
+}
+
+.separator {
+  display: flex;
+  align-items: center;
+  text-align: center;
+}
+  
+.separator::before,
+.separator::after {
+  content: '';
+  flex: 1;
+  border-bottom: 1px solid #bc9637;
+}
+
+.separator:not(:empty)::before {
+  margin-right: .25em;
+}
+
+.separator:not(:empty)::after {
+  margin-left: .25em;
+}
+
+#numDailyImgsRangeText{
     text-align: center;
 }
+
+#popupTitle{
+    text-align: center;
+    color: #CA181C;
+}
+#callButton{
+  background-color: #CA181C;
+  color: #FDCB4E;
+  border-color: #CA181C;
+}
+
+#callButton:hover{
+  background-color: #FDCB4E;
+  color: #CA181C;
+  border-color: #FDCB4E;
+}
+
+#searchOptButton{
+  background-color: white;
+  color: #CA181C;
+  border-color: #CA181C;
+}
+
+#searchOptButton:hover{
+  background-color: #CA181C;
+  color: white;
+  border-color: #CA181C;
+}
+
+.flavorText{
+  color: black;
+}
+
+#numDailyImgsRange::-webkit-slider-thumb
+{
+  background: gray;
+}
+
+#numDailyImgsRange::-moz-range-thumb
+{
+  background: gray;
+}
+
+
+
