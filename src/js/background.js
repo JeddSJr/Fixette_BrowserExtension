@@ -1,6 +1,7 @@
 import {retrieveImages} from './retrieveImages.js'
 import { setMainImg } from './newtabHandler.js';
-import { displayLoadingState } from './newtabHandler.js';
+import { displayLoadingState,displayAdditionalInfo } from './newtabHandler.js';
+
 
 chrome.runtime.onInstalled.addListener((details)  => {
   console.log(details)
@@ -11,13 +12,16 @@ const DefaultOptions = {
   "museum": "Met",
   "medium": null,
   "numDailyImgsRange": 4,
-  "enableAISelect": false
+  "enableAISelect": false,
+  "enableImagesInfoSelect": true
 }
 
 var nextAlarmTime = 0;
 var newDayAlarmTime = 0;
 
 var launchTime = new Date()
+
+var isLoading = true;
 
 
 async function autoLaunchImagesRetrieval(forceRetrieval=false){
@@ -51,13 +55,19 @@ async function autoLaunchImagesRetrieval(forceRetrieval=false){
   }
 }
 
-function setDisplayImg(imgs,indexImg){
+async function setDisplayImg(imgs,indexImg){
   displayLoadingState(true)
   if(!indexImg){indexImg = 0}
   console.log(indexImg);
   console.log(imgs);
   let museumImage = imgs[indexImg]
   setMainImg(museumImage);
+  var options = await chrome.storage.sync.get("options");
+  options = options["options"];
+  console.log(options)
+  var canDisplayMoreInfos = options.enableImagesInfoSelect === undefined ? DefaultOptions.enableImagesInfoSelect : options.enableImagesInfoSelect;
+  console.log(canDisplayMoreInfos)
+  displayAdditionalInfo(canDisplayMoreInfos)
 }
 
 async function setRightToRetrieveImgs(){
@@ -148,6 +158,7 @@ chrome.storage.onChanged.addListener(async (changes, storageArea) => {
       imgs = imgs["DAILY_IMGS_KEY"];
       if(imgs != undefined){
         setDisplayImg(imgs,newValue)
+
       }    
     }
     if(key === "CAN_RETRIEVE_IMGS"){
@@ -159,11 +170,14 @@ chrome.storage.onChanged.addListener(async (changes, storageArea) => {
       if(newValue.numDailyImgsRange != oldValue.numDailyImgsRange){
         setIndexImgToDisplay(newValue.numDailyImgsRange);
       }
+      if(newValue.enableImagesInfoSelect != oldValue.enableImagesInfoSelect){
+        displayAdditionalInfo(newValue.enableImagesInfoSelect);
+      }
     }
-    /*if(key === "isLoadingImgs"){
+    if(key === "isLoadingImgs"){
       console.log('isLoadingImgs: '+newValue);
-      displayLoadingState(newValue)
-    }*/
+      isLoading = newValue;
+    }
   }
 });
 
@@ -183,7 +197,7 @@ chrome.runtime.onMessage.addListener((message,sender,sendResponse)=>
       console.log('In loading state');
       chrome.storage.sync.set({"isLoadingImgs":true});
       displayLoadingState(true);
-      
+      isLoading = true;
     }
     return true;
   }

@@ -1,3 +1,4 @@
+var MUSEUMIMAGEDISPLAYED = null;
 window.addEventListener('load', function() {
     
     var zoomedImgContainer = document.getElementById("zoomedImgContainer");
@@ -72,27 +73,28 @@ export function setMainImg(museumImage) {
         displayedImgL.src = museumImage.imgSrc
         displayedImgP.src = museumImage.imgSrc
 
-        displayedImgP.title = displayTitle
-        displayedImgP.alt = museumImage.title;
-        displayedImgL.title = displayTitle
-        displayedImgL.alt = museumImage.title;
+        displayedImgP.title, displayedImgL.title = displayTitle
+        displayedImgP.alt, displayedImgL.alt = museumImage.title;
          
         zoomedImg.src = museumImage.imgSrc
         zoomedImg.title = displayTitle
         zoomedImg.alt = museumImage.title;
+
+        displayedImgP.dataset.Title = displayedImgL.dataset.Title = museumImage.title === "" ? "(Untitled)" : museumImage.title;
+        displayedImgP.dataset.Artist = displayedImgL.dataset.Artist = displayArtist;
+        displayedImgP.dataset.Year = displayedImgL.dataset.Year = displayPeriod;
+        displayedImgP.dataset.Medium = displayedImgL.dataset.Medium = museumImage.medium;
+        displayedImgP.dataset.Classification = displayedImgL.dataset.Classification = museumImage.classification;
+        //displayedImgP.dataset.Measurements = displayedImgL.dataset.Measurements = museumImage.measurements;
+        displayedImgP.dataset.Department = displayedImgL.dataset.Department = museumImage.department;
+        displayedImgP.dataset.Credits = displayedImgL.dataset.Credits = museumImage.creditLine;  
+        displayedImgP.dataset.Link = displayedImgL.dataset.Link = museumImage.objectURL;
+
+        MUSEUMIMAGEDISPLAYED = museumImage;
         
     } catch (error) {
         console.log(error);
     }
-    
-    /*
-    displayedMainImg.alt = museumImage.title;
-    displayedMainImg.dataset.artist = museumImage.artistDisplayName;
-    displayedMainImg.dataset.medium = museumImage.medium;
-    displayedMainImg.dataset.objectDate = museumImage.objectDate;
-    displayedMainImg.dataset.objectURL = museumImage.objectURL;
-    displayedMainImg.dataset.measurements = museumImage.measurements;*/
-    
 }
 
 /*
@@ -125,6 +127,7 @@ export function displayLoadingState(isLoading=false){
     var spinnerDiv = document.getElementById("loadingSpinnerDiv")
     var dezoomedImgContainerL = document.getElementById("dezoomedImgContainerLandscape")
     var dezoomedImgContainerP = document.getElementById("dezoomedImgContainerPortrait")
+    var additionalInfoDisplay = document.getElementById("additionalInfoDisplay")
 
     var imgCaption = document.getElementById("imgCaption")
     
@@ -133,6 +136,7 @@ export function displayLoadingState(isLoading=false){
         dezoomedImgContainer.setAttribute("hidden","hidden")
         dezoomedImgContainerL.setAttribute("hidden","hidden")
         dezoomedImgContainerP.setAttribute("hidden","hidden")
+        additionalInfoDisplay.setAttribute("hidden","hidden")
         imgCaption.innerHTML = " "
         return 0;
     }
@@ -143,3 +147,41 @@ export function displayLoadingState(isLoading=false){
     }
 }
 
+export async function displayAdditionalInfo(canDisplay=true,isLoading=false){
+    var additionalInfoDisplay = document.getElementById("additionalInfoDisplay")
+    var displayedImgL = document.getElementById("displayImgL");
+    var displayedImgP = document.getElementById("displayImgP"); 
+    additionalInfoDisplay.textContent = ' '
+
+    if(canDisplay && isLoading === false){
+        additionalInfoDisplay.removeAttribute("hidden")
+        var listElement = document.createElement("ul")
+        listElement.className = "list-group list-group-flush"
+        let data = await displayedImgP.dataset
+        let paragraphs = domStringMapToParagraphs(data)
+        paragraphs.forEach((paragraph)=>{
+            listElement.appendChild(paragraph)
+        })
+        additionalInfoDisplay.appendChild(listElement)
+        console.log(additionalInfoDisplay)
+    }
+    else{
+        additionalInfoDisplay.setAttribute("hidden","hidden")
+    }
+    
+}
+
+function domStringMapToParagraphs(domStringMap){
+    var paragraphs = []
+    for (const [key, value] of Object.entries(domStringMap)) {
+        let paragraph = document.createElement("li")
+        if(key === "Link"){
+            paragraph.innerHTML = key + ": " + "<a href='"+value+"' target='_blank'>"+value+"</a>"
+        }
+        else{paragraph.appendChild(document.createTextNode(key + ": " + value))}
+        paragraph.className = "list-group-item list-group-item-dark "
+        console.log(paragraph)
+        paragraphs.push(paragraph)
+    }
+    return paragraphs
+}

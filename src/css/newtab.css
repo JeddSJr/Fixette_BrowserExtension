@@ -29,6 +29,13 @@
     font-size: 15px;
     color: #717171;
     text-align: center;
+    padding-left: 15%;
+    padding-right: 15%;
+}
+
+#additionalInfoDisplay{
+    font-size: 14px;
+    text-align: center;
 }
 
 .bar{
