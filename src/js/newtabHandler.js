@@ -156,9 +156,9 @@ export async function displayAdditionalInfo(canDisplay=true,isLoading=false){
     if(canDisplay && isLoading === false){
         additionalInfoDisplay.removeAttribute("hidden")
         var listElement = document.createElement("ul")
-        listElement.className = "list-group list-group-flush"
+        listElement.className = "list-group "
         let data = await displayedImgP.dataset
-        let paragraphs = domStringMapToParagraphs(data)
+        let paragraphs = domStringMapToListElements(data)
         paragraphs.forEach((paragraph)=>{
             listElement.appendChild(paragraph)
         })
@@ -171,15 +171,16 @@ export async function displayAdditionalInfo(canDisplay=true,isLoading=false){
     
 }
 
-function domStringMapToParagraphs(domStringMap){
+function domStringMapToListElements(domStringMap){
     var paragraphs = []
     for (const [key, value] of Object.entries(domStringMap)) {
         let paragraph = document.createElement("li")
+        paragraph.innerHTML = "<b>"+ key + "</b> : "
         if(key === "Link"){
-            paragraph.innerHTML = key + ": " + "<a href='"+value+"' target='_blank'>"+value+"</a>"
+            paragraph.innerHTML += "<a href='"+value+"' target='_blank'>"+value+"</a>"
         }
-        else{paragraph.appendChild(document.createTextNode(key + ": " + value))}
-        paragraph.className = "list-group-item list-group-item-dark "
+        else{paragraph.innerHTML += value }
+        paragraph.className = "list-group-item"
         console.log(paragraph)
         paragraphs.push(paragraph)
     }

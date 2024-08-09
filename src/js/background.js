@@ -39,7 +39,7 @@ async function autoLaunchImagesRetrieval(forceRetrieval=false){
     let ppOpt = await chrome.storage.sync.get("options") //add default pop up options
     ppOpt = ppOpt["options"];
     if(ppOpt === undefined){ppOpt = DefaultOptions;}
-
+    displayLoadingState(true)
     retrieveImages(ppOpt);
     chrome.storage.sync.set({"CAN_RETRIEVE_IMGS":false}).then(()=>{ });
     

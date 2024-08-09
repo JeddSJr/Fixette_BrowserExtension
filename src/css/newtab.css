@@ -7,6 +7,25 @@
     .searchbar{
         background-color: white;
     }
+
+    .list-group-item{
+        background-color: #ffcafacf;
+        color:#717171;
+    }
+    
+    .list-group-item:hover{
+        background-color: #FFCAFA;
+        color: #82A8F1;
+    }
+
+    #imgCaption{
+        color: #717171;
+    }
+
+    a,
+    a:hover{
+        color: #82A8F1;
+    }
 }
 @media (prefers-color-scheme: dark) {  
     body {  
@@ -23,11 +42,29 @@
         background-color: black;
         color: white;
     }
+
+    .list-group-item{
+        background-color: #ca181b98;
+        color: #fffd88;
+    }
+    
+    .list-group-item:hover{
+        background-color: #CA181C;
+        color: #f0f0f0;
+    }
+
+    #imgCaption{
+        color: #717171;
+    }
+
+    a,
+    a:hover{
+        color: #f0f0f0a6;
+    }
 }
 
 #imgCaption{
     font-size: 15px;
-    color: #717171;
     text-align: center;
     padding-left: 15%;
     padding-right: 15%;
@@ -35,7 +72,7 @@
 
 #additionalInfoDisplay{
     font-size: 14px;
-    text-align: center;
+    text-align: left;
 }
 
 .bar{
@@ -43,7 +80,7 @@
     max-width:575px;
     height: 45px;
     border-radius:30px;
-    border:1px solid #dcdcdc;
+    border:3px solid #dcdcdc;
 }
 
 .bar:hover{
@@ -68,4 +105,9 @@
     height:18px;
     position:relative;
     left:1.5%;
+}
+
+a,
+a:hover{
+    text-decoration: underline;
 }

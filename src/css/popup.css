@@ -1,27 +1,126 @@
 body{
     width: 275px;
     height: 425px;
+    border-radius: 0%;
     padding-left: 4%;
     padding-right: 4%;
+    
 }
 
 #popupTitle{
   font-size: xx-large;
   font-weight: bold;
 }
+
 @media (prefers-color-scheme: light) {  
   body {  
-     background: white;    
-     color: black;  
+    background: #fffefb;    
+    color: black;   
+    border:2px solid #dcaed8;
+  }
+
+  #popupTitle{
+    color: #82A8F1;
+  }
+
+  .separator::after,.separator::before{
+    border-color: #bd77b6;
+  }
+
+  .flavorText{
+    color: black;
+  }
+
+  #searchOptButton:hover{
+    color: white;
+  }
+
+  #searchOptButton{
+    color: #bd77b6;
+    border-color: #bd77b6;
+  }
+  
+  #searchOptButton:hover{
+    background-color: #bd77b6;
+    border-color: #bd77b6;
+  }
+
+  #callButton{
+    background-color: #82A8F1;
+    color: #F9F8F4;
+    border-color: #82A8F1;
+  }
+  
+  #callButton:hover{
+    background-color: #FFCAFA;
+    color: #82A8F1;
+    border-color: #FFCAFA;
+  }
+
+  a,
+  a:hover{
+    color: #a0a4cd;
   }
 }
+
 @media (prefers-color-scheme: dark) {  
+  body {  
+    background: rgba(0,0 ,0,0.9);
+    color: rgba(255, 255, 255, 0.707); 
+    border:2px solid #bc9637;
+  }
+
+  #popupTitle{
+    color: #CA181C;
+  }
+
+  .separator::after,.separator::before{
+    border-color: #bc9637;
+  }
+
+  .flavorText{
+    color: #bc9637;
+  }
+
+  #searchOptButton:hover{
+    color: #bc9637;
+  }
+
+  #searchOptionsSelect{
+    background-color: rgba(0, 0, 0, 0.619);
+    color: #bc9637;
+  }
+
+  #searchOptButton{
+    color: #CA181C;
+    border-color: #CA181C;
+  }
   
+  #searchOptButton:hover{
+    background-color: #CA181C;
+    border-color: #CA181C;
+  }
+
+  #callButton{
+    background-color: #CA181C;
+    color: #FDCB4E;
+    border-color: #CA181C;
+  }
+  
+  #callButton:hover{
+    background-color: #eebb3b;
+    color: #CA181C;
+    border-color: #FDCB4E;
+  }
+
+  a,
+  a:hover{
+    color: #CA181C;
+  }
 }
 
 a,
 a:hover{
-  color: #CA181C;
   text-decoration: underline;
 }
 
@@ -35,7 +134,8 @@ a:hover{
 .separator::after {
   content: '';
   flex: 1;
-  border-bottom: 1px solid #bc9637;
+  border-bottom: 1px solid;
+  
 }
 
 .separator:not(:empty)::before {
@@ -47,39 +147,11 @@ a:hover{
 }
 
 #numDailyImgsRangeText{
-    text-align: center;
+  text-align: center;
 }
 
 #popupTitle{
-    text-align: center;
-    color: #CA181C;
-}
-#callButton{
-  background-color: #CA181C;
-  color: #FDCB4E;
-  border-color: #CA181C;
-}
-
-#callButton:hover{
-  background-color: #FDCB4E;
-  color: #CA181C;
-  border-color: #FDCB4E;
-}
-
-#searchOptButton{
-  background-color: white;
-  color: #CA181C;
-  border-color: #CA181C;
-}
-
-#searchOptButton:hover{
-  background-color: #CA181C;
-  color: white;
-  border-color: #CA181C;
-}
-
-.flavorText{
-  color: black;
+  text-align: center;
 }
 
 #numDailyImgsRange::-webkit-slider-thumb
