@@ -39,9 +39,10 @@ async function autoLaunchImagesRetrieval(forceRetrieval=false){
     let ppOpt = await chrome.storage.sync.get("options") //add default pop up options
     ppOpt = ppOpt["options"];
     if(ppOpt === undefined){ppOpt = DefaultOptions;}
+    
     displayLoadingState(true)
     retrieveImages(ppOpt);
-    chrome.storage.sync.set({"CAN_RETRIEVE_IMGS":false}).then(()=>{ });
+    await chrome.storage.sync.set({"CAN_RETRIEVE_IMGS":false}).then(()=>{ });
     
   }
   else{
@@ -58,15 +59,15 @@ async function autoLaunchImagesRetrieval(forceRetrieval=false){
 async function setDisplayImg(imgs,indexImg){
   displayLoadingState(true)
   if(!indexImg){indexImg = 0}
-  console.log(indexImg);
-  console.log(imgs);
+  //console.log(indexImg);
+  //console.log(imgs);
   let museumImage = imgs[indexImg]
   setMainImg(museumImage);
   var options = await chrome.storage.sync.get("options");
   options = options["options"];
-  console.log(options)
+  //console.log(options)
   var canDisplayMoreInfos = options.enableImagesInfoSelect === undefined ? DefaultOptions.enableImagesInfoSelect : options.enableImagesInfoSelect;
-  console.log(canDisplayMoreInfos)
+  //console.log(canDisplayMoreInfos)
   displayAdditionalInfo(canDisplayMoreInfos)
 }
 
@@ -74,11 +75,10 @@ async function setRightToRetrieveImgs(){
   let today = launchTime.getDate()
   let storedDay = await chrome.storage.sync.get("TODAY") //Hesitating between a set + listener or a get and if
   storedDay = storedDay["TODAY"];
-  if(storedDay != today){
+  if(storedDay == today){
     chrome.storage.sync.set({"TODAY":today});
     chrome.storage.sync.set({"CAN_RETRIEVE_IMGS":true});
   }
-
 }
 
 async function getHoursChange(numberImgs=undefined){
@@ -120,7 +120,7 @@ async function checkLiveAlarms(){
 
   await chrome.alarms.clearAll();
   if (!changeImgAlarm) {
-    console.log('Alarm is not set, setting it now')
+    //console.log('Alarm is not set, setting it now')
     var storedAlarm = await chrome.alarms.create('changeImgAlarm', {
       delayInMinutes: nextAlarmTime
     });
@@ -130,7 +130,7 @@ async function checkLiveAlarms(){
   let launchHour = launchTime.getHours();
   newDayAlarmTime = (24-launchHour)*60-launchTime.getMinutes();
   
-  console.log(newDayAlarmTime)
+  //console.log(newDayAlarmTime)
   if (!newDayAlarm) {
     
     var storedAlarm = await chrome.alarms.create('newDayAlarm', {
@@ -163,7 +163,7 @@ chrome.storage.onChanged.addListener(async (changes, storageArea) => {
     }
     if(key === "CAN_RETRIEVE_IMGS"){
       if(newValue){
-       //CAN RETRIEVE IMGS
+        autoLaunchImagesRetrieval(true);
       }
     }
     if(key === "options"){

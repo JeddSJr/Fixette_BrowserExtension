@@ -163,7 +163,6 @@ export async function displayAdditionalInfo(canDisplay=true,isLoading=false){
             listElement.appendChild(paragraph)
         })
         additionalInfoDisplay.appendChild(listElement)
-        console.log(additionalInfoDisplay)
     }
     else{
         additionalInfoDisplay.setAttribute("hidden","hidden")
@@ -181,7 +180,6 @@ function domStringMapToListElements(domStringMap){
         }
         else{paragraph.innerHTML += value }
         paragraph.className = "list-group-item"
-        console.log(paragraph)
         paragraphs.push(paragraph)
     }
     return paragraphs
