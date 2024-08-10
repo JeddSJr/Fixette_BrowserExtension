@@ -69,7 +69,7 @@ export function manuallyLaunchImagesRetrieval(){
     })
     buttonLoadingState(true)
     var ppOpt = validateSearchOptions()
-    retrieveImages(ppOpt)
+    retrieveImages(ppOpt,ppOpt["numDailyImgsRange"])
 }
 
 export function buttonLoadingState(isLoading=false){

@@ -41,7 +41,7 @@ async function autoLaunchImagesRetrieval(forceRetrieval=false){
     if(ppOpt === undefined){ppOpt = DefaultOptions;}
     
     displayLoadingState(true)
-    retrieveImages(ppOpt);
+    retrieveImages(ppOpt,ppOpt["numDailyImgsRange"]);
     await chrome.storage.sync.set({"CAN_RETRIEVE_IMGS":false}).then(()=>{ });
     
   }
@@ -75,7 +75,7 @@ async function setRightToRetrieveImgs(){
   let today = launchTime.getDate()
   let storedDay = await chrome.storage.sync.get("TODAY") //Hesitating between a set + listener or a get and if
   storedDay = storedDay["TODAY"];
-  if(storedDay == today){
+  if(storedDay != today){
     chrome.storage.sync.set({"TODAY":today});
     chrome.storage.sync.set({"CAN_RETRIEVE_IMGS":true});
   }
@@ -148,7 +148,7 @@ chrome.storage.onChanged.addListener(async (changes, storageArea) => {
     if(key === "DAILY_IMGS_KEY"){
       let indexImg = await chrome.storage.sync.get("INDEX_IMG_TO_DISPLAY");
       indexImg = indexImg["INDEX_IMG_TO_DISPLAY"];
-      if(indexImg != undefined){
+      if(indexImg != undefined && JSON.stringify(newValue[0]) !== JSON.stringify(oldValue[0])){
         setDisplayImg(newValue,indexImg)
       }
     }
