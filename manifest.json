@@ -14,7 +14,6 @@
   "action":{
     "default_icon":{
       "16": "src/imgs/icons/icon_16.png",
-      "50": "src/imgs/icons/icon_50.png",
       "128": "src/imgs/icons/icon_picture_128_white.png"
     },
     "default_popup": "src/html/interface_popup.html"
@@ -29,12 +28,12 @@
   },
   "icons":{
     "16": "src/imgs/icons/icon_16.png",
-    "50": "src/imgs/icons/icon_50.png",
     "128": "src/imgs/icons/icon_picture_128_white.png"
   },
   "permissions": [
     "storage",
-    "alarms"
+    "alarms",
+    "topSites"
   ]
 
 }

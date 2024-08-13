@@ -26,6 +26,17 @@
     a:hover{
         color: #82A8F1;
     }
+    
+    .topSitesCardImgSection{
+        border-bottom: 2px solid #dcdcdc;
+        background-color: #82A8F1;
+        border-top-left-radius: 5px;
+        border-top-right-radius: 5px;
+    }
+    
+    .topSitesCardBody{
+        color: black;
+    }
 }
 @media (prefers-color-scheme: dark) {  
     body {  
@@ -60,6 +71,21 @@
     a,
     a:hover{
         color: #f0f0f0a6;
+    }
+
+    .topSitesCardImgSection{
+        border-bottom: 2px solid #717171;
+        background-color: #ca181b98;
+        border-top-left-radius: 5px;
+        border-top-right-radius: 5px;
+    }
+
+    .topSitesCardBody{
+        color: white;
+    }
+
+    .card{
+        background-color: rgba(0,0 ,0,0.9);
     }
 }
 

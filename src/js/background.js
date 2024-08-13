@@ -60,7 +60,7 @@ async function setDisplayImg(imgs,indexImg){
   displayLoadingState(true)
   if(!indexImg){indexImg = 0}
   //console.log(indexImg);
-  //console.log(imgs);
+  console.log(imgs);
   let museumImage = imgs[indexImg]
   setMainImg(museumImage);
   var options = await chrome.storage.sync.get("options");
