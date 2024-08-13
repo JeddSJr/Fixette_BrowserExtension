@@ -8,6 +8,7 @@ window.addEventListener('load', async function() {
     var callButton = document.getElementById("callButton")
     var numDailyImgsRange = document.getElementById("numDailyImgsRange")
     var numDailyImgsRangeText = document.getElementById("numDailyImgsRangeText")
+    var numberDailyImgsTextValue = document.getElementById("numberDailyImgsTextValue")
     var searchOptionsSelect = document.getElementById("searchOptionsSelect")
     var searchOptButton = document.getElementById("searchOptButton")
     var enableAISelect = document.getElementById("enableAISelect")
@@ -30,7 +31,7 @@ window.addEventListener('load', async function() {
         "input",
         (event)=>{
             console.log(event.target.value)
-            numDailyImgsRangeText.innerText = "Number of images per day : "+numberDailyImgs[event.target.value]
+            numberDailyImgsTextValue.innerText = numberDailyImgs[event.target.value]
         }
     )
 
@@ -41,7 +42,7 @@ window.addEventListener('load', async function() {
 
     if(storedOptions !== undefined){
         numDailyImgsRange.value = numberDailyImgs.indexOf(storedOptions["numDailyImgsRange"])
-        numDailyImgsRangeText.innerText = "Number of images per day : "+storedOptions["numDailyImgsRange"]
+        numberDailyImgsTextValue.innerText = storedOptions["numDailyImgsRange"]
         enableAISelect.checked = storedOptions["enableAISelect"]
         enableImagesInfoSelect.checked = storedOptions["enableImagesInfoSelect"]
     }

@@ -193,16 +193,16 @@ function setUpTopSites(){
     
     
     chrome.topSites.get((topSites)=>{
-        var cardsSection = "<div class='container'><div class='row row-cols-1 row-cols-md-3'>"
+        var cardsSection = "<div class='container'><div class='row row-cols-md-3'>"
         topSites.forEach((site)=>{
             cardsSection += '<div class="col mb-4">'
             cardsSection += '<div class="card topSitesCard" style="width:100px;height:100px" title="'+site.title+'">'
             cardsSection += '<div class="topSitesCardImgSection" >'
-            cardsSection += '<img src="http://www.google.com/s2/favicons?domain='+site.url+'" class="img-fluid" alt="'+site.title+'" style="width:35%">'
+            cardsSection += '<img src="http://www.google.com/s2/favicons?domain_url='+site.url+'" class="img-fluid" alt="'+site.title+'" style="width:40%">'
             cardsSection += '</div>'
             cardsSection += '<a href="'+site.url+'" target="_blank" class="stretched-link"></a>'
             cardsSection += '<div class="card-body" >'
-            cardsSection += '<p class="text-center topSitesCardBody" style="font-size:11px;overflow:hidden;white-space: nowrap;text-overflow: ellipsis">'+site.title+'</p>'
+            cardsSection += '<p class="card-text topSitesCardBody" style="font-size:11px;overflow:hidden;white-space: nowrap;text-overflow: ellipsis;">'+site.title+'</p>'
             cardsSection += '</div>'
             cardsSection += '</div>'   
             cardsSection += '</div>'  
