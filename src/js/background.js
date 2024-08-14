@@ -148,7 +148,7 @@ chrome.storage.onChanged.addListener(async (changes, storageArea) => {
     if(key === "DAILY_IMGS_KEY"){
       let indexImg = await chrome.storage.sync.get("INDEX_IMG_TO_DISPLAY");
       indexImg = indexImg["INDEX_IMG_TO_DISPLAY"];
-      if(indexImg != undefined && JSON.stringify(newValue[0]) !== JSON.stringify(oldValue[0])){
+      if(oldValue == undefined || (indexImg != undefined && JSON.stringify(newValue[0]) !== JSON.stringify(oldValue[0]))){
         setDisplayImg(newValue,indexImg)
       }
     }
@@ -167,10 +167,14 @@ chrome.storage.onChanged.addListener(async (changes, storageArea) => {
       }
     }
     if(key === "options"){
-      if(newValue.numDailyImgsRange != oldValue.numDailyImgsRange){
+      if(oldValue === undefined){
+        displayAdditionalInfo(newValue.enableImagesInfoSelect);
         setIndexImgToDisplay(newValue.numDailyImgsRange);
       }
-      if(newValue.enableImagesInfoSelect != oldValue.enableImagesInfoSelect){
+      else if(newValue.numDailyImgsRange != oldValue.numDailyImgsRange){
+        setIndexImgToDisplay(newValue.numDailyImgsRange);
+      }
+      else if(newValue.enableImagesInfoSelect != oldValue.enableImagesInfoSelect){
         displayAdditionalInfo(newValue.enableImagesInfoSelect);
       }
     }

@@ -28,10 +28,10 @@
     }
     
     .topSitesCard{
-        height: 120px;
-        width: 120px;
-        border: 1px solid #dcdcdc;
-        border-radius: 5px;
+        height: 110px;
+        width: 110px;
+        border: 0px solid #dcdcdc;
+        border-radius: 10px;
     }
     
     .card:hover{
@@ -47,7 +47,7 @@
     }
 
     .topSitesTitle{
-        font-size:15px;
+        font-size:14px;
         color: #000;
         overflow:hidden;
         white-space: nowrap;

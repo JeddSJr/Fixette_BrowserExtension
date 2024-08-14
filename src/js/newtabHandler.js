@@ -207,7 +207,7 @@ function setUpTopSites(){
             cardsSection += '<div class="card topSitesCard d-flex justify-content-center ">'
             cardsSection += '<a href="'+site.url+'" target="_blank" class="stretched-link" title="'+site.title+'"></a>'
             //cardsSection += '<i class="bi bi-three-dots-vertical align-self-end start-100" fill="black" title="More options"></i>'
-            cardsSection += '<div class="topSitesCardImgSection align-self-center d-flex justify-content-center align-items-center"><img src="'+siteFavicon+'"></div>'
+            cardsSection += '<div class="topSitesCardImgSection align-self-center d-flex justify-content-center align-items-center mt-1"><img src="'+siteFavicon+'"></div>'
             cardsSection += '<p class="topSitesTitle mt-3 ms-2 me-2" >'+site.title+'</p>'
             cardsSection += '</div>'
             cardsSection += '</div>'   
