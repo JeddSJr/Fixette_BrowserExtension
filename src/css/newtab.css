@@ -27,15 +27,31 @@
         color: #82A8F1;
     }
     
-    .topSitesCardImgSection{
-        border-bottom: 2px solid #dcdcdc;
-        background-color: #82A8F1;
-        border-top-left-radius: 5px;
-        border-top-right-radius: 5px;
+    .topSitesCard{
+        height: 120px;
+        width: 120px;
+        border: 1px solid #dcdcdc;
+        border-radius: 5px;
     }
     
-    .topSitesCardBody{
-        color: black;
+    .card:hover{
+        background-color: #dcdcdc;
+    }
+       
+    .topSitesCardImgSection{
+        background-color: #82A8F1;
+        border-radius: 50%;
+        width: 50px;
+        height: 50px;
+        text-align: center;
+    }
+
+    .topSitesTitle{
+        font-size:15px;
+        color: #000;
+        overflow:hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
     }
 }
 @media (prefers-color-scheme: dark) {  

@@ -186,28 +186,34 @@ function domStringMapToListElements(domStringMap){
     }
     return paragraphs
 }
-
+function faviconURL(u) {
+    const url = new URL(chrome.runtime.getURL("/_favicon/"));
+    url.searchParams.set("pageUrl", u);
+    url.searchParams.set("size", "32");
+    return url.toString();
+  }
+  
 function setUpTopSites(){
 
     var artInfoDivRight = document.getElementById("artInfoDivRight")
     
     
     chrome.topSites.get((topSites)=>{
-        var cardsSection = "<div class='container'><div class='row row-cols-md-3'>"
+        var cardsSection = "<div class='row row-cols-md-3'>"
         topSites.forEach((site)=>{
-            cardsSection += '<div class="col mb-4">'
-            cardsSection += '<div class="card topSitesCard" style="width:100px;height:100px" title="'+site.title+'">'
-            cardsSection += '<div class="topSitesCardImgSection" >'
-            cardsSection += '<img src="http://www.google.com/s2/favicons?domain_url='+site.url+'" class="img-fluid" alt="'+site.title+'" style="width:40%">'
-            cardsSection += '</div>'
-            cardsSection += '<a href="'+site.url+'" target="_blank" class="stretched-link"></a>'
-            cardsSection += '<div class="card-body" >'
-            cardsSection += '<p class="card-text topSitesCardBody" style="font-size:11px;overflow:hidden;white-space: nowrap;text-overflow: ellipsis;">'+site.title+'</p>'
+            var siteFavicon = faviconURL(site.url)
+            console.log(site)
+            cardsSection += '<div class="col mb-2">'
+            cardsSection += '<div class="card topSitesCard d-flex justify-content-center ">'
+            cardsSection += '<a href="'+site.url+'" target="_blank" class="stretched-link" title="'+site.title+'"></a>'
+            //cardsSection += '<i class="bi bi-three-dots-vertical align-self-end start-100" fill="black" title="More options"></i>'
+            cardsSection += '<div class="topSitesCardImgSection align-self-center d-flex justify-content-center align-items-center"><img src="'+siteFavicon+'"></div>'
+            cardsSection += '<p class="topSitesTitle mt-3 ms-2 me-2" >'+site.title+'</p>'
             cardsSection += '</div>'
             cardsSection += '</div>'   
-            cardsSection += '</div>'  
         })
-        cardsSection += "</div></div>"
+        cardsSection += "</div>"
+        console.log(cardsSection)
         artInfoDivRight.innerHTML += cardsSection
         console.log(document.getElementsByClassName("topSitesCard"))
     })
