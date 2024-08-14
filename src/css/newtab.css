@@ -26,32 +26,17 @@
     a:hover{
         color: #82A8F1;
     }
-    
-    .topSitesCard{
-        height: 110px;
-        width: 110px;
-        border: 0px solid #dcdcdc;
-        border-radius: 10px;
-    }
-    
+        
     .card:hover{
         background-color: #dcdcdc;
     }
        
     .topSitesCardImgSection{
         background-color: #82A8F1;
-        border-radius: 50%;
-        width: 50px;
-        height: 50px;
-        text-align: center;
     }
 
     .topSitesTitle{
-        font-size:14px;
         color: #000;
-        overflow:hidden;
-        white-space: nowrap;
-        text-overflow: ellipsis;
     }
 }
 @media (prefers-color-scheme: dark) {  
@@ -89,21 +74,18 @@
         color: #f0f0f0a6;
     }
 
+    .card:hover{
+        background-color: #393939;
+    }
+       
     .topSitesCardImgSection{
-        border-bottom: 2px solid #717171;
         background-color: #ca181b98;
-        border-top-left-radius: 5px;
-        border-top-right-radius: 5px;
     }
 
-    .topSitesCardBody{
-        color: white;
-    }
-
-    .card{
+    .topSitesCard{
         background-color: rgb(19, 19, 19);
-        border-color: #717171;
     }
+
 }
 
 #imgCaption{
@@ -153,4 +135,25 @@
 a,
 a:hover{
     text-decoration: underline;
+}
+
+.topSitesCard{
+    height: 110px;
+    width: 110px;
+    border: 0px solid #dcdcdc;
+    border-radius: 10px;
+}
+   
+.topSitesCardImgSection{
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    text-align: center;
+}
+
+.topSitesTitle{
+    font-size:14px;
+    overflow:hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
