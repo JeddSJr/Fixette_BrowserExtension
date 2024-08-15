@@ -202,7 +202,6 @@ function setUpTopSites(){
         var cardsSection = "<div class='row row-cols-md-5'>"
         topSites.forEach((site)=>{
             var siteFavicon = faviconURL(site.url)
-            console.log(site)
             cardsSection += '<div class="col mb-0">'
             cardsSection += '<div class="card topSitesCard d-flex justify-content-center ">'
             cardsSection += '<a href="'+site.url+'" target="_blank" class="stretched-link" title="'+site.title+'"></a>'
@@ -213,8 +212,6 @@ function setUpTopSites(){
             cardsSection += '</div>'   
         })
         cardsSection += "</div>"
-        console.log(cardsSection)
         artInfoDivRight.innerHTML += cardsSection
-        console.log(document.getElementsByClassName("topSitesCard"))
     })
 }
