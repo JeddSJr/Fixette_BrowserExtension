@@ -16,7 +16,7 @@
         <img id="zoomImg" src="" class="img-fluid" />
     
     </div>
-    <div class="container-fluid pt-5 pb-5 text-center"  id="newTabContainer" >
+    <div class="container-fluid pt-3 pb-5 text-center"  id="newTabContainer" >
         <div class="row justify-content-center" style="width: 100%;">
 
             <div id="artInfoDivLeft" class="col col-3 d-flex justify-content-center d-none d-xl-block">
@@ -27,7 +27,7 @@
 
             <div class="col col-md-10 col-xl-6" >
                 <div class="row row-cols-1 d-flex justify-content-center">
-                <div class="col" id="loadingSpinnerDiv">
+                    <div class="col" id="loadingSpinnerDiv">
                     <div class="spinner-grow text-success" role="status">
                         <span class="visually-hidden">Loading...</span>
                       </div>
@@ -37,9 +37,9 @@
                       <div class="spinner-grow text-warning" role="status">
                         <span class="visually-hidden">Loading...</span>
                       </div>
-                </div>
+                    </div>
 
-                <div hidden class="col-7 d-flex justify-content-center" id="dezoomedImgContainer" style="cursor: pointer;" >
+                    <div hidden class="col-7 d-flex justify-content-center" id="dezoomedImgContainer" style="cursor: pointer;" >
                     <div hidden class="col" id="dezoomedImgContainerLandscape" >
                         
                         <img id="displayImgL" src="" class="img-thumbnail img-fluid " style="cursor: pointer;" />
@@ -51,22 +51,26 @@
                         <img id="displayImgP" src="" class="img-thumbnail img-fluid " style="cursor: pointer;" /> 
                             
                     </div>
-                </div>
+                    </div>
 
-                <p id="imgCaption" ></p>
+                    <p id="imgCaption" ></p>
 
-                <div class="col pt-5">
+                    <div class="col pt-3">
                     <form action="https://www.google.com/search" method="get" class="search-bar-form">
                         <div class="bar d-flex align-items-center justify-content-start">
                             <input type="image" class="searchIcon" src="../imgs/icons/icon_search_50.png" ></input>
                             <input class="searchbar ms-3" name="q" type="text" title="Search" placeholder="Search Google or type a URL" required ></input>
                         </div>
                     </form>
-                </div>
+                    </div>
+
+                    <div class="col pt-5" id="artInfoDivRight" style="width: 70%;">
+
+                    </div>
                 </div>
             </div>
 
-            <div id="artInfoDivRight" class="col col-3 d-flex align-items-center justify-content-center  d-none d-xl-block" >
+            <div  class="col col-3 d-flex align-items-center justify-content-center  d-none d-xl-block" >
                 
             </div>
 

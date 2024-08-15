@@ -83,7 +83,7 @@
     }
 
     .topSitesCard{
-        background-color: rgb(19, 19, 19);
+        background-color: rgba(0, 0, 0, 0);
     }
 
 }
@@ -138,21 +138,21 @@ a:hover{
 }
 
 .topSitesCard{
-    height: 110px;
-    width: 110px;
+    height: 100px;
+    width: 100px;
     border: 0px solid #dcdcdc;
-    border-radius: 10px;
+    border-radius: 7.5px;
 }
    
 .topSitesCardImgSection{
     border-radius: 50%;
-    width: 50px;
-    height: 50px;
+    width: 45px;
+    height: 45px;
     text-align: center;
 }
 
 .topSitesTitle{
-    font-size:14px;
+    font-size:11px;
     overflow:hidden;
     white-space: nowrap;
     text-overflow: ellipsis;

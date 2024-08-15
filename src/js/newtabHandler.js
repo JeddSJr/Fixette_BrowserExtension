@@ -199,16 +199,16 @@ function setUpTopSites(){
     
     
     chrome.topSites.get((topSites)=>{
-        var cardsSection = "<div class='row row-cols-md-3'>"
+        var cardsSection = "<div class='row row-cols-md-5'>"
         topSites.forEach((site)=>{
             var siteFavicon = faviconURL(site.url)
             console.log(site)
-            cardsSection += '<div class="col mb-2">'
+            cardsSection += '<div class="col mb-0">'
             cardsSection += '<div class="card topSitesCard d-flex justify-content-center ">'
             cardsSection += '<a href="'+site.url+'" target="_blank" class="stretched-link" title="'+site.title+'"></a>'
             //cardsSection += '<i class="bi bi-three-dots-vertical align-self-end start-100" fill="black" title="More options"></i>'
             cardsSection += '<div class="topSitesCardImgSection align-self-center d-flex justify-content-center align-items-center mt-1"><img src="'+siteFavicon+'"></div>'
-            cardsSection += '<p class="topSitesTitle mt-3 ms-2 me-2" >'+site.title+'</p>'
+            cardsSection += '<p class="topSitesTitle mt-2 ms-2 me-2" >'+site.title+'</p>'
             cardsSection += '</div>'
             cardsSection += '</div>'   
         })
