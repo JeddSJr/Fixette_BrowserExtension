@@ -216,7 +216,7 @@ function switchInfoToImg(state){
     
     var displayedImgL = document.getElementById("displayImgL");
     var displayedImgP = document.getElementById("displayImgP"); 
-    
+
     var additionalInfoDisplay = document.getElementById("additionalInfoDisplay")
 
     additionalInfoDisplay.innerHTML = " "
