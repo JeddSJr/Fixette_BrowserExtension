@@ -1,7 +1,7 @@
 {
   "name":  "Fixette",
   "description": "Display images of art pieces as background of the new tab with a brieve description.",
-  "version": "1.0",
+  "version": "1.1.0",
   "manifest_version": 3,
   "author": "JeddSJr",
   

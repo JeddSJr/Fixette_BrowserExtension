@@ -1,4 +1,10 @@
 var MUSEUMIMAGEDISPLAYED = null;
+var CANDISPLAYINFO = false;
+var ISLOADINGSTATE = false;
+var ADDINFOLISTELEMENTS = document.createElement("ul")
+ADDINFOLISTELEMENTS.className = "list-group "
+var ORIENTATION = "landscape";
+
 window.addEventListener('load', function() {
     
     var zoomedImgContainer = document.getElementById("zoomedImgContainer");
@@ -6,6 +12,10 @@ window.addEventListener('load', function() {
 
     var dezoomedImgContainerL = document.getElementById("dezoomedImgContainerLandscape")
     var dezoomedImgContainerP = document.getElementById("dezoomedImgContainerPortrait")
+
+    var dezoomedImgContainer = document.getElementById("dezoomedImgContainer")
+
+    var additionalInfoDisplay = document.getElementById("additionalInfoDisplay")
 
     function changeImageZoom() {
         var zoomedImgHidden = zoomedImgContainer.getAttribute("hidden");
@@ -41,6 +51,18 @@ window.addEventListener('load', function() {
     }
 
     setUpTopSites()
+
+    dezoomedImgContainer.addEventListener("mouseover",()=>{
+        switchInfoToImg("info")
+    })
+
+    additionalInfoDisplay.addEventListener("mouseleave",()=>{
+        switchInfoToImg("img")
+    })
+    
+    additionalInfoDisplay.addEventListener("dblclick",()=>{
+        changeImageZoom()
+    })
 })
 
 export function setMainImg(museumImage) {
@@ -116,10 +138,12 @@ function checKOrientation(img) {
     if(nWidth < nHeight){ 
         dezoomedImgContainerP.removeAttribute("hidden")
         dezoomedImgContainerL.setAttribute("hidden","hidden")
+        ORIENTATION = "portrait"
     }
     else{ 
         dezoomedImgContainerL.removeAttribute("hidden")
         dezoomedImgContainerP.setAttribute("hidden","hidden")
+        ORIENTATION = "landscape"
     }
 }
 
@@ -149,27 +173,70 @@ export function displayLoadingState(isLoading=false){
     }
 }
 
-export async function displayAdditionalInfo(canDisplay=true,isLoading=false){
+export async function setAdditionalInfo(canDisplay=true,isLoading=false){
+    console.log("Setting additional info")
+    CANDISPLAYINFO = canDisplay;
+    ISLOADINGSTATE = isLoading;
+
     var additionalInfoDisplay = document.getElementById("additionalInfoDisplay")
     var displayedImgL = document.getElementById("displayImgL");
     var displayedImgP = document.getElementById("displayImgP"); 
-    additionalInfoDisplay.textContent = ' '
 
+    var dezoomedImgContainerL = document.getElementById("dezoomedImgContainerLandscape")
+    var dezoomedImgContainerP = document.getElementById("dezoomedImgContainerPortrait")
+
+    additionalInfoDisplay.innerHTML = " "
+    ADDINFOLISTELEMENTS.innerHTML = " "
+    
     if(canDisplay && isLoading === false){
-        additionalInfoDisplay.removeAttribute("hidden")
-        var listElement = document.createElement("ul")
-        listElement.className = "list-group "
         let data = await displayedImgP.dataset
         let paragraphs = domStringMapToListElements(data)
         paragraphs.forEach((paragraph)=>{
-            listElement.appendChild(paragraph)
+            ADDINFOLISTELEMENTS.appendChild(paragraph)
         })
-        additionalInfoDisplay.appendChild(listElement)
+        let themeColor = document.querySelector("meta[name=theme-color]").content
+        displayedImgL.style.backgroundColor = themeColor
+        displayedImgP.style.backgroundColor = themeColor
     }
     else{
-        additionalInfoDisplay.setAttribute("hidden","hidden")
+        displayedImgL.style.backgroundColor = "white"
+        displayedImgP.style.backgroundColor = "white"
     }
     
+}
+
+function switchInfoToImg(state){
+    console.log("Switching info to img")
+    if(!CANDISPLAYINFO){
+        return}
+    
+
+    var dezoomedImgContainerL = document.getElementById("dezoomedImgContainerLandscape")
+    var dezoomedImgContainerP = document.getElementById("dezoomedImgContainerPortrait")
+    
+    var displayedImgL = document.getElementById("displayImgL");
+    var displayedImgP = document.getElementById("displayImgP"); 
+    
+    var additionalInfoDisplay = document.getElementById("additionalInfoDisplay")
+
+    additionalInfoDisplay.innerHTML = " "
+
+    dezoomedImgContainerL.setAttribute("hidden","hidden")
+    dezoomedImgContainerP.setAttribute("hidden","hidden")
+    additionalInfoDisplay.setAttribute("hidden","hidden")
+
+    if(state === "info"){
+        additionalInfoDisplay.innerHTML += ADDINFOLISTELEMENTS.outerHTML
+        additionalInfoDisplay.removeAttribute("hidden")
+    }
+    if(state === "img"){
+        if(ORIENTATION === "landscape"){ 
+            dezoomedImgContainerL.removeAttribute("hidden")
+        }
+        else{ 
+            dezoomedImgContainerP.removeAttribute("hidden")
+        }
+    }
 }
 
 function domStringMapToListElements(domStringMap){
@@ -186,6 +253,7 @@ function domStringMapToListElements(domStringMap){
     }
     return paragraphs
 }
+
 function faviconURL(u) {
     const url = new URL(chrome.runtime.getURL("/_favicon/"));
     url.searchParams.set("pageUrl", u);
@@ -194,9 +262,7 @@ function faviconURL(u) {
   }
   
 function setUpTopSites(){
-
     var artInfoDivRight = document.getElementById("artInfoDivRight")
-    
     
     chrome.topSites.get((topSites)=>{
         var cardsSection = "<div class='row row-cols-md-5'>"

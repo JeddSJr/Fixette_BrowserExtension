@@ -38,6 +38,13 @@
     .topSitesTitle{
         color: #000;
     }
+
+    #displayImgL{
+        background-color: #FFCAFA;
+    }
+    #displayImgP{
+        background-color: #FFCAFA;
+    }
 }
 @media (prefers-color-scheme: dark) {  
     body {  
@@ -86,6 +93,12 @@
         background-color: rgba(0, 0, 0, 0);
     }
 
+    #displayImgL{
+        background-color: #CA181C;
+    }
+    #displayImgP{
+        background-color: #CA181C;
+    }
 }
 
 #imgCaption{

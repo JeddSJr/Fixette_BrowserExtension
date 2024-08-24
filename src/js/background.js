@@ -1,6 +1,6 @@
 import {retrieveImages} from './retrieveImages.js'
 import { setMainImg } from './newtabHandler.js';
-import { displayLoadingState,displayAdditionalInfo } from './newtabHandler.js';
+import { displayLoadingState,setAdditionalInfo } from './newtabHandler.js';
 
 
 chrome.runtime.onInstalled.addListener((details)  => {
@@ -70,7 +70,7 @@ async function setDisplayImg(imgs,indexImg){
   options = options["options"];
   
   var canDisplayMoreInfos = options === undefined ? DefaultOptions.enableImagesInfoSelect : options.enableImagesInfoSelect;
-  displayAdditionalInfo(canDisplayMoreInfos)
+  setAdditionalInfo(canDisplayMoreInfos)
 }
 
 async function setRightToRetrieveImgs(){
@@ -163,22 +163,20 @@ chrome.storage.onChanged.addListener(async (changes, storageArea) => {
     if(key === "CAN_RETRIEVE_IMGS"){
       if(newValue){
         chrome.storage.sync.set({"CAN_RETRIEVE_IMGS":false}).then(()=>{
-          console.log('is loading: '+isRetrieving); 
-          console.log('Retrieving images');
           autoLaunchImagesRetrieval(true);
         });
       }
     }
     if(key === "options"){
       if(oldValue === undefined){
-        displayAdditionalInfo(newValue.enableImagesInfoSelect);
+        setAdditionalInfo(newValue.enableImagesInfoSelect);
         setIndexImgToDisplay(newValue.numDailyImgsRange);
       }
       else if(newValue.numDailyImgsRange != oldValue.numDailyImgsRange){
         setIndexImgToDisplay(newValue.numDailyImgsRange);
       }
       else if(newValue.enableImagesInfoSelect != oldValue.enableImagesInfoSelect){
-        displayAdditionalInfo(newValue.enableImagesInfoSelect);
+        setAdditionalInfo(newValue.enableImagesInfoSelect);
       }
     }
   }
