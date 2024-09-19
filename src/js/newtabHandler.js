@@ -194,7 +194,14 @@ export async function setAdditionalInfo(canDisplay=true,isLoading=false){
         paragraphs.forEach((paragraph)=>{
             ADDINFOLISTELEMENTS.appendChild(paragraph)
         })
-        let themeColor = document.querySelector("meta[name=theme-color]").content
+        let themeColor = "white"
+        if (window.matchMedia) {
+            if(window.matchMedia('(prefers-color-scheme: dark)').matches){
+                themeColor = document.querySelector("meta[name=dark-theme-color]").content
+            } else {
+                themeColor = document.querySelector("meta[name=light-theme-color]").content
+            }
+        }
         displayedImgL.style.backgroundColor = themeColor
         displayedImgP.style.backgroundColor = themeColor
     }
