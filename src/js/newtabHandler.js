@@ -3,7 +3,7 @@ var CANDISPLAYINFO = false;
 var ISLOADINGSTATE = false;
 var ADDINFOLISTELEMENTS = document.createElement("ul")
 ADDINFOLISTELEMENTS.className = "list-group "
-var ORIENTATION = "landscape";
+var orientation = "landscape";
 
 window.addEventListener('load', function() {
     
@@ -138,12 +138,12 @@ function checKOrientation(img) {
     if(nWidth < nHeight){ 
         dezoomedImgContainerP.removeAttribute("hidden")
         dezoomedImgContainerL.setAttribute("hidden","hidden")
-        ORIENTATION = "portrait"
+        orientation = "portrait"
     }
     else{ 
         dezoomedImgContainerL.removeAttribute("hidden")
         dezoomedImgContainerP.setAttribute("hidden","hidden")
-        ORIENTATION = "landscape"
+        orientation = "landscape"
     }
 }
 
@@ -237,7 +237,7 @@ function switchInfoToImg(state){
         additionalInfoDisplay.removeAttribute("hidden")
     }
     if(state === "img"){
-        if(ORIENTATION === "landscape"){ 
+        if(orientation === "landscape"){ 
             dezoomedImgContainerL.removeAttribute("hidden")
         }
         else{ 

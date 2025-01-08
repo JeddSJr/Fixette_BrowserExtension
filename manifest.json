@@ -19,10 +19,6 @@
     "default_popup": "src/html/interface_popup.html"
   },
 
-  "background": {
-    "scripts": ["src/js/background.js"]
-  },
-
   "chrome_url_overrides":{
     "newtab": "src/html/override_newtab.html"
   },

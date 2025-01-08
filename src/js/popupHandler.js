@@ -49,7 +49,7 @@ window.addEventListener('load', async function() {
 
     var isLoadingImgs = await chrome.storage.sync.get("isLoadingImgs")
     isLoadingImgs = isLoadingImgs["isLoadingImgs"]
-    console.log("isLoadingImgs: "+isLoadingImgs)
+    
     buttonLoadingState(isLoadingImgs)
 
 })
