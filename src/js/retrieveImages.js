@@ -5,7 +5,7 @@ import MuseumImage from  './museumImage.js'
 /*
 Function to fetch the urls of imgs of artworks from the Louvre
 */
-const MaxDailyImgs = 12;
+const MaxImgsBatchSize = 12;
 
 async function LouvreAPIRetrieveImgs() {
   callLouvreApi();
@@ -18,7 +18,7 @@ async function LouvreAPIRetrieveImgs() {
 /*
 Function to fetch the urls of imgs of artworks from the MetMuseum
 */
-async function MetAPIRetrieveImgs(metOptions,numDailyImgs) {
+async function MetAPIRetrieveImgs(metOptions,numImgsBatch) {
   
   var idsRqst = 'https://collectionapi.metmuseum.org/public/collection/v1/objects?';
   var objRqst = "https://collectionapi.metmuseum.org/public/collection/v1/objects/";
@@ -73,7 +73,7 @@ async function MetAPIRetrieveImgs(metOptions,numDailyImgs) {
     
     var objects = await Promise.all(objectsJson);
     
-    for (let i = 0; i < objects.length && imgsArr.length <numDailyImgs; i++) {
+    for (let i = 0; i < objects.length && imgsArr.length <numImgsBatch; i++) {
       const objData = objects[i];
       if(objData.primaryImage.trim().length !== 0 && objData.isPublicDomain){
         imgsArr.push(new MuseumImage(
@@ -96,8 +96,8 @@ async function MetAPIRetrieveImgs(metOptions,numDailyImgs) {
 
   var response = await APICall()
 
-  while(imgsArr.length<numDailyImgs){
-    let ids = await GetNIds(response,numDailyImgs-imgsArr.length)
+  while(imgsArr.length<numImgsBatch){
+    let ids = await GetNIds(response,numImgsBatch-imgsArr.length)
     await GetImgRqstMet(ids)
   }
   return imgsArr;
@@ -108,7 +108,7 @@ async function MetAPIRetrieveImgs(metOptions,numDailyImgs) {
 * Retrieve images from the museums databases by calling their respective API, transforming the data if needed then storing it in the chrome storage
 * ppOpt:dict{museum:string,metOptions:dict,lvrOptions} // Options from the pop-up interfaces that defines where and what we want to retrieve
 */
-async function ApiSelection(ppOpt,numDailyImgs){
+async function ApiSelection(ppOpt,numImgsBatch){
   var apiRqst;
   if (ppOpt.museum === "Louvre") {
     return (await LouvreAPIRetrieveImgs());
@@ -119,22 +119,22 @@ async function ApiSelection(ppOpt,numDailyImgs){
       //medium: "Watercolor"
     }
     metOptions.medium = ppOpt.medium;
-    return (await MetAPIRetrieveImgs(metOptions,numDailyImgs));
+    return (await MetAPIRetrieveImgs(metOptions,numImgsBatch));
   }
 }
 
-export async function retrieveImages(ppOpt,numDailyImgs=MaxDailyImgs) {
+export async function retrieveImages(ppOpt,numImgsBatch=MaxImgsBatchSize) {
  
-  const dailyImgs = await ApiSelection(ppOpt,numDailyImgs);
+  const imgsBatch = await ApiSelection(ppOpt,numImgsBatch);
   
   //console.log("Images retrieved");
   //console.log(dailyImgs);
-  storeImgs(dailyImgs)
-  var remainingImgsNum = MaxDailyImgs - dailyImgs.length;
+  storeImgs(imgsBatch)
+  var remainingImgsNum = MaxImgsBatchSize - imgsBatch.length;
   if(remainingImgsNum>0){
     var remainingImgs = await ApiSelection(ppOpt,remainingImgsNum);
-    dailyImgs.push(...remainingImgs);
-    storeImgs(dailyImgs);
+    imgsBatch.push(...remainingImgs);
+    storeImgs(imgsBatch);
   }
 
 }

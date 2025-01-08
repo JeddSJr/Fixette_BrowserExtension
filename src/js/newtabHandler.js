@@ -121,6 +121,23 @@ export function setMainImg(museumImage) {
     }
 }
 
+export function setBackgroundImage(canSetAsBackground=false,museumImage=MUSEUMIMAGEDISPLAYED){
+    if(canSetAsBackground && museumImage){
+        console.log("Setting background image")
+        console.log(museumImage)
+        var body = document.body
+        body.style.backgroundImage = "url('"+museumImage.imgSrc+"')"
+        body.style.backgroundSize = "cover"
+        body.style.backgroundRepeat = "no-repeat"
+        body.style.backgroundAttachment = "fixed"
+        body.style.backgroundPosition = "center"
+        body.style.backgroundColor = "black"
+    }
+    else{
+        document.body.removeAttribute("style")
+    }
+}
+
 /*
 $('.search-bar-form').submit(function(event) {
         event.preventDefault()
@@ -173,7 +190,7 @@ export function displayLoadingState(isLoading=false){
     }
 }
 
-export async function setAdditionalInfo(canDisplay=true,isLoading=false){
+export async function setAdditionalInfo(canDisplay=CANDISPLAYINFO,isLoading=ISLOADINGSTATE){
     console.log("Setting additional info")
     CANDISPLAYINFO = canDisplay;
     ISLOADINGSTATE = isLoading;

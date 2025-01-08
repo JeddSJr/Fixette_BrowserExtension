@@ -24,6 +24,7 @@
                     <option value="0" selected>Number of images</option>
                     <option hidden value="1">AI insight</option> 
                     <option value="2">Complementary informations</option>
+                    <option value="3">Set image as Background</option>
                 </select>
                 <div id="NumImgsOptions" >
                     
@@ -48,6 +49,12 @@
                     <div class="form-check-inline form-check form-switch ">    
                         <label id="EnableImagesInfoText" for="EnableImagesInfoCheck" class="form-label">Display informations from the museum <i class="bi bi-info-circle" title="Those informations are some of those the museum decided to make available. &#013;They are correct and verifiable but aren't the same museum to museum"></i></label>
                         <input id="enableImagesInfoSelect" class="form-check-input " type="checkbox" role="switch"  >
+                    </div>
+                </div>
+                <div hidden id="SetBackgroundImageOptions" >
+                    <div class="form-check-inline form-check form-switch ">    
+                        <label id="SetBackgroundImageText" for="SetBackgroundImageCheck" class="form-label">Set image on display as tab's background <i class="bi bi-info-circle" title="Set the image of the art on display as the full background of your newtab instead &#013;of having it in a container. Proportions might get strange"></i></label>
+                        <input id="setBackgroundImageSelect" class="form-check-input " type="checkbox" role="switch"  >
                     </div>
                 </div>
                 <button id="searchOptButton" type="button" class="btn btn-outline-primary btn-sm">Save</button>

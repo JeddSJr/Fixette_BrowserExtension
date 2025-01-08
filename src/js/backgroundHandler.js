@@ -1,5 +1,5 @@
 import {retrieveImages} from './retrieveImages.js'
-import { displayLoadingState as putNewTabInLoadingState,setAdditionalInfo, setMainImg as setNewTabImg} from './newtabHandler.js' ;
+import { displayLoadingState as putNewTabInLoadingState,setAdditionalInfo, setMainImg as setNewTabImg, setBackgroundImage} from './newtabHandler.js' ;
 import { DefaultPpOptions as dppOpt } from './popupHandler.js';
 
 // Global variables
@@ -121,6 +121,9 @@ async function setDisplayImg(imgs_batch,indexImg){
   
   var canDisplayMoreInfos = options === undefined ? DefaultPpOptions.enableImagesInfoSelect : options.enableImagesInfoSelect;
   setAdditionalInfo(canDisplayMoreInfos)
+
+  var canSetBackgroundImage = options === undefined ? DefaultPpOptions.setBackgroundImageSelect : options.setBackgroundImageSelect;
+  setBackgroundImage(canSetBackgroundImage,museumImage);
 }
 
 async function getHoursChange(numberImgs=undefined){
@@ -159,14 +162,13 @@ chrome.storage.onChanged.addListener(async (changes, storageArea) => {
     }
 
     if(key === "INDEX_IMG_TO_DISPLAY"){
-      let imgs = await chrome.storage.sync.get("DAILY_IMGS_KEY");
-      imgs = imgs["DAILY_IMGS_KEY"];
-      if(imgs != undefined){
-        setDisplayImg(imgs,newValue)
-
+      let imgs_batch = await chrome.storage.sync.get("DAILY_IMGS_KEY");
+      imgs_batch = imgs_batch["DAILY_IMGS_KEY"];
+      if(imgs_batch != undefined){
+        setDisplayImg(imgs_batch,newValue)
       }    
-
     }
+
     if(key === "CAN_RETRIEVE_IMGS"){
       if(newValue){
         chrome.storage.sync.set({"CAN_RETRIEVE_IMGS":false}).then(()=>{
@@ -176,15 +178,22 @@ chrome.storage.onChanged.addListener(async (changes, storageArea) => {
     }
 
     if(key === "options"){
+      console.log(oldValue);
+      console.log(newValue);
       if(oldValue === undefined){
         setAdditionalInfo(newValue.enableImagesInfoSelect);
         setIndexImgToDisplay(newValue.numDailyImgsRange);
+        setBackgroundImage(newValue.setBackgroundImageSelect);
       }
       else if(newValue.numDailyImgsRange != oldValue.numDailyImgsRange){
         setIndexImgToDisplay(newValue.numDailyImgsRange);
       }
       else if(newValue.enableImagesInfoSelect != oldValue.enableImagesInfoSelect){
         setAdditionalInfo(newValue.enableImagesInfoSelect);
+      }
+      else if(newValue.setBackgroundImageSelect != oldValue.setBackgroundImageSelect){
+        console.log('change background');
+        setBackgroundImage(newValue.setBackgroundImageSelect);
       }
     }
   }

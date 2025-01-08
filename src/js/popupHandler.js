@@ -1,9 +1,16 @@
 import {retrieveImages} from './retrieveImages.js'
 
 const numberDailyImgs = [1,2,3,4,6,8,12]
-const searchOptionsIds = ["NumImgsOptions","EnableAIOptions","EnableImagesInfoOptions"]
-const searchOptionsInputs = ["musOptions","numDailyImgsRange","enableAISelect","enableImagesInfoSelect"]
-export const DefaultPpOptions = {"museum": "Met", "medium": null, "numDailyImgsRange": 4, "enableAISelect": false, "enableImagesInfoSelect": true}
+const searchOptionsIds = ["NumImgsOptions","EnableAIOptions","EnableImagesInfoOptions","SetBackgroundImageOptions"]
+const searchOptionsInputs = ["musOptions","numDailyImgsRange","enableAISelect","enableImagesInfoSelect","setBackgroundImageSelect"]
+export const DefaultPpOptions = {
+    "museum": "Met", 
+    "medium": null, 
+    "numDailyImgsRange": 4, 
+    "enableAISelect": false, 
+    "enableImagesInfoSelect": true,
+    "setBackgroundImageSelect": false
+}
 
 window.addEventListener('load', async function() {
     var callButton = document.getElementById("callButton")
@@ -14,6 +21,7 @@ window.addEventListener('load', async function() {
     var searchOptButton = document.getElementById("searchOptButton")
     var enableAISelect = document.getElementById("enableAISelect")
     var enableImagesInfoSelect = document.getElementById("enableImagesInfoSelect")
+    var enableBackgroundImageSelect = document.getElementById("setBackgroundImageSelect")
 
     var storedOptions = await chrome.storage.sync.get("options")
     storedOptions = storedOptions["options"]
@@ -46,6 +54,7 @@ window.addEventListener('load', async function() {
         numberDailyImgsTextValue.innerText = storedOptions["numDailyImgsRange"]
         enableAISelect.checked = storedOptions["enableAISelect"]
         enableImagesInfoSelect.checked = storedOptions["enableImagesInfoSelect"]
+        enableBackgroundImageSelect.checked = storedOptions["setBackgroundImageSelect"]
     }
 
     var isLoadingImgs = await chrome.storage.sync.get("isLoadingImgs")
@@ -99,9 +108,11 @@ function validateSearchOptions(){
             case "musOptions":
                 ppOpt["museum"] = document.querySelector("input[name='"+ inputId+"']:checked").value
                 break
+
             case "numDailyImgsRange":
                 ppOpt[inputId] = numberDailyImgs[document.getElementById(inputId).value]
                 break
+
             case "enableAISelect":
                 ppOpt[inputId] = document.getElementById(inputId).checked
                 break
@@ -109,9 +120,12 @@ function validateSearchOptions(){
             case "enableImagesInfoSelect":
                 ppOpt[inputId] = document.getElementById(inputId).checked
                 break
+
+            case "setBackgroundImageSelect":
+                ppOpt[inputId] = document.getElementById(inputId).checked
+                break
         }
     })
-
     console.log(ppOpt)
     storeOptions(ppOpt)
     return ppOpt
