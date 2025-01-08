@@ -3,6 +3,7 @@ import {retrieveImages} from './retrieveImages.js'
 const numberDailyImgs = [1,2,3,4,6,8,12]
 const searchOptionsIds = ["NumImgsOptions","EnableAIOptions","EnableImagesInfoOptions"]
 const searchOptionsInputs = ["musOptions","numDailyImgsRange","enableAISelect","enableImagesInfoSelect"]
+export const DefaultPpOptions = {"museum": "Met", "medium": null, "numDailyImgsRange": 4, "enableAISelect": false, "enableImagesInfoSelect": true}
 
 window.addEventListener('load', async function() {
     var callButton = document.getElementById("callButton")

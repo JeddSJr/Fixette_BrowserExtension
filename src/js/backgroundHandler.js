@@ -1,14 +1,9 @@
 import {retrieveImages} from './retrieveImages.js'
 import { displayLoadingState as putNewTabInLoadingState,setAdditionalInfo, setMainImg as setNewTabImg} from './newtabHandler.js' ;
+import { DefaultPpOptions as dppOpt } from './popupHandler.js';
 
 // Global variables
-const DefaultPpOptions = {
-  "museum": "Met",
-  "medium": null,
-  "numDailyImgsRange": 4,
-  "enableAISelect": false,
-  "enableImagesInfoSelect": true
-}
+const DefaultPpOptions = dppOpt
 
 var NextAlarmTime = 0;
 var NewDayAlarmTime = 0;
