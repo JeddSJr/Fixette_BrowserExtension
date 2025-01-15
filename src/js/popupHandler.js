@@ -12,8 +12,7 @@ export const DefaultPpOptions = {
     "setBackgroundImageSelect": false
 }
 
-window.addEventListener('load', async function() {
-    var callButton = document.getElementById("callButton")
+window.addEventListener('DOMContentLoaded', async function() {
     var numDailyImgsRange = document.getElementById("numDailyImgsRange")
     var numDailyImgsRangeText = document.getElementById("numDailyImgsRangeText")
     var numberDailyImgsTextValue = document.getElementById("numberDailyImgsTextValue")
@@ -22,14 +21,10 @@ window.addEventListener('load', async function() {
     var enableAISelect = document.getElementById("enableAISelect")
     var enableImagesInfoSelect = document.getElementById("enableImagesInfoSelect")
     var enableBackgroundImageSelect = document.getElementById("setBackgroundImageSelect")
+    var callButton = document.getElementById("callButton")
 
     var storedOptions = await chrome.storage.sync.get("options")
     storedOptions = storedOptions["options"]
-
-    callButton.addEventListener(
-        "click",
-        manuallyLaunchImagesRetrieval
-    )
 
     searchOptButton.addEventListener(
         "click",
@@ -47,6 +42,11 @@ window.addEventListener('load', async function() {
     searchOptionsSelect.addEventListener(
         "change",
         showSelectedSearchOption
+    )
+
+    callButton.addEventListener(
+        "click",
+        manuallyLaunchImagesRetrieval
     )
 
     if(storedOptions !== undefined){
