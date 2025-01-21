@@ -22,16 +22,21 @@
   "chrome_url_overrides":{
     "newtab": "src/html/override_newtab.html"
   },
+
   "icons":{
     "16": "src/imgs/icons/icon_16.png",
     "128": "src/imgs/icons/icon_picture_128_white.png"
   },
+
+  "options_page":"src/html/options_page.html",
+
   "permissions": [
     "storage",
     "alarms",
     "topSites",
     "favicon"
   ],
+  
   "web_accessible_resources": [
     {
       "resources": ["_favicon/*"],

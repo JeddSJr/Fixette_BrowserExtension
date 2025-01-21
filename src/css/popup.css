@@ -130,6 +130,9 @@ a:hover{
   text-align: center;
 }
   
+#iconsAcknowledgment{
+  font-size: 10px;
+}
 .separator::before,
 .separator::after {
   content: '';
@@ -163,6 +166,7 @@ a:hover{
 {
   background: gray;
 }
+
 
 
 
