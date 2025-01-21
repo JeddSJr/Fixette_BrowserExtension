@@ -25,7 +25,7 @@ async function backgroundCheck(params) {
 
 async function setRightToRetrieveImgs(){
   let today = LaunchTime.getDate()
-  let storedDay = await chrome.storage.sync.get("TODAY") //Hesitating between a set + listener or a get and if
+  let storedDay = await chrome.storage.sync.get("TODAY") 
   storedDay = storedDay["TODAY"];
   if(storedDay != today){
     chrome.storage.sync.set({"TODAY":today});
@@ -33,7 +33,7 @@ async function setRightToRetrieveImgs(){
   }
 }
 
-async function setIndexImgToDisplay(numberImgs=undefined){ //Make it a do while loop
+async function setIndexImgToDisplay(numberImgs=undefined){ 
   //console.log('launchTime: '+launchTime.getHours()+':'+launchTime.getMinutes());
   let launchHour = LaunchTime.getHours();
   let hoursChange = await getHoursChange(numberImgs);
@@ -110,8 +110,6 @@ async function setDisplayImg(imgs_batch,indexImg){
   CurrentlyRetrieving = false;
   putNewTabInLoadingState(true)
   if(!indexImg){indexImg = 0}
-  console.log(indexImg);
-  console.log(imgs_batch);
   
   let museumImage = imgs_batch[indexImg]
   setNewTabImg(museumImage);
@@ -138,7 +136,7 @@ async function getHoursChange(numberImgs=undefined){
   }
   
   if(numberImgs === undefined){
-    var ppOpt = await chrome.storage.sync.get("options") //add default pop up options
+    var ppOpt = await chrome.storage.sync.get("options") 
     ppOpt = ppOpt["options"];
     if(ppOpt === undefined){ppOpt = DefaultPpOptions;}
     numberImgs = ppOpt.numDailyImgsRange;
@@ -178,8 +176,6 @@ chrome.storage.onChanged.addListener(async (changes, storageArea) => {
     }
 
     if(key === "options"){
-      console.log(oldValue);
-      console.log(newValue);
       if(oldValue === undefined){
         setAdditionalInfo(newValue.enableImagesInfoSelect);
         setIndexImgToDisplay(newValue.numDailyImgsRange);
@@ -192,7 +188,6 @@ chrome.storage.onChanged.addListener(async (changes, storageArea) => {
         setAdditionalInfo(newValue.enableImagesInfoSelect);
       }
       else if(newValue.setBackgroundImageSelect != oldValue.setBackgroundImageSelect){
-        console.log('change background');
         setBackgroundImage(newValue.setBackgroundImageSelect);
       }
     }

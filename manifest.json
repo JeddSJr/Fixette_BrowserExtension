@@ -3,7 +3,7 @@
   "description": "Display images of art pieces as background of the new tab with a brieve description.",
   "version": "1.1.0",
   "manifest_version": 3,
-  "author": "JeddSJr",
+  "author": "13BPS",
   
   "browser_specific_settings": {
     "gecko": {
@@ -36,7 +36,7 @@
     "topSites",
     "favicon"
   ],
-  
+
   "web_accessible_resources": [
     {
       "resources": ["_favicon/*"],

@@ -34,7 +34,6 @@ window.addEventListener('DOMContentLoaded', async function() {
     numDailyImgsRange.addEventListener(
         "input",
         (event)=>{
-            console.log(event.target.value)
             numberDailyImgsTextValue.innerText = numberDailyImgs[event.target.value]
         }
     )
@@ -73,7 +72,6 @@ chrome.storage.onChanged.addListener(async function(changes, namespace) {
 })
 
 export function manuallyLaunchImagesRetrieval(){
-    console.log("Manually launching images retrieval")
     chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
         chrome.tabs.sendMessage(tabs[0].id, {type:"getInLoadingState"}, (response)=>{
         });
@@ -126,7 +124,6 @@ function validateSearchOptions(){
                 break
         }
     })
-    console.log(ppOpt)
     storeOptions(ppOpt)
     return ppOpt
 }

@@ -38,8 +38,6 @@ window.addEventListener('load', function () {
     }
 
     function hideDisplayImage(){
-        console.log("Hiding display image")
-        console.log(darkMode)
         var closedEyeIcoDark = document.getElementById("closedEyeIcoDark")
         var closedEyeIcoLight = document.getElementById("closedEyeIcoLight")
         var openEyeIcoDark = document.getElementById("openEyeIcoDark")
@@ -174,8 +172,7 @@ export function setBackgroundImage(canSetAsBackground = false, museumImage = MUS
     var imgCaption = document.getElementById("imgCaption")
     var hideSymbolsDiv = document.getElementById("hideSymbolsDiv")
     if (canSetAsBackground && museumImage) {
-        console.log("Setting background image")
-        console.log(museumImage)
+        
         var body = document.body
         body.style.backgroundImage = "url('" + museumImage.imgSrc + "')"
         body.style.backgroundSize = "cover"
@@ -190,7 +187,6 @@ export function setBackgroundImage(canSetAsBackground = false, museumImage = MUS
 
         hideSymbolsDiv.style.visibility = "visible"
         if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-            console.log("Dark mode")
             let closedEyeIcoDark = document.getElementById("closedEyeIcoDark")
             closedEyeIcoDark.removeAttribute("hidden")
         }
@@ -262,7 +258,7 @@ export function displayLoadingState(isLoading = false) {
 }
 
 export async function setAdditionalInfo(canDisplay = CANDISPLAYINFO, isLoading = ISLOADINGSTATE) {
-    console.log("Setting additional info")
+    
     CANDISPLAYINFO = canDisplay;
     ISLOADINGSTATE = isLoading;
 
@@ -301,7 +297,6 @@ export async function setAdditionalInfo(canDisplay = CANDISPLAYINFO, isLoading =
 }
 
 function switchInfoToImg(state) {
-    console.log("Switching info to img")
     if (!CANDISPLAYINFO) {
         return
     }
