@@ -17,6 +17,12 @@ window.addEventListener('load', function () {
 
     var additionalInfoDisplay = document.getElementById("additionalInfoDisplay")
 
+    var hideSymbolsSpan = document.getElementById("hideSymbolsSpan")
+
+    var darkMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+
+    var imgCaption = document.getElementById("imgCaption")
+
     function changeImageZoom() {
         var zoomedImgHidden = zoomedImgContainer.getAttribute("hidden");
 
@@ -28,6 +34,42 @@ window.addEventListener('load', function () {
             zoomedImgContainer.setAttribute("hidden", "hidden");
             newTabContainer.removeAttribute("hidden");
             document.body.removeAttribute("style");
+        }
+    }
+
+    function hideDisplayImage(){
+        console.log("Hiding display image")
+        console.log(darkMode)
+        var closedEyeIcoDark = document.getElementById("closedEyeIcoDark")
+        var closedEyeIcoLight = document.getElementById("closedEyeIcoLight")
+        var openEyeIcoDark = document.getElementById("openEyeIcoDark")
+        var openEyeIcoLight = document.getElementById("openEyeIcoLight")
+
+        if(!closedEyeIcoDark.hasAttribute("hidden") || !closedEyeIcoLight.hasAttribute("hidden")){
+            dezoomedImgContainer.style.visibility = "hidden"
+            imgCaption.style.visibility = "hidden"
+            additionalInfoDisplay.style.visibility = "hidden"
+            if(darkMode){
+                closedEyeIcoDark.setAttribute("hidden", "hidden")
+                openEyeIcoDark.removeAttribute("hidden")
+            }
+            else {
+                closedEyeIcoLight.setAttribute("hidden", "hidden")
+                openEyeIcoLight.removeAttribute("hidden")
+            }
+        }
+        else{
+            dezoomedImgContainer.style.visibility = "visible"
+            imgCaption.style.visibility = "visible"
+            additionalInfoDisplay.style.visibility = "visible"
+            if(darkMode){
+                openEyeIcoDark.setAttribute("hidden", "hidden")
+                closedEyeIcoDark.removeAttribute("hidden")
+            }
+            else {
+                openEyeIcoLight.setAttribute("hidden", "hidden")
+                closedEyeIcoLight.removeAttribute("hidden")
+            }
         }
     }
 
@@ -44,6 +86,8 @@ window.addEventListener('load', function () {
         dezoomedImgContainerP.addEventListener("click", changeImageZoom)
     }
 
+
+
     if (zoomedImgContainer) {
         zoomedImgContainer.addEventListener(
             "click",
@@ -52,6 +96,10 @@ window.addEventListener('load', function () {
     }
 
     setUpTopSites()
+
+    hideSymbolsSpan.addEventListener("click", () => {
+        hideDisplayImage()
+    })
 
     dezoomedImgContainer.addEventListener("mouseover", () => {
         switchInfoToImg("info")
@@ -124,6 +172,7 @@ export function setMainImg(museumImage) {
 
 export function setBackgroundImage(canSetAsBackground = false, museumImage = MUSEUMIMAGEDISPLAYED) {
     var imgCaption = document.getElementById("imgCaption")
+    var hideSymbolsDiv = document.getElementById("hideSymbolsDiv")
     if (canSetAsBackground && museumImage) {
         console.log("Setting background image")
         console.log(museumImage)
@@ -139,12 +188,24 @@ export function setBackgroundImage(canSetAsBackground = false, museumImage = MUS
         imgCaption.style.color = "white"
         imgCaption.style.marginTop = "10px"
 
-    }
+        hideSymbolsDiv.style.visibility = "visible"
+        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            console.log("Dark mode")
+            let closedEyeIcoDark = document.getElementById("closedEyeIcoDark")
+            closedEyeIcoDark.removeAttribute("hidden")
+        }
+        else{
+            let closedEyeIcoLight = document.getElementById("closedEyeIcoLight")
+            closedEyeIcoLight.removeAttribute("hidden")
+        }
+
+    } 
     else {
         document.body.removeAttribute("style")
         imgCaption.style.color = "#717171"
         imgCaption.style.removeProperty("background-color")
         imgCaption.style.removeProperty("margin-top")
+        hideSymbolsDiv.style.visibility = "hidden"
     }
 }
 

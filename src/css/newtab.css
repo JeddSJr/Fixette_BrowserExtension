@@ -115,6 +115,13 @@
     text-align: left;
 }
 
+#hideSymbolsSpan{
+    opacity: 0.3;
+}
+#hideSymbolsSpan:hover{
+    opacity: 1;
+}
+
 .bar{
     margin:0 auto;
     max-width:575px;
@@ -146,6 +153,7 @@
     position:relative;
     left:1.5%;
 }
+
 
 a,
 a:hover{
