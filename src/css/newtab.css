@@ -4,6 +4,10 @@
        color: black;  
     }
 
+    .bar{
+        background-color: white;
+    }
+
     .searchbar{
         background-color: white;
     }
@@ -35,6 +39,10 @@
         background-color: #82A8F1;
     }
 
+    .topSitesCard{
+        background-color: rgba(0, 0, 0, 0);
+    }
+    
     .topSitesTitle{
         color: #000;
     }
