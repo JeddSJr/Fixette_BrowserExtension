@@ -24,16 +24,14 @@ window.addEventListener('load', function () {
     var imgCaption = document.getElementById("imgCaption")
 
     function changeImageZoom() {
-        var zoomedImgHidden = zoomedImgContainer.getAttribute("hidden");
+        var zoomedImgHidden = zoomedImgContainer.hasAttribute("hidden");
 
         if (zoomedImgHidden) {
             zoomedImgContainer.removeAttribute("hidden");
             newTabContainer.setAttribute("hidden", "hidden");
-            document.body.style.backgroundColor = "black";
         } else {
             zoomedImgContainer.setAttribute("hidden", "hidden");
             newTabContainer.removeAttribute("hidden");
-            document.body.removeAttribute("style");
         }
     }
 

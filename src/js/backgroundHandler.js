@@ -16,14 +16,14 @@ var CurrentlyRetrieving = false;
 
 async function backgroundCheck(params) {
 
-  setRightToRetrieveImgs()
+  setNewDayRightToRetrieveImgs()
   setIndexImgToDisplay()
   checkLiveAlarms()
   autoLaunchImagesRetrieval()
 
 }
 
-async function setRightToRetrieveImgs(){
+async function setNewDayRightToRetrieveImgs(){
   let today = LaunchTime.getDate()
   let storedDay = await chrome.storage.sync.get("TODAY") 
   storedDay = storedDay["TODAY"];
@@ -92,7 +92,7 @@ async function autoLaunchImagesRetrieval(forceRetrieval=false){
 
       putNewTabInLoadingState(true)
       retrieveImages(ppOpt,ppOpt["numDailyImgsRange"]);
-      await chrome.storage.sync.set({"CAN_RETRIEVE_IMGS":false}).then(()=>{ });
+      
 
     }
     else{
@@ -103,6 +103,7 @@ async function autoLaunchImagesRetrieval(forceRetrieval=false){
         setDisplayImg(imgs_batch,indexImg);
       }
     }
+    await chrome.storage.sync.set({"CAN_RETRIEVE_IMGS":false}).then(()=>{ });
   }
 }
 
@@ -162,18 +163,22 @@ chrome.storage.onChanged.addListener(async (changes, storageArea) => {
     if(key === "INDEX_IMG_TO_DISPLAY"){
       let imgs_batch = await chrome.storage.sync.get("DAILY_IMGS_KEY");
       imgs_batch = imgs_batch["DAILY_IMGS_KEY"];
-      if(imgs_batch != undefined){
+      let imgPinned = await chrome.storage.sync.get("options");
+      imgPinned = imgPinned["options"].pinToThisImageSelect;
+
+      console.log(imgs_batch)
+      if(imgs_batch != undefined && !imgPinned){
         setDisplayImg(imgs_batch,newValue)
       }    
     }
 
-    if(key === "CAN_RETRIEVE_IMGS"){
+    /*if(key === "CAN_RETRIEVE_IMGS"){
       if(newValue){
         chrome.storage.sync.set({"CAN_RETRIEVE_IMGS":false}).then(()=>{
-          autoLaunchImagesRetrieval(true);
+          //Maybe make it a global variable
         });
       }
-    }
+    }*/
 
     if(key === "options"){
       if(oldValue === undefined){
@@ -181,7 +186,7 @@ chrome.storage.onChanged.addListener(async (changes, storageArea) => {
         setIndexImgToDisplay(newValue.numDailyImgsRange);
         setBackgroundImage(newValue.setBackgroundImageSelect);
       }
-      else if(newValue.numDailyImgsRange != oldValue.numDailyImgsRange){
+      else if(newValue.numDailyImgsRange != oldValue.numDailyImgsRange && !newValue.pinToThisImageSelect){
         setIndexImgToDisplay(newValue.numDailyImgsRange);
       }
       else if(newValue.enableImagesInfoSelect != oldValue.enableImagesInfoSelect){
@@ -189,6 +194,12 @@ chrome.storage.onChanged.addListener(async (changes, storageArea) => {
       }
       else if(newValue.setBackgroundImageSelect != oldValue.setBackgroundImageSelect){
         setBackgroundImage(newValue.setBackgroundImageSelect);
+      }
+      else if(newValue.pinToThisImageSelect != oldValue.pinToThisImageSelect){
+        if(newValue.pinToThisImageSelect == false){
+          setIndexImgToDisplay(newValue.numDailyImgsRange);
+        }
+        chrome.storage.sync.set({"CAN_RETRIEVE_IMGS":!newValue.pinToThisImageSelect})
       }
     }
   }
@@ -201,6 +212,7 @@ chrome.alarms.onAlarm.addListener((alarm) => {
   }
   if(alarm.name === 'newDayAlarm'){
     chrome.storage.sync.set({"CAN_RETRIEVE_IMGS":true});
+    autoLaunchImagesRetrieval(true);
   }
 });
 
@@ -210,10 +222,16 @@ chrome.runtime.onMessage.addListener((message,sender,sendResponse)=>
       chrome.storage.sync.set({"isLoadingImgs":true});
       putNewTabInLoadingState(true);
       CurrentlyRetrieving = true;
+      setTimeout(()=>{stopLoadingState},60000); //If the new tab is still in loading state after 1 minute, we stop the loading state, look for a better solution
     }
     return true;
   }
 )
 
+function stopLoadingState(){
+  chrome.storage.sync.set({"isLoadingImgs":false});
+  putNewTabInLoadingState(false);
+  CurrentlyRetrieving = false;
+}
 
 backgroundCheck()

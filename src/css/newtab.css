@@ -38,10 +38,6 @@
     .topSitesCardImgSection{
         background-color: #82A8F1;
     }
-
-    .topSitesCard{
-        background-color: rgba(0, 0, 0, 0);
-    }
     
     .topSitesTitle{
         color: #000;
@@ -95,10 +91,6 @@
        
     .topSitesCardImgSection{
         background-color: #ca181b98;
-    }
-
-    .topSitesCard{
-        background-color: rgba(0, 0, 0, 0);
     }
 
     #displayImgL{
@@ -173,6 +165,7 @@ a:hover{
     width: 100px;
     border: 0px solid #dcdcdc;
     border-radius: 7.5px;
+    background-color: rgba(0, 0, 0, 0);
 }
    
 .topSitesCardImgSection{
@@ -180,6 +173,7 @@ a:hover{
     width: 45px;
     height: 45px;
     text-align: center;
+    
 }
 
 .topSitesTitle{

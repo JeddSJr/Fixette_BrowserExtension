@@ -1,15 +1,16 @@
 import {retrieveImages} from './retrieveImages.js'
 
 const numberDailyImgs = [1,2,3,4,6,8,12]
-const searchOptionsIds = ["NumImgsOptions","EnableAIOptions","EnableImagesInfoOptions","SetBackgroundImageOptions"]
-const searchOptionsInputs = ["musOptions","numDailyImgsRange","enableAISelect","enableImagesInfoSelect","setBackgroundImageSelect"]
+const searchOptionsIds = ["NumImgsOptions","EnableAIOptions","EnableImagesInfoOptions","SetBackgroundImageOptions","PinToThisImageOptions"]
+const searchOptionsInputs = ["musOptions","numDailyImgsRange","enableAISelect","enableImagesInfoSelect","setBackgroundImageSelect","pinToThisImageSelect"]
 export const DefaultPpOptions = {
     "museum": "Met", 
     "medium": null, 
     "numDailyImgsRange": 4, 
     "enableAISelect": false, 
     "enableImagesInfoSelect": true,
-    "setBackgroundImageSelect": false
+    "setBackgroundImageSelect": false,
+    "pinToThisImageSelect": false
 }
 
 window.addEventListener('DOMContentLoaded', async function() {
@@ -21,6 +22,8 @@ window.addEventListener('DOMContentLoaded', async function() {
     var enableAISelect = document.getElementById("enableAISelect")
     var enableImagesInfoSelect = document.getElementById("enableImagesInfoSelect")
     var enableBackgroundImageSelect = document.getElementById("setBackgroundImageSelect")
+    var enablePinToThisImageSelect = document.getElementById("pinToThisImageSelect")
+
     var callButton = document.getElementById("callButton")
 
     var storedOptions = await chrome.storage.sync.get("options")
@@ -54,13 +57,14 @@ window.addEventListener('DOMContentLoaded', async function() {
         enableAISelect.checked = storedOptions["enableAISelect"]
         enableImagesInfoSelect.checked = storedOptions["enableImagesInfoSelect"]
         enableBackgroundImageSelect.checked = storedOptions["setBackgroundImageSelect"]
+        enablePinToThisImageSelect.checked = storedOptions["pinToThisImageSelect"]
     }
 
     var isLoadingImgs = await chrome.storage.sync.get("isLoadingImgs")
     isLoadingImgs = isLoadingImgs["isLoadingImgs"]
     
     buttonLoadingState(isLoadingImgs)
-
+    
 })
 
 chrome.storage.onChanged.addListener(async function(changes, namespace) {
@@ -120,6 +124,10 @@ function validateSearchOptions(){
                 break
 
             case "setBackgroundImageSelect":
+                ppOpt[inputId] = document.getElementById(inputId).checked
+                break
+
+            case "pinToThisImageSelect":
                 ppOpt[inputId] = document.getElementById(inputId).checked
                 break
         }
