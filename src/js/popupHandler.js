@@ -9,7 +9,7 @@ export const DefaultPpOptions = {
     "numDailyImgsRange": 4, 
     "enableAISelect": false, 
     "enableImagesInfoSelect": true,
-    "setBackgroundImageSelect": false,
+    "setBackgroundImageSelect": true,
     "pinToThisImageSelect": false
 }
 

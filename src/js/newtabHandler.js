@@ -246,11 +246,13 @@ export function displayLoadingState(isLoading = false) {
         dezoomedImgContainerP.setAttribute("hidden", "hidden")
         additionalInfoDisplay.setAttribute("hidden", "hidden")
         imgCaption.innerHTML = " "
+        imgCaption.style.visibility = "hidden"
         return 0;
     }
     else {
         spinnerDiv.setAttribute("hidden", "hidden")
         dezoomedImgContainer.removeAttribute("hidden")
+        imgCaption.style.visibility = "visible"
         return 1;
     }
 }
