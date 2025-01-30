@@ -1,8 +1,8 @@
 import {retrieveImages} from './retrieveImages.js'
 
-const numberDailyImgs = [1,2,3,4,6,8,12]
-const searchOptionsIds = ["NumImgsOptions","EnableAIOptions","EnableImagesInfoOptions","SetBackgroundImageOptions","PinToThisImageOptions"]
-const searchOptionsInputs = ["musOptions","numDailyImgsRange","enableAISelect","enableImagesInfoSelect","setBackgroundImageSelect","pinToThisImageSelect"]
+const NumberDailyImgs = [1,2,3,4,6,8,12]
+const SearchOptionsIds = ["NumImgsOptions","EnableAIOptions","EnableImagesInfoOptions","SetBackgroundImageOptions","PinToThisImageOptions"]
+const SearchOptionsInputs = ["musOptions","numDailyImgsRange","enableAISelect","enableImagesInfoSelect","setBackgroundImageSelect","pinToThisImageSelect"]
 export const DefaultPpOptions = {
     "museum": "Met", 
     "medium": null, 
@@ -37,7 +37,7 @@ window.addEventListener('DOMContentLoaded', async function() {
     numDailyImgsRange.addEventListener(
         "input",
         (event)=>{
-            numberDailyImgsTextValue.innerText = numberDailyImgs[event.target.value]
+            numberDailyImgsTextValue.innerText = NumberDailyImgs[event.target.value]
         }
     )
 
@@ -52,7 +52,7 @@ window.addEventListener('DOMContentLoaded', async function() {
     )
 
     if(storedOptions !== undefined){
-        numDailyImgsRange.value = numberDailyImgs.indexOf(storedOptions["numDailyImgsRange"])
+        numDailyImgsRange.value = NumberDailyImgs.indexOf(storedOptions["numDailyImgsRange"])
         numberDailyImgsTextValue.innerText = storedOptions["numDailyImgsRange"]
         enableAISelect.checked = storedOptions["enableAISelect"]
         enableImagesInfoSelect.checked = storedOptions["enableImagesInfoSelect"]
@@ -105,14 +105,14 @@ export function buttonLoadingState(isLoading=false){
 function validateSearchOptions(){
     var ppOpt ={ }
 
-    searchOptionsInputs.forEach((inputId,i)=>{
+    SearchOptionsInputs.forEach((inputId,i)=>{
         switch(inputId){
             case "musOptions":
                 ppOpt["museum"] = document.querySelector("input[name='"+ inputId+"']:checked").value
                 break
 
             case "numDailyImgsRange":
-                ppOpt[inputId] = numberDailyImgs[document.getElementById(inputId).value]
+                ppOpt[inputId] = NumberDailyImgs[document.getElementById(inputId).value]
                 break
 
             case "enableAISelect":
@@ -137,7 +137,7 @@ function validateSearchOptions(){
 }
 
 function showSelectedSearchOption(event){
-    searchOptionsIds.forEach((optId,id)=>{
+    SearchOptionsIds.forEach((optId,id)=>{
         if(id == event.target.value){
             document.getElementById(optId).removeAttribute("hidden")
         }

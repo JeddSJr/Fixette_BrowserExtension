@@ -12,7 +12,7 @@ async function setDefaultImgs() {
   try {
     const defaultJson = await fetch("../imgs/default/defaultResponse.json").then(response => response.json());
 
-    var defaultImgsShuffled = defaultJson.defaultImgs.sort(() => 0.5 - Math.random());
+    var defaultImgsShuffled = defaultJson.defaultImgs.sort(() => 0.5 - Math.random()); //Shuffle the default images so that chrome storage note that as a change
     var imgsArr = []
 
     for(let i = 0; i <  MaxImgsBatchSize; i++){
@@ -42,7 +42,7 @@ async function setDefaultImgs() {
 async function LouvreAPIRetrieveImgs() {
   callLouvreApi();
   async function callLouvreApi() {
-    //CHECK IF THE LOUVRE HAS AN API
+    //CHECK IF THE LOUVRE HAS AN API : NOT REALLY
     console.log("Not implemented yet");
   }
 }
