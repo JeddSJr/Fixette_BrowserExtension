@@ -70,6 +70,11 @@ body{
     border:2px solid #bc9637;
   }
 
+  option{
+    background-color: rgba(0, 0, 0, 0.619);
+    color: #bc9637;
+  }
+
   #popupTitle{
     color: #CA181C;
   }
@@ -124,12 +129,12 @@ a:hover{
   text-decoration: underline;
 }
 
+
 .separator {
   display: flex;
   align-items: center;
   text-align: center;
 }
-  
 #iconsAcknowledgment{
   font-size: 10px;
 }

@@ -87,6 +87,7 @@
 
     .card:hover{
         background-color: #393939;
+        color: white;
     }
        
     .topSitesCardImgSection{
@@ -116,7 +117,7 @@
 }
 
 #hideSymbolsSpan{
-    opacity: 0.3;
+    opacity: 0.5;
 }
 #hideSymbolsSpan:hover{
     opacity: 1;
