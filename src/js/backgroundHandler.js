@@ -34,7 +34,6 @@ async function setNewDayRightToRetrieveImgs() {
 }
 
 async function setIndexImgToDisplay(numberImgs = undefined) {
-  //console.log('launchTime: '+launchTime.getHours()+':'+launchTime.getMinutes());
   let launchHour = LaunchTime.getHours();
   let hoursChange = await getHoursChange(numberImgs);
   let indexImg = 0;
@@ -100,7 +99,7 @@ async function autoLaunchImagesRetrieval(forceRetrieval = false) {
         setIndexImgToDisplay()
       }
       else {
-        //console.log("Regular display") //Might be moved to a function
+         //Might be moved to a function
         setDisplayImg(imgs_batch, indexImg); //This is run everytime the page is loaded and the images are already stored
       }
     }
@@ -121,15 +120,13 @@ async function setDisplayImg(imgs_batch, indexImg) {
   if (imgIsPinned) {
     imgPinned = await chrome.storage.sync.get("PINNED_IMG");
     imgPinned = imgPinned["PINNED_IMG"];
-    console.log("Pinned image")
-    console.log(imgPinned)
   }
 
   putNewTabInLoadingState(true)
 
   if (!indexImg) { indexImg = 0 }
 
-  console.log("New image")
+  console.log("New image to display: ")
   console.log(imgs_batch[indexImg])
   let museumImage = imgPinned === undefined ? imgs_batch[indexImg] : imgPinned;
   setNewTabImg(museumImage);
@@ -179,8 +176,6 @@ chrome.storage.onChanged.addListener(async (changes, storageArea) => {
     if (key === "INDEX_IMG_TO_DISPLAY") {
       let imgs_batch = await chrome.storage.sync.get("DAILY_IMGS_KEY");
       imgs_batch = imgs_batch["DAILY_IMGS_KEY"];
-
-      console.log(imgs_batch)
       if (imgs_batch != undefined) {
         setDisplayImg(imgs_batch, newValue)
       }

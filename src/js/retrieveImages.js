@@ -33,7 +33,7 @@ async function setDefaultImgs() {
     }
     storeImgs(imgsArr);
   } catch (error) {
-    console.error(error);
+    //Maybe add a contact us button
     console.log(error)
   }
 
@@ -71,7 +71,7 @@ async function MetAPIRetrieveImgs(metOptions, numImgsBatch) {
     }
     catch (error) {
       console.log(error);
-      console.error(error)
+      alert("An error occured on the Met Museum end while trying to call for their artworks. \n You should try again later, for now we will display some default images we have in store.");
       setDefaultImgs();
     }
   }

@@ -113,8 +113,7 @@ window.addEventListener('load', function () {
 export function setMainImg(museumImage) {
 
     try {
-        console.log(museumImage);
-
+        
         var displayedImgL = document.getElementById("displayImgL");
         var displayedImgP = document.getElementById("displayImgP");
         var imgCaption = document.getElementById("imgCaption")
@@ -163,6 +162,8 @@ export function setMainImg(museumImage) {
 
     } catch (error) {
         console.log(error);
+        alert("An error occured while setting the main image for display. Please reload the page or click on 'Paint!' again if this particular image is corrupted.")
+        
     }
 }
 
