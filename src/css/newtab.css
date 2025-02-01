@@ -127,7 +127,7 @@
     margin:0 auto;
     max-width:575px;
     height: 45px;
-    border-radius:30px;
+    border-radius:10px;
     border:2px solid #dcdcdc;
 }
 
@@ -143,7 +143,7 @@
 .searchbar{  
     height:100%;
     border:none;
-    border-radius:30px;
+    border-radius:10px;
     width:95%;
     font-size:16px;
     outline: none;
@@ -162,7 +162,7 @@ a:hover{
 }
 
 .topSitesCard{
-    height: 100px;
+    height: 110px;
     width: 100px;
     border: 0px solid #dcdcdc;
     border-radius: 7.5px;
@@ -170,9 +170,9 @@ a:hover{
 }
    
 .topSitesCardImgSection{
-    border-radius: 50%;
-    width: 45px;
-    height: 45px;
+    border-radius: 15%;
+    width: 70px;
+    height: 70px;
     text-align: center;
     
 }

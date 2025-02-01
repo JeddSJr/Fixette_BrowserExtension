@@ -117,6 +117,7 @@ export function setMainImg(museumImage) {
         var displayedImgL = document.getElementById("displayImgL");
         var displayedImgP = document.getElementById("displayImgP");
         var imgCaption = document.getElementById("imgCaption")
+        var dezoomedImgContainer = document.getElementById("dezoomedImgContainer")
 
         imgCaption.innerHTML = " "
 
@@ -140,6 +141,8 @@ export function setMainImg(museumImage) {
 
         displayedImgL.src = museumImage.imgSrc
         displayedImgP.src = museumImage.imgSrc
+
+        dezoomedImgContainer.style.visibility = "visible"
 
         displayedImgP.title, displayedImgL.title = displayTitle
         displayedImgP.alt, displayedImgL.alt = museumImage.title;
@@ -353,19 +356,26 @@ function faviconURL(u) {
     return url.toString();
 }
 
+function faviconURLFirefox(u) {
+    return "https://www.google.com/s2/favicons?sz=32&domain_url=" + u;
+}
+
 function setUpTopSites() {
     var topSitesSection = document.getElementById("topSitesSection")
 
     chrome.topSites.get((topSites) => {
         var cardsSection = "<div class='row row-cols-md-5'>"
-        topSites.forEach((site) => {
-            var siteFavicon = faviconURL(site.url)
+        topSites.forEach((site,index) => {
+            if(index > 9){
+                return;
+            }
+            var siteFavicon = faviconURLFirefox(site.url)
             cardsSection += '<div class="col mb-0">'
             cardsSection += '<div class="card topSitesCard d-flex justify-content-center ">'
             cardsSection += '<a href="' + site.url + '" target="_blank" class="stretched-link" title="' + site.title + '"></a>'
             //cardsSection += '<i class="bi bi-three-dots-vertical align-self-end start-100" fill="black" title="More options"></i>'
             cardsSection += '<div class="topSitesCardImgSection align-self-center d-flex justify-content-center align-items-center mt-1"><img src="' + siteFavicon + '"></div>'
-            cardsSection += '<p class="topSitesTitle mt-2 ms-2 me-2" >' + site.title + '</p>'
+            cardsSection += '<p class="topSitesTitle ms-2 me-2" >' + site.title + '</p>'
             cardsSection += '</div>'
             cardsSection += '</div>'
         })
