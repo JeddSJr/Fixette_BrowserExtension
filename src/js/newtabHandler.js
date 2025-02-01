@@ -119,7 +119,7 @@ export function setMainImg(museumImage) {
         var imgCaption = document.getElementById("imgCaption")
         var dezoomedImgContainer = document.getElementById("dezoomedImgContainer")
 
-        imgCaption.innerHTML = " "
+        while(imgCaption.firstChild){imgCaption.removeChild(imgCaption.firstChild)}
         dezoomedImgContainer.style.visibility = "visible"
 
         displayedImgL.onload = () => {
@@ -250,7 +250,7 @@ export function displayLoadingState(isLoading = false) {
         dezoomedImgContainerL.setAttribute("hidden", "hidden")
         dezoomedImgContainerP.setAttribute("hidden", "hidden")
         additionalInfoDisplay.setAttribute("hidden", "hidden")
-        imgCaption.innerHTML = " "
+        while(imgCaption.firstChild){imgCaption.removeChild(imgCaption.firstChild)}
         imgCaption.style.visibility = "hidden"
         return 0;
     }
@@ -274,8 +274,8 @@ export async function setAdditionalInfo(canDisplay = CANDISPLAYINFO, isLoading =
     var dezoomedImgContainerL = document.getElementById("dezoomedImgContainerLandscape")
     var dezoomedImgContainerP = document.getElementById("dezoomedImgContainerPortrait")
 
-    additionalInfoDisplay.innerHTML = " "
-    ADDINFOLISTELEMENTS.innerHTML = " "
+    while (additionalInfoDisplay.firstChild) { additionalInfoDisplay.removeChild(additionalInfoDisplay.firstChild) }
+    while (ADDINFOLISTELEMENTS.firstChild) { ADDINFOLISTELEMENTS.removeChild(ADDINFOLISTELEMENTS.firstChild) }
 
     if (canDisplay && isLoading === false) {
         let data = await displayedImgP.dataset
@@ -315,14 +315,14 @@ function switchInfoToImg(state) {
 
     var additionalInfoDisplay = document.getElementById("additionalInfoDisplay")
 
-    additionalInfoDisplay.innerHTML = " "
+    while (additionalInfoDisplay.firstChild) { additionalInfoDisplay.removeChild(additionalInfoDisplay.firstChild) }
 
     dezoomedImgContainerL.setAttribute("hidden", "hidden")
     dezoomedImgContainerP.setAttribute("hidden", "hidden")
     additionalInfoDisplay.setAttribute("hidden", "hidden")
 
     if (state === "info") {
-        additionalInfoDisplay.innerHTML += ADDINFOLISTELEMENTS.outerHTML
+        additionalInfoDisplay.appendChild(ADDINFOLISTELEMENTS)
         additionalInfoDisplay.removeAttribute("hidden")
     }
     if (state === "img") {
@@ -338,12 +338,19 @@ function switchInfoToImg(state) {
 function domStringMapToListElements(domStringMap) {
     var paragraphs = []
     for (const [key, value] of Object.entries(domStringMap)) {
-        let paragraph = document.createElement("li")
-        paragraph.innerHTML = "<b>" + key + "</b> : "
+        let paragraph = document.createElement("li");
+        let keyBold = document.createElement("b");
+        keyBold.appendChild(document.createTextNode(key+" : "));
+        paragraph.appendChild(keyBold);
+
         if (key === "Link") {
-            paragraph.innerHTML += "<a href='" + value + "' target='_blank'>" + value + "</a>"
+            let link = document.createElement("a")
+            link.href = value
+            link.target = "_blank"
+            link.appendChild(document.createTextNode(value))
+            paragraph.appendChild(link)
         }
-        else { paragraph.innerHTML += value }
+        else { paragraph.appendChild(document.createTextNode(value))}
         paragraph.className = "list-group-item"
         paragraphs.push(paragraph)
     }
