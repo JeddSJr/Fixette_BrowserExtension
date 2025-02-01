@@ -120,6 +120,7 @@ export function setMainImg(museumImage) {
         var dezoomedImgContainer = document.getElementById("dezoomedImgContainer")
 
         imgCaption.innerHTML = " "
+        dezoomedImgContainer.style.visibility = "visible"
 
         displayedImgL.onload = () => {
             checKOrientation(displayedImgL)
@@ -142,7 +143,7 @@ export function setMainImg(museumImage) {
         displayedImgL.src = museumImage.imgSrc
         displayedImgP.src = museumImage.imgSrc
 
-        dezoomedImgContainer.style.visibility = "visible"
+        
 
         displayedImgP.title, displayedImgL.title = displayTitle
         displayedImgP.alt, displayedImgL.alt = museumImage.title;
