@@ -363,24 +363,38 @@ function faviconURLFirefox(u) {
 
 function setUpTopSites() {
     var topSitesSection = document.getElementById("topSitesSection")
-
+    var cardsSection = document.createElement("div")
+    cardsSection.className = "row row-cols-md-5"
     chrome.topSites.get((topSites) => {
-        var cardsSection = "<div class='row row-cols-md-5'>"
         topSites.forEach((site,index) => {
-            if(index > 9){
-                return;
-            }
+            
             var siteFavicon = faviconURLFirefox(site.url)
-            cardsSection += '<div class="col mb-0">'
-            cardsSection += '<div class="card topSitesCard d-flex justify-content-center ">'
-            cardsSection += '<a href="' + site.url + '" target="_blank" class="stretched-link" title="' + site.title + '"></a>'
-            //cardsSection += '<i class="bi bi-three-dots-vertical align-self-end start-100" fill="black" title="More options"></i>'
-            cardsSection += '<div class="topSitesCardImgSection align-self-center d-flex justify-content-center align-items-center mt-1"><img src="' + siteFavicon + '"></div>'
-            cardsSection += '<p class="topSitesTitle ms-2 me-2" >' + site.title + '</p>'
-            cardsSection += '</div>'
-            cardsSection += '</div>'
+
+            let column = document.createElement("div")
+            column.className = "col mb-0"
+            let card = document.createElement("div")
+            card.className = "card topSitesCard d-flex justify-content-center"
+            let link = document.createElement("a")
+            link.href = site.url
+            link.target = "_blank"
+            link.className = "stretched-link"
+            link.title = site.title
+            let imgSection = document.createElement("div")
+            imgSection.className = "topSitesCardImgSection align-self-center d-flex justify-content-center align-items-center mt-1"
+            let favicon = document.createElement("img")
+            favicon.src = siteFavicon
+            let siteTitle = document.createElement("p")
+            siteTitle.className = "topSitesTitle ms-2 me-2"
+            siteTitle.appendChild(document.createTextNode(site.title))
+
+            card.appendChild(link)
+            imgSection.appendChild(favicon)
+            card.appendChild(imgSection)
+            card.appendChild(siteTitle)
+            column.appendChild(card)
+            cardsSection.appendChild(column)
         })
-        cardsSection += "</div>"
-        topSitesSection.innerHTML += cardsSection
+        
+        topSitesSection.appendChild(cardsSection)
     })
 }

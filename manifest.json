@@ -3,7 +3,7 @@
   "description": "Display images of art pieces from museums around the globe in your new tab, to keep you curious and educated while coloring your day.",
   "version": "0.0.0.1",
   "manifest_version": 3,
-  "author": "13BPS",
+  "author": "13BPs",
   
   "browser_specific_settings": {
     "gecko": {
@@ -34,8 +34,7 @@
   "permissions": [
     "storage",
     "alarms",
-    "topSites",
-    "favicon"
+    "topSites"
   ],
 
   "web_accessible_resources": [
