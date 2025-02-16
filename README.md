@@ -12,7 +12,5 @@ Quick and simple as it doesn't necessitate (yet) anything complex
 - Bootstrap
 
 ## Big Picture TO-DO
-1. Make a Firefox port
-2. Include more museums collections
-3. Display informations about the images on the side to give knowledgeable insight
-4. Design an actual pop-up
+1. Include more museums collections
+2. Display insightful informations about the images on the side 

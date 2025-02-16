@@ -1,55 +1,58 @@
-@media (prefers-color-scheme: light) {  
-    body {  
-       background: white;    
-       color: black;  
-    }
+/* Colors */
 
-    .bar{
-        background-color: white;
-    }
-
-    .searchbar{
-        background-color: white;
-    }
-
-    .list-group-item{
-        background-color: #ffcafacf;
-        color:#717171;
-    }
-    
-    .list-group-item:hover{
-        background-color: #FFCAFA;
-        color: #82A8F1;
-    }
-
-    #imgCaption{
-        color: #717171;
-    }
-
-    a,
-    a:hover{
-        color: #82A8F1;
-    }
-        
-    .card:hover{
-        background-color: #dcdcdc;
-    }
-       
-    .topSitesCardImgSection{
-        background-color: #82A8F1;
-    }
-    
-    .topSitesTitle{
-        color: #000;
-    }
-
-    #displayImgL{
-        background-color: #FFCAFA;
-    }
-    #displayImgP{
-        background-color: #FFCAFA;
-    }
+body {
+    background: white;
+    color: black;
 }
+
+.bar {
+    background-color: white;
+}
+
+.searchbar {
+    background-color: white;
+}
+
+.list-group-item {
+    background-color: #ffcafacf;
+    color: #717171;
+}
+
+.list-group-item:hover {
+    background-color: #FFCAFA;
+    color: #82A8F1;
+}
+
+#imgCaption {
+    color: #717171;
+}
+
+a,
+a:hover {
+    color: #82A8F1;
+}
+
+.card:hover {
+    background-color: #dcdcdc;
+}
+
+.topSitesCardImgSection {
+    background-color: #82A8F1;
+}
+
+.topSitesTitle {
+    color: #000;
+}
+
+#displayImgL {
+    background-color: #FFCAFA;
+}
+
+#displayImgP {
+    background-color: #FFCAFA;
+}
+
+/* Dark mode, disabled cause firefox doesn't seem to handle it 
 @media (prefers-color-scheme: dark) {  
     body {  
        background: rgba(0,0 ,0,0.9);
@@ -101,8 +104,9 @@
         background-color: #CA181C;
     }
 }
+*/
 
-#imgCaption{
+#imgCaption {
     font-size: 15px;
     text-align: center;
     padding-left: 15%;
@@ -111,75 +115,76 @@
     width: fit-content;
 }
 
-#additionalInfoDisplay{
+#additionalInfoDisplay {
     font-size: 12px;
     text-align: left;
 }
 
-#hideSymbolsSpan{
+#hideSymbolsSpan {
     opacity: 0.5;
 }
-#hideSymbolsSpan:hover{
+
+#hideSymbolsSpan:hover {
     opacity: 1;
 }
 
-.bar{
-    margin:0 auto;
-    max-width:575px;
+.bar {
+    margin: 0 auto;
+    max-width: 575px;
     height: 45px;
-    border-radius:10px;
-    border:2px solid #dcdcdc;
+    border-radius: 10px;
+    border: 2px solid #dcdcdc;
 }
 
-.bar:hover{
+.bar:hover {
     box-shadow: 1px 1px 8px 1px #dcdcdc;
 }
 
-.bar:focus-within{
+.bar:focus-within {
     box-shadow: 1px 1px 8px 1px #dcdcdc;
-    outline:none;
-}
-
-.searchbar{  
-    height:100%;
-    border:none;
-    border-radius:10px;
-    width:95%;
-    font-size:16px;
     outline: none;
 }
 
-.searchIcon{
-    height:18px;
-    position:relative;
-    left:1.5%;
+.searchbar {
+    height: 100%;
+    border: none;
+    border-radius: 10px;
+    width: 95%;
+    font-size: 16px;
+    outline: none;
+}
+
+.searchIcon {
+    height: 18px;
+    position: relative;
+    left: 1.5%;
 }
 
 
 a,
-a:hover{
+a:hover {
     text-decoration: underline;
 }
 
-.topSitesCard{
+.topSitesCard {
     height: 110px;
     width: 100px;
     border: 0px solid #dcdcdc;
     border-radius: 7.5px;
     background-color: rgba(0, 0, 0, 0);
 }
-   
-.topSitesCardImgSection{
+
+.topSitesCardImgSection {
     border-radius: 15%;
     width: 70px;
     height: 70px;
     text-align: center;
-    
+
 }
 
-.topSitesTitle{
-    font-size:11px;
-    overflow:hidden;
+.topSitesTitle {
+    font-size: 11px;
+    overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
 }

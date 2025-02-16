@@ -12,6 +12,8 @@ var LaunchTime = new Date();
 
 var CurrentlyRetrieving = false;
 
+var forceRetrieval = false;
+
 ////////////////////////////////////////
 
 async function backgroundCheck(params) {
@@ -30,6 +32,7 @@ async function setNewDayRightToRetrieveImgs() {
   if (storedDay != today) {
     chrome.storage.sync.set({ "TODAY": today });
     chrome.storage.sync.set({ "CAN_RETRIEVE_IMGS": true });
+    forceRetrieval = true;
   }
 }
 
@@ -69,7 +72,7 @@ async function checkLiveAlarms() {
   }
 }
 
-async function autoLaunchImagesRetrieval(forceRetrieval = false) {
+async function autoLaunchImagesRetrieval() {
 
   if (!CurrentlyRetrieving) {
     var rightToRetrieveImgs = await chrome.storage.sync.get("CAN_RETRIEVE_IMGS");
@@ -84,6 +87,7 @@ async function autoLaunchImagesRetrieval(forceRetrieval = false) {
     if (rightToRetrieveImgs || forceRetrieval || imgs_batch === undefined) {
 
       console.log("Automatically launching images retrieval")
+      forceRetrieval = false;
       CurrentlyRetrieving = true;
       let ppOpt = await chrome.storage.sync.get("options") //add default pop up options
       ppOpt = ppOpt["options"];
@@ -92,7 +96,7 @@ async function autoLaunchImagesRetrieval(forceRetrieval = false) {
       putNewTabInLoadingState(true)
       retrieveImages(ppOpt, ppOpt["numDailyImgsRange"]);
 
-
+      
     }
     else {
       if (indexImg === undefined) {
@@ -103,7 +107,7 @@ async function autoLaunchImagesRetrieval(forceRetrieval = false) {
         setDisplayImg(imgs_batch, indexImg); //This is run everytime the page is loaded and the images are already stored
       }
     }
-    await chrome.storage.sync.set({ "CAN_RETRIEVE_IMGS": false }).then(() => { });
+    await chrome.storage.sync.set({ "CAN_RETRIEVE_IMGS": false }).then(() => { forceRetrieval = false });
   }
 }
 
@@ -229,7 +233,8 @@ chrome.alarms.onAlarm.addListener((alarm) => {
   }
   if (alarm.name === 'newDayAlarm') {
     chrome.storage.sync.set({ "CAN_RETRIEVE_IMGS": true });
-    autoLaunchImagesRetrieval(true);
+    forceRetrieval = true;
+    autoLaunchImagesRetrieval();
   }
 });
 

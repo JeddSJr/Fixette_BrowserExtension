@@ -1,68 +1,62 @@
-body{
-    width: 275px;
-    height: 425px;
-    border-radius: 0%;
-    padding-left: 4%;
-    padding-right: 4%;
-    
+/* Colors*/
+
+body {
+  background: #d9d9d9;
+  color: black;
+  border: 2px solid #dcaed8;
 }
 
-#popupTitle{
-  font-size: xx-large;
-  font-weight: bold;
+#popupTitle {
+  color: #82A8F1;
 }
 
-@media (prefers-color-scheme: light) {  
-  body {  
-    background: #fffefb;    
-    color: black;   
-    border:2px solid #dcaed8;
-  }
-
-  #popupTitle{
-    color: #82A8F1;
-  }
-
-  .separator::after,.separator::before{
-    border-color: #bd77b6;
-  }
-
-  .flavorText{
-    color: black;
-  }
-
-  #searchOptButton:hover{
-    color: white;
-  }
-
-  #searchOptButton{
-    color: #bd77b6;
-    border-color: #bd77b6;
-  }
-  
-  #searchOptButton:hover{
-    background-color: #bd77b6;
-    border-color: #bd77b6;
-  }
-
-  #callButton{
-    background-color: #82A8F1;
-    color: #F9F8F4;
-    border-color: #82A8F1;
-  }
-  
-  #callButton:hover{
-    background-color: #FFCAFA;
-    color: #82A8F1;
-    border-color: #FFCAFA;
-  }
-
-  a,
-  a:hover{
-    color: #a0a4cd;
-  }
+.separator::after,
+.separator::before {
+  border-color: #bd77b6;
 }
 
+.flavorText {
+  color: black;
+}
+
+#searchOptionsSelect{
+  background-color: #bd77b6;
+  color: black;
+}
+
+#searchOptButton:hover {
+  color: white;
+}
+
+#searchOptButton {
+  color: #bd77b6;
+  border-color: #bd77b6;
+}
+
+#searchOptButton:hover {
+  background-color: #bd77b6;
+  border-color: #bd77b6;
+}
+
+#callButton {
+  background-color: #82A8F1;
+  color: #F9F8F4;
+  border-color: #82A8F1;
+}
+
+#callButton:hover {
+  background-color: #FFCAFA;
+  color: #82A8F1;
+  border-color: #FFCAFA;
+}
+
+a,
+a:hover {
+  color: #a0a4cd;
+}
+
+
+/* Dark mode, disabled cause firefox doesn't seem to handle it 
 @media (prefers-color-scheme: dark) {  
   body {  
     background: rgba(0,0 ,0,0.9);
@@ -123,9 +117,24 @@ body{
     color: #CA181C;
   }
 }
+*/
+
+body {
+  width: 275px;
+  height: 425px;
+  border-radius: 0%;
+  padding-left: 4%;
+  padding-right: 4%;
+
+}
+
+#popupTitle {
+  font-size: xx-large;
+  font-weight: bold;
+}
 
 a,
-a:hover{
+a:hover {
   text-decoration: underline;
 }
 
@@ -135,15 +144,17 @@ a:hover{
   align-items: center;
   text-align: center;
 }
-#iconsAcknowledgment{
+
+#iconsAcknowledgment {
   font-size: 10px;
 }
+
 .separator::before,
 .separator::after {
   content: '';
   flex: 1;
   border-bottom: 1px solid;
-  
+
 }
 
 .separator:not(:empty)::before {
@@ -154,24 +165,18 @@ a:hover{
   margin-left: .25em;
 }
 
-#numDailyImgsRangeText{
+#numDailyImgsRangeText {
   text-align: center;
 }
 
-#popupTitle{
+#popupTitle {
   text-align: center;
 }
 
-#numDailyImgsRange::-webkit-slider-thumb
-{
+#numDailyImgsRange::-webkit-slider-thumb {
   background: gray;
 }
 
-#numDailyImgsRange::-moz-range-thumb
-{
+#numDailyImgsRange::-moz-range-thumb {
   background: gray;
 }
-
-
-
-
