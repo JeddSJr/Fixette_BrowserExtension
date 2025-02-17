@@ -52,7 +52,7 @@ a:hover {
     background-color: #FFCAFA;
 }
 
-/* Dark mode, disabled cause firefox doesn't seem to handle it 
+/* Dark mode, disabled cause firefox doesn't seem to handle it*/
 @media (prefers-color-scheme: dark) {  
     body {  
        background: rgba(0,0 ,0,0.9);
@@ -104,7 +104,7 @@ a:hover {
         background-color: #CA181C;
     }
 }
-*/
+
 
 #imgCaption {
     font-size: 15px;
@@ -132,7 +132,7 @@ a:hover {
     margin: 0 auto;
     max-width: 575px;
     height: 45px;
-    border-radius: 10px;
+    border-radius: 30px;
     border: 2px solid #dcdcdc;
 }
 
@@ -148,7 +148,7 @@ a:hover {
 .searchbar {
     height: 100%;
     border: none;
-    border-radius: 10px;
+    border-radius: 30px;
     width: 95%;
     font-size: 16px;
     outline: none;
@@ -175,9 +175,9 @@ a:hover {
 }
 
 .topSitesCardImgSection {
-    border-radius: 15%;
-    width: 70px;
-    height: 70px;
+    border-radius: 50%;
+    width: 45px;
+    height: 45px;
     text-align: center;
 
 }

@@ -1,6 +1,6 @@
 import { retrieveImages } from './retrieveImages.js'
 import { displayLoadingState as putNewTabInLoadingState, setAdditionalInfo, setMainImg as setNewTabImg, setBackgroundImage } from './newtabHandler.js';
-import { DefaultPpOptions as dppOpt } from './popupHandler.js';
+import { DefaultPpOptions as dppOpt } from './defaultPpOptions.js'
 
 // Global variables
 const DefaultPpOptions = dppOpt

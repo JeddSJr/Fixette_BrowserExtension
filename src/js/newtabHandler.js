@@ -1,8 +1,8 @@
 var MUSEUMIMAGEDISPLAYED = null;
 var CANDISPLAYINFO = false;
 var ISLOADINGSTATE = false;
-var ADDINFOLISTELEMENTS = document.createElement("ul")
-ADDINFOLISTELEMENTS.className = "list-group "
+var ADDINFOLISTELEMENTS = document.createElement("ul");
+ADDINFOLISTELEMENTS.className = "list-group ";
 var orientation = "landscape";
 
 window.addEventListener('load', function () {

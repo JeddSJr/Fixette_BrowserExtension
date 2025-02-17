@@ -1,17 +1,10 @@
 import {retrieveImages} from './retrieveImages.js'
+import { DefaultPpOptions } from './defaultPpOptions.js'
 
 const NumberDailyImgs = [1,2,3,4,6,8,12]
 const SearchOptionsIds = ["NumImgsOptions","EnableAIOptions","EnableImagesInfoOptions","SetBackgroundImageOptions","PinToThisImageOptions"]
 const SearchOptionsInputs = ["musOptions","numDailyImgsRange","enableAISelect","enableImagesInfoSelect","setBackgroundImageSelect","pinToThisImageSelect"]
-export const DefaultPpOptions = {
-    "museum": "Met", 
-    "medium": null, 
-    "numDailyImgsRange": 4, 
-    "enableAISelect": false, 
-    "enableImagesInfoSelect": true,
-    "setBackgroundImageSelect": true,
-    "pinToThisImageSelect": false
-}
+
 
 window.addEventListener('DOMContentLoaded', async function() {
     var numDailyImgsRange = document.getElementById("numDailyImgsRange")
