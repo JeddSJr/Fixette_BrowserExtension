@@ -13,12 +13,16 @@
         <div class="separator"><span class="flavorText">Museum</span></div>
         <div class="mt-1 col musOptions" id="musOptions">
             <div class="form-check">
-                <input type="radio" id="Choose_MetMuseum" name="musOptions" value="Met" checked="true">
-                <label>The Met</label>
+                <label>
+                    <input type="radio" id="Choose_MetMuseum" name="musOptions" value="Met" checked="true">
+                    The Met
+                </label>
             </div>
-            <div hidden class="form-check">
-                <input type="radio" id="Choose_LouvreMuseum" name="musOptions" value="Louvre">
-                <label>The Louvre</label>
+            <div class="form-check">
+                <label>
+                    <input type="radio" id="Choose_NGADCMuseum" name="musOptions" value="NGADC">
+                    The National Gallery of Art (D.C.)
+                </label>
             </div>
         </div>
         <div class="separator"><span class="flavorText">Options</span></div>
@@ -66,8 +70,10 @@
 
         <div hidden id="SetBackgroundImageOptions">
             <div class="form-check-inline form-check form-switch ">
-                <label id="SetBackgroundImageText" for="SetBackgroundImageCheck" class="form-label">Set image on displayas tab's background
-                    <img src="../imgs/icons/info-circle.svg" class="bi bi-info-circle" title="Set the image of the art on display as the full background of your newtab instead &#013;of having it in a container. Proportions might get strange"></img>
+                <label id="SetBackgroundImageText" for="SetBackgroundImageCheck" class="form-label">Set image on
+                    display as tab's background
+                    <img src="../imgs/icons/info-circle.svg" class="bi bi-info-circle"
+                        title="Set the image of the art on display as the full background of your newtab instead &#013;of having it in a container. Proportions might get strange"></img>
                 </label>
                 <input id="setBackgroundImageSelect" class="form-check-input " type="checkbox" role="switch" checked>
             </div>
@@ -77,7 +83,9 @@
             <div class="form-check-inline form-check form-switch ">
                 <label id="PinToThisImageText" for="PinToThisImageCheck" class="form-label">Pin the image currently on
                     display
-                    <img src="../imgs/icons/info-circle.svg" class="bi bi-info-circle" title="This will stop the image from changing both manually with 'Paint!' and automatically over time until you disable it"> </img>
+                    <img src="../imgs/icons/info-circle.svg" class="bi bi-info-circle"
+                        title="This will stop the image from changing both manually with 'Paint!' and automatically over time until you disable it">
+                    </img>
                 </label>
                 <input id="pinToThisImageSelect" class="form-check-input " type="checkbox" role="switch">
             </div>
@@ -85,7 +93,8 @@
 
         <button id="searchOptButton" type="button" class="btn btn-outline-primary btn-sm">Save</button>
 
-        <div class="mt-3 separator"><img id="fixettePopUpLogo" src="../imgs/icons/fixette_logo_500.png" width="16"height="16"></div>
+        <div class="mt-3 separator"><img id="fixettePopUpLogo" src="../imgs/icons/fixette_logo_500.png" width="16"
+                height="16"></div>
 
         <div class="mt-2 col text-center">
             <button type="button" class="btn btn-info" id="callButton"><span hidden id="buttonSpinner"

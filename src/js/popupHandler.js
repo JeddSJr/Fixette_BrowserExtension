@@ -45,6 +45,8 @@ window.addEventListener('DOMContentLoaded', async function() {
     )
 
     if(storedOptions !== undefined){
+        var checkedMuseum = document.getElementById("Choose_"+storedOptions["museum"]+"Museum")
+        if(checkedMuseum){checkedMuseum.checked = true}
         numDailyImgsRange.value = NumberDailyImgs.indexOf(storedOptions["numDailyImgsRange"])
         numberDailyImgsTextValue.innerText = storedOptions["numDailyImgsRange"]
         enableAISelect.checked = storedOptions["enableAISelect"]
@@ -100,10 +102,11 @@ function validateSearchOptions(){
 
     SearchOptionsInputs.forEach((inputId,i)=>{
         switch(inputId){
+            /*
             case "musOptions":
                 ppOpt["museum"] = document.querySelector("input[name='"+ inputId+"']:checked").value
                 break
-
+            */
             case "numDailyImgsRange":
                 ppOpt[inputId] = NumberDailyImgs[document.getElementById(inputId).value]
                 break
@@ -141,6 +144,8 @@ function showSelectedSearchOption(event){
 }
 
 function storeOptions(value){
+    console.log("We are storing the options")
+    console.log(value)
     chrome.storage.sync.set({"options": value})
         .then(()=>{        })
 }
