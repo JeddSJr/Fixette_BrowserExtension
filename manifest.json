@@ -1,7 +1,7 @@
 {
   "name":  "Fixette",
   "description": "Display images of art pieces from museums around the globe in your new tab, to keep you curious and educated while coloring your day.",
-  "version": "0.0.0.2",
+  "version": "1.2.0",
   "manifest_version": 3,
   "author": "13BPs",
   
@@ -13,23 +13,23 @@
 
   "action":{
     "default_icon":{
-      "16": "src/imgs/icons/fixette_logo_500.png",
-      "32": "src/imgs/icons/fixette_logo_500_white.png"
+      "16": "src/assets/icons/fixette_logo_500.png",
+      "32": "src/assets/icons/fixette_logo_500_white.png"
     },
-    "default_popup": "src/html/interface_popup.html"
+    "default_popup": "src/pages/popup/popup.html"
   },
 
   "chrome_url_overrides":{
-    "newtab": "src/html/override_newtab.html"
+    "newtab": "src/pages/newtab/newtab.html"
   },
 
   "icons":{
-    "16": "src/imgs/icons/fixette_logo_500.png",
-    "48": "src/imgs/icons/fixette_logo_500.png",
-    "128": "src/imgs/icons/fixette_logo_500.png"
+    "16": "src/assets/icons/fixette_logo_500.png",
+    "48": "src/assets/icons/fixette_logo_500.png",
+    "128": "src/assets/icons/fixette_logo_500.png"
   },
 
-  "options_page":"src/html/options_page.html",
+  "options_page":"src/html/options.html",
 
   "permissions": [
     "storage",
